@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa"
+    xmlns:odk="http://www.opendatakit.org/xforms" xmlns="http://www.w3.org/2002/xforms">
+    <h:head>
+        <h:title>empty_first_repeat_beans</h:title>
+        <model odk:xforms-version="1.0.0">
+            <instance>
+                <data id="empty_first_repeat_beans" version="2021-09-10 A">
+                    <veg_yn>1</veg_yn>
+                    <veg_type>1 2 3 5</veg_type>
+                    <veg_repeat_count />
+                    <veg_repeat jr:template="">
+                        <veg_group>
+                            <veg_name />
+                            <veg_often />
+                        </veg_group>
+                    </veg_repeat>
+                    <veg_repeat>
+                        <veg_group>
+                            <veg_name />
+                            <veg_often />
+                        </veg_group>
+                    </veg_repeat>
+                    <meta>
+                        <instanceID />
+                    </meta>
+                </data>
+            </instance>
+            <instance id="yes_no">
+                <root>
+                    <item>
+                        <label>No</label>
+                        <name>0</name>
+                    </item>
+                    <item>
+                        <label>Yes</label>
+                        <name>1</name>
+                    </item>
+                </root>
+            </instance>
+            <instance id="veg_type">
+                <root>
+                    <item>
+                        <label>Beans</label>
+                        <name>1</name>
+                    </item>
+                    <item>
+                        <label>Beet</label>
+                        <name>2</name>
+                    </item>
+                    <item>
+                        <label>Bell pepper</label>
+                        <name>3</name>
+                    </item>
+                    <item>
+                        <label>Broccoli</label>
+                        <name>4</name>
+                    </item>
+                    <item>
+                        <label>Cabbage</label>
+                        <name>5</name>
+                    </item>
+                    <item>
+                        <label>Carrot</label>
+                        <name>6</name>
+                    </item>
+                </root>
+            </instance>
+            <bind nodeset="/data/veg_yn" required="true()" type="string" />
+            <bind constraint="not(selected( /data/veg_type , '0') and (count-selected(.)&gt;1)) and
+ not(selected( /data/veg_type , '889') and (count-selected(.)&gt;1)) and 
+ not(selected( /data/veg_type , '999') and (count-selected(.)&gt;1))" nodeset="/data/veg_type"
+                relevant=" /data/veg_yn =1" required="true()" type="string"
+                jr:constraintMsg="Cannot select &quot;None&quot;, &quot;889&quot; and any other answer." />
+            <bind calculate="count(instance('veg_type')/root/item)" nodeset="/data/veg_repeat_count"
+                readonly="true()" type="string" />
+            <bind nodeset="/data/veg_repeat" relevant=" /data/veg_yn =1" />
+            <bind nodeset="/data/veg_repeat/veg_group"
+                relevant="selected( /data/veg_type , if (position(..) != 25, string(position(..)), '777'))" />
+            <bind
+                calculate="instance('veg_type')/root/item[position()=position(current()/../..)]/label"
+                nodeset="/data/veg_repeat/veg_group/veg_name" readonly="true()" type="string" />
+            <bind constraint=".&gt;=0 and .&lt;31 or .=889"
+                nodeset="/data/veg_repeat/veg_group/veg_often" required="true()" type="int"
+                jr:constraintMsg="Mininum: 0; Maximum: 30" />
+            <bind nodeset="/data/meta/instanceID" readonly="true()" type="string"
+                jr:preload="uid" />
+        </model>
+    </h:head>
+    <h:body>
+        <select1 ref="/data/veg_yn">
+            <label>Did you eat vegetables…</label>
+            <item>
+                <label>No</label>
+                <value>0</value>
+            </item>
+            <item>
+                <label>Yes</label>
+                <value>1</value>
+            </item>
+        </select1>
+        <select appearance="columns-3" ref="/data/veg_type">
+            <label>What type(s)…</label>
+            <hint>…select ALL relevant choices.</hint>
+            <itemset nodeset="instance('veg_type')/root/item[true()]">
+                <value ref="name" />
+                <label ref="label" />
+            </itemset>
+        </select>
+        <group ref="/data/veg_repeat">
+            <label>Frequencies</label>
+            <repeat nodeset="/data/veg_repeat" jr:count=" /data/veg_repeat_count ">
+                <group appearance="field-list" ref="/data/veg_repeat/veg_group">
+                    <label>
+                        <output value=" ../veg_group/veg_name " />
+                    </label>
+                    <input ref="/data/veg_repeat/veg_group/veg_often">
+                        <label>How often did you eat
+                            <output value=" ../veg_name " />
+                            ?
+                        </label>
+                        <hint>Enter "889" for…</hint>
+                    </input>
+                </group>
+            </repeat>
+        </group>
+    </h:body>
+</h:html>

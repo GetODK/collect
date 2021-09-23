@@ -1,9 +1,16 @@
 package org.odk.collect.android.feature.formentry;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.odk.collect.android.support.matchers.RecyclerViewMatcher.withRecyclerView;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.odk.collect.android.R;
+import org.odk.collect.android.activities.FormHierarchyActivity;
 import org.odk.collect.android.support.CollectTestRule;
 import org.odk.collect.android.support.CopyFormRule;
 import org.odk.collect.android.support.ResetStateRule;
@@ -13,11 +20,7 @@ import org.odk.collect.android.support.pages.FormEntryPage;
 import org.odk.collect.android.support.pages.FormHierarchyPage;
 import org.odk.collect.android.support.pages.MainMenuPage;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.odk.collect.android.support.matchers.RecyclerViewMatcher.withRecyclerView;
+import timber.log.Timber;
 
 public class FormHierarchyTest {
 
@@ -30,6 +33,8 @@ public class FormHierarchyTest {
             .around(new CopyFormRule("formHierarchy2.xml", null))
             .around(new CopyFormRule("formHierarchy3.xml", null))
             .around(new CopyFormRule("repeat_group_new.xml", null))
+            .around(new CopyFormRule("empty_first_repeat.xml", null))
+            .around(new CopyFormRule("empty_first_repeat_beans.xml", null))
             .around(rule);
 
     @Test
@@ -169,5 +174,26 @@ public class FormHierarchyTest {
                 .clickGoToArrow()
                 .deleteGroup()
                 .addGroup();
+    }
+
+    @Test
+    //https://github.com/getodk/collect/issues/4570
+    public void showsRepeatsWhenFirstIsEmpty() {
+        FormHierarchyActivity.Scenarios4570 scenario = FormHierarchyActivity.SCENARIO_4570;
+        boolean withBeans = scenario.testWithBeans();
+        boolean willPass = scenario.willPassTest();
+        Timber.i("willPass = " + willPass);
+        new MainMenuPage()
+                .startBlankForm(withBeans
+                        ? "empty_first_repeat_beans"
+                        : "empty_first_repeat")
+                .clickGoToArrow()
+                .assertText(withBeans
+                        ? "Beans, Beet, Bell pepper, Cabbage"
+                        : "Beet, Bell pepper, Cabbage")
+                .clickOnText("Frequencies")
+                .assertText(withBeans
+                        ? new String[]{"1.\u200E Beans", "2.\u200E Beet", "3.\u200E Bell pepper", "5.\u200E Cabbage"}
+                        : new String[]{"2.\u200E Beet", "3.\u200E Bell pepper", "5.\u200E Cabbage"});
     }
 }

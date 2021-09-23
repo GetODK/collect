@@ -14,6 +14,8 @@
 
 package org.odk.collect.android.activities;
 
+import static org.odk.collect.android.javarosawrapper.FormIndexUtils.getPreviousLevel;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -57,8 +59,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static org.odk.collect.android.javarosawrapper.FormIndexUtils.getPreviousLevel;
 
 public class FormHierarchyActivity extends CollectAbstractActivity implements DeleteRepeatDialogFragment.DeleteRepeatDialogCallback {
 
@@ -243,17 +243,23 @@ public class FormHierarchyActivity extends CollectAbstractActivity implements De
         return element instanceof GroupDef && ((GroupDef) element).noAddRemove;
     }
 
-    /** Override to disable this button. */
+    /**
+     * Override to disable this button.
+     */
     protected void showDeleteButton(boolean shouldShow) {
         optionsMenu.findItem(R.id.menu_delete_child).setVisible(shouldShow);
     }
 
-    /** Override to disable this button. */
+    /**
+     * Override to disable this button.
+     */
     protected void showAddButton(boolean shouldShow) {
         optionsMenu.findItem(R.id.menu_add_repeat).setVisible(shouldShow);
     }
 
-    /** Override to disable this button. */
+    /**
+     * Override to disable this button.
+     */
     protected void showGoUpButton(boolean shouldShow) {
         optionsMenu.findItem(R.id.menu_go_up).setVisible(shouldShow);
     }
@@ -480,6 +486,27 @@ public class FormHierarchyActivity extends CollectAbstractActivity implements De
         refreshView(false);
     }
 
+    public enum Scenarios4570 {
+        WITH_BEANS_OLD_CODE,
+        WITHOUT_BEANS_OLD_CODE,
+        WITH_BEANS_NEW_CODE,
+        WITHOUT_BEANS_NEW_CODE;
+
+        public boolean testWithBeans() {
+            return this.ordinal() % 2 == 0;
+        }
+
+        public boolean restoreOldLogic() {
+            return this.ordinal() < 2;
+        }
+
+        public boolean willPassTest() {
+            return this != WITHOUT_BEANS_OLD_CODE;
+        }
+    }
+
+    public static final Scenarios4570 SCENARIO_4570 = Scenarios4570.values()[3];
+
     /**
      * @see #refreshView()
      */
@@ -596,20 +623,24 @@ public class FormHierarchyActivity extends CollectAbstractActivity implements De
                         break;
                     }
                     case FormEntryController.EVENT_REPEAT: {
-                        if (!formController.isGroupRelevant()) {
+                        FormEntryCaption fc = formController.getCaptionPrompt();
+                        boolean isFirst = fc.getMultiplicity() == 0;
+                        boolean forPicker = shouldShowRepeatGroupPicker();
+                        boolean isEmpty = !formController.isGroupRelevant();
+                        if (isEmpty && (SCENARIO_4570.restoreOldLogic() ||
+                                (!isFirst || forPicker))
+                        ) {
                             break;
                         }
 
                         visibleGroupRef = currentRef;
-
-                        FormEntryCaption fc = formController.getCaptionPrompt();
 
                         // Don't render other groups' children.
                         if (contextGroupRef != null && !contextGroupRef.isParentOf(currentRef, false)) {
                             break;
                         }
 
-                        if (shouldShowRepeatGroupPicker()) {
+                        if (forPicker) {
                             // Don't render other groups' instances.
                             String repeatGroupPickerRef = repeatGroupPickerIndex.getReference().toString(false);
                             if (!currentRef.toString(false).equals(repeatGroupPickerRef)) {
@@ -635,7 +666,7 @@ public class FormHierarchyActivity extends CollectAbstractActivity implements De
                                     repeatLabel, null,
                                     null, HierarchyElement.Type.REPEAT_INSTANCE, fc.getIndex());
                             elementsToDisplay.add(instance);
-                        } else if (fc.getMultiplicity() == 0) {
+                        } else if (isFirst) {
                             // Display the repeat header for the group.
                             HierarchyElement group = new HierarchyElement(
                                     fc.getShortText(), getString(R.string.repeatable_group_label),
