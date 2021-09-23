@@ -14,6 +14,8 @@
 
 package org.odk.collect.android.widgets;
 
+import static org.odk.collect.android.utilities.ApplicationConstants.RequestCodes;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -31,11 +33,9 @@ import org.odk.collect.android.R;
 import org.odk.collect.android.activities.BearingActivity;
 import org.odk.collect.android.databinding.BearingWidgetAnswerBinding;
 import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.interfaces.WidgetDataReceiver;
 import org.odk.collect.android.widgets.utilities.WaitingForDataRegistry;
-
-import static org.odk.collect.android.utilities.ApplicationConstants.RequestCodes;
 
 /**
  * BearingWidget is the widget that allows the user to get a compass heading.
@@ -120,7 +120,7 @@ public class BearingWidget extends QuestionWidget implements WidgetDataReceiver 
 
             waitingForDataRegistry.waitForData(getFormEntryPrompt().getIndex());
         } else {
-            ToastUtils.showLongToast(R.string.bearing_lack_of_sensors);
+            ToastUtils.showLongToast(getContext(), R.string.bearing_lack_of_sensors);
 
             binding.bearingButton.setEnabled(false);
 

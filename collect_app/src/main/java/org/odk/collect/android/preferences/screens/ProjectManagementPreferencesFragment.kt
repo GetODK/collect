@@ -19,7 +19,7 @@ import org.odk.collect.android.preferences.dialogs.ResetDialogPreferenceFragment
 import org.odk.collect.android.projects.DeleteProjectResult
 import org.odk.collect.android.projects.ProjectDeleter
 import org.odk.collect.android.utilities.MultiClickGuard
-import org.odk.collect.android.utilities.ToastUtils
+import org.odk.collect.androidshared.utils.ToastUtils
 import javax.inject.Inject
 
 class ProjectManagementPreferencesFragment :
@@ -103,6 +103,7 @@ class ProjectManagementPreferencesFragment :
                         MainMenuActivity::class.java
                     )
                     ToastUtils.showLongToast(
+                        requireContext(),
                         getString(
                             R.string.switched_project,
                             newCurrentProject.name

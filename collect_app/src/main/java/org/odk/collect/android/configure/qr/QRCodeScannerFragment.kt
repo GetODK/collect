@@ -14,7 +14,7 @@ import org.odk.collect.android.injection.DaggerUtils
 import org.odk.collect.android.projects.CurrentProjectProvider
 import org.odk.collect.android.storage.StoragePathProvider
 import org.odk.collect.android.utilities.CompressionUtils
-import org.odk.collect.android.utilities.ToastUtils.showLongToast
+import org.odk.collect.androidshared.utils.ToastUtils.showLongToast
 import java.io.File
 import java.io.IOException
 import java.util.zip.DataFormatException
@@ -53,13 +53,13 @@ class QRCodeScannerFragment : BarCodeScannerFragment() {
                 File(storagePathProvider.getProjectRootDirPath() + File.separator + newProjectName).createNewFile()
             }
 
-            showLongToast(getString(R.string.successfully_imported_settings))
+            showLongToast(requireContext(), getString(R.string.successfully_imported_settings))
             ActivityUtils.startActivityAndCloseAllOthers(
                 requireActivity(),
                 MainMenuActivity::class.java
             )
         } else {
-            showLongToast(getString(R.string.invalid_qrcode))
+            showLongToast(requireContext(), getString(R.string.invalid_qrcode))
         }
     }
 

@@ -1,5 +1,10 @@
 package org.odk.collect.android.preferences.screens;
 
+import static org.odk.collect.android.logic.PropertyManager.PROPMGR_DEVICE_ID;
+import static org.odk.collect.android.logic.PropertyManager.PROPMGR_PHONE_NUMBER;
+import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_METADATA_EMAIL;
+import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_METADATA_PHONENUMBER;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,15 +20,10 @@ import org.odk.collect.android.injection.DaggerUtils;
 import org.odk.collect.android.listeners.PermissionListener;
 import org.odk.collect.android.logic.PropertyManager;
 import org.odk.collect.android.permissions.PermissionsProvider;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.shared.strings.Validator;
 
 import javax.inject.Inject;
-
-import static org.odk.collect.android.logic.PropertyManager.PROPMGR_DEVICE_ID;
-import static org.odk.collect.android.logic.PropertyManager.PROPMGR_PHONE_NUMBER;
-import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_METADATA_EMAIL;
-import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_METADATA_PHONENUMBER;
 
 public class FormMetadataPreferencesFragment extends BaseProjectPreferencesFragment {
 
@@ -79,7 +79,7 @@ public class FormMetadataPreferencesFragment extends BaseProjectPreferencesFragm
         emailPreference.setOnPreferenceChangeListener((preference, newValue) -> {
             String newValueString = newValue.toString();
             if (!newValueString.isEmpty() && !Validator.isEmailAddressValid(newValueString)) {
-                ToastUtils.showLongToast(R.string.invalid_email_address);
+                ToastUtils.showLongToast(requireContext(), R.string.invalid_email_address);
                 return false;
             }
 

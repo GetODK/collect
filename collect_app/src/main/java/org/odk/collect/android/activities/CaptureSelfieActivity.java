@@ -22,7 +22,7 @@ import android.view.WindowManager;
 
 import org.odk.collect.android.R;
 import org.odk.collect.android.fragments.Camera2Fragment;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 
 public class CaptureSelfieActivity extends CollectAbstractActivity {
 
@@ -44,6 +44,6 @@ public class CaptureSelfieActivity extends CollectAbstractActivity {
                     .replace(R.id.container, Camera2Fragment.newInstance())
                     .commit();
         }
-        ToastUtils.showLongToast(R.string.take_picture_instruction);
+        ToastUtils.showLongToast(this, R.string.take_picture_instruction);
     }
 }

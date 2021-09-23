@@ -21,7 +21,7 @@ import android.os.Bundle;
 
 import org.odk.collect.android.R;
 import org.odk.collect.android.fragments.Camera2VideoFragment;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 
 public class CaptureSelfieVideoActivity extends CollectAbstractActivity {
 
@@ -40,6 +40,6 @@ public class CaptureSelfieVideoActivity extends CollectAbstractActivity {
                     .replace(R.id.container, Camera2VideoFragment.newInstance())
                     .commit();
         }
-        ToastUtils.showLongToast(getString(R.string.start_video_capture_instruction));
+        ToastUtils.showLongToast(this, getString(R.string.start_video_capture_instruction));
     }
 }

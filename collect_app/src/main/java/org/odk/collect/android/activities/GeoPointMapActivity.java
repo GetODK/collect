@@ -14,6 +14,10 @@
 
 package org.odk.collect.android.activities;
 
+import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.DRAGGABLE_ONLY;
+import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.LOCATION;
+import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.READ_ONLY;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -33,17 +37,13 @@ import org.odk.collect.android.geo.MapProvider;
 import org.odk.collect.android.injection.DaggerUtils;
 import org.odk.collect.android.preferences.screens.MapsPreferencesFragment;
 import org.odk.collect.android.utilities.GeoUtils;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 
 import java.text.DecimalFormat;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.DRAGGABLE_ONLY;
-import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.LOCATION;
-import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.READ_ONLY;
 
 /**
  * Allow the user to indicate a location by placing a marker on a map, either
@@ -117,7 +117,7 @@ public class GeoPointMapActivity extends BaseGeoMapActivity {
             setContentView(R.layout.geopoint_layout);
         } catch (NoClassDefFoundError e) {
             Timber.e(e, "Google maps not accessible due to: %s ", e.getMessage());
-            ToastUtils.showShortToast(R.string.google_play_services_error_occured);
+            ToastUtils.showShortToast(this, R.string.google_play_services_error_occured);
             finish();
             return;
         }

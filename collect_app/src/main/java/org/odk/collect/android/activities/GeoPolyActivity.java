@@ -14,6 +14,8 @@
 
 package org.odk.collect.android.activities;
 
+import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.READ_ONLY;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +37,7 @@ import org.odk.collect.android.injection.DaggerUtils;
 import org.odk.collect.android.preferences.screens.MapsPreferencesFragment;
 import org.odk.collect.android.utilities.DialogUtils;
 import org.odk.collect.android.utilities.GeoUtils;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.location.Location;
 import org.odk.collect.location.tracker.LocationTracker;
 
@@ -47,8 +49,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-
-import static org.odk.collect.android.widgets.utilities.ActivityGeoDataRequester.READ_ONLY;
 
 public class GeoPolyActivity extends BaseGeoMapActivity implements SettingsDialogFragment.SettingsDialogCallback {
     public static final String ANSWER_KEY = "answer";
@@ -264,7 +264,7 @@ public class GeoPolyActivity extends BaseGeoMapActivity implements SettingsDialo
         if (map.getPolyPoints(featureId).size() > 1) {
             finishWithResult();
         } else {
-            ToastUtils.showShortToastInMiddle(getString(R.string.polyline_validator));
+            ToastUtils.showShortToastInMiddle(this, getString(R.string.polyline_validator));
         }
     }
 
@@ -278,7 +278,7 @@ public class GeoPolyActivity extends BaseGeoMapActivity implements SettingsDialo
             }
             finishWithResult();
         } else {
-            ToastUtils.showShortToastInMiddle(getString(R.string.polygon_validator));
+            ToastUtils.showShortToastInMiddle(this, getString(R.string.polygon_validator));
         }
     }
 

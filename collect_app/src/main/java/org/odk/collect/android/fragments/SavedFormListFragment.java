@@ -42,8 +42,8 @@ import org.odk.collect.android.projects.CurrentProjectProvider;
 import org.odk.collect.android.tasks.DeleteInstancesTask;
 import org.odk.collect.android.utilities.FormsRepositoryProvider;
 import org.odk.collect.android.utilities.InstancesRepositoryProvider;
-import org.odk.collect.android.utilities.ToastUtils;
 import org.odk.collect.android.views.DayNightProgressDialog;
+import org.odk.collect.androidshared.utils.ToastUtils;
 
 import javax.inject.Inject;
 
@@ -187,7 +187,7 @@ public class SavedFormListFragment extends InstanceListFragment implements Delet
             deleteInstancesTask.setDeleteListener(this);
             deleteInstancesTask.execute(getCheckedIdObjects());
         } else {
-            ToastUtils.showLongToast(R.string.file_delete_in_progress);
+            ToastUtils.showLongToast(requireContext(), R.string.file_delete_in_progress);
         }
     }
 
@@ -203,11 +203,11 @@ public class SavedFormListFragment extends InstanceListFragment implements Delet
 
         if (deletedInstances == toDeleteCount) {
             // all deletes were successful
-            ToastUtils.showShortToast(getString(R.string.file_deleted_ok, String.valueOf(deletedInstances)));
+            ToastUtils.showShortToast(requireContext(), getString(R.string.file_deleted_ok, String.valueOf(deletedInstances)));
         } else {
             // had some failures
             Timber.e("Failed to delete %d instances", toDeleteCount - deletedInstances);
-            ToastUtils.showLongToast(getString(R.string.file_deleted_error,
+            ToastUtils.showLongToast(requireContext(), getString(R.string.file_deleted_error,
                     String.valueOf(toDeleteCount - deletedInstances),
                     String.valueOf(toDeleteCount)));
         }
@@ -231,7 +231,7 @@ public class SavedFormListFragment extends InstanceListFragment implements Delet
                 if (checkedItemCount > 0) {
                     createDeleteInstancesDialog();
                 } else {
-                    ToastUtils.showShortToast(R.string.noselect_error);
+                    ToastUtils.showShortToast(requireContext(), R.string.noselect_error);
                 }
                 break;
 

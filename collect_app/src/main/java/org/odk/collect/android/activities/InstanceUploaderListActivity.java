@@ -47,7 +47,7 @@ import org.odk.collect.android.preferences.screens.ProjectPreferencesActivity;
 import org.odk.collect.android.projects.CurrentProjectProvider;
 import org.odk.collect.android.utilities.MultiClickGuard;
 import org.odk.collect.android.utilities.PlayServicesChecker;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 
 import java.util.List;
 
@@ -122,12 +122,12 @@ public class InstanceUploaderListActivity extends InstanceListActivity implement
     @OnClick({R.id.upload_button})
     public void onUploadButtonsClicked(Button button) {
         if (!connectivityProvider.isDeviceOnline()) {
-            ToastUtils.showShortToast(R.string.no_connection);
+            ToastUtils.showShortToast(this, R.string.no_connection);
             return;
         }
 
         if (autoSendOngoing) {
-            ToastUtils.showShortToast(R.string.send_in_progress);
+            ToastUtils.showShortToast(this, R.string.send_in_progress);
             return;
         }
 
@@ -141,7 +141,7 @@ public class InstanceUploaderListActivity extends InstanceListActivity implement
             uploadButton.setEnabled(false);
         } else {
             // no items selected
-            ToastUtils.showLongToast(R.string.noselect_error);
+            ToastUtils.showLongToast(this, R.string.noselect_error);
         }
     }
 

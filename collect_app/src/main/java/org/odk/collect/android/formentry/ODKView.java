@@ -73,7 +73,7 @@ import org.odk.collect.android.utilities.QuestionFontSizeUtils;
 import org.odk.collect.android.utilities.QuestionMediaManager;
 import org.odk.collect.android.utilities.ScreenContext;
 import org.odk.collect.android.utilities.ThemeUtils;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.QuestionWidget;
 import org.odk.collect.android.widgets.StringWidget;
 import org.odk.collect.android.widgets.WidgetFactory;
@@ -448,11 +448,11 @@ public class ODKView extends FrameLayout implements OnLongClickListener, WidgetV
             } catch (ExternalParamsException e) {
                 Timber.e(e, "ExternalParamsException");
 
-                ToastUtils.showShortToast(e.getMessage());
+                ToastUtils.showShortToast(Collect.getInstance(), e.getMessage());
             } catch (ActivityNotFoundException e) {
                 Timber.d(e, "ActivityNotFoundExcept");
 
-                ToastUtils.showShortToast(errorString);
+                ToastUtils.showShortToast(Collect.getInstance(), errorString);
             }
         });
     }

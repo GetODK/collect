@@ -37,8 +37,8 @@ import com.google.android.gms.location.LocationListener;
 
 import org.odk.collect.android.R;
 import org.odk.collect.android.utilities.GeoUtils;
-import org.odk.collect.android.utilities.ToastUtils;
 import org.odk.collect.android.views.DayNightProgressDialog;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.location.GoogleFusedLocationClient;
 import org.odk.collect.location.LocationClient;
 import org.odk.collect.location.LocationClientProvider;
@@ -81,7 +81,7 @@ public class GeoPointActivity extends CollectAbstractActivity implements Locatio
         super.onCreate(savedInstanceState);
 
         if (!permissionsProvider.areLocationPermissionsGranted()) {
-            ToastUtils.showLongToast(R.string.not_granted_permission);
+            ToastUtils.showLongToast(this, R.string.not_granted_permission);
             finish();
             return;
         }
@@ -254,7 +254,7 @@ public class GeoPointActivity extends CollectAbstractActivity implements Locatio
     }
 
     private void finishOnError() {
-        ToastUtils.showShortToast(R.string.provider_disabled_error);
+        ToastUtils.showShortToast(this, R.string.provider_disabled_error);
         Intent onGPSIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 
         startActivity(onGPSIntent);

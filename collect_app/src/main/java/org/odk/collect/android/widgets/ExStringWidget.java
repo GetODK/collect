@@ -35,7 +35,7 @@ import org.odk.collect.android.formentry.questions.QuestionDetails;
 import org.odk.collect.android.formentry.questions.WidgetViewUtils;
 import org.odk.collect.android.utilities.ActivityAvailability;
 import org.odk.collect.android.utilities.ExternalAppIntentProvider;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.interfaces.ButtonClickListener;
 import org.odk.collect.android.widgets.interfaces.WidgetDataReceiver;
 import org.odk.collect.android.widgets.utilities.WaitingForDataRegistry;
@@ -128,7 +128,7 @@ public class ExStringWidget extends StringWidget implements WidgetDataReceiver, 
             ((Activity) getContext()).startActivityForResult(i, RequestCodes.EX_STRING_CAPTURE);
         } catch (SecurityException e) {
             Timber.i(e);
-            ToastUtils.showLongToast(R.string.not_granted_permission);
+            ToastUtils.showLongToast(Collect.getInstance(), R.string.not_granted_permission);
         }
     }
 

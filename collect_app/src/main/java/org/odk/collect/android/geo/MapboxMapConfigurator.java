@@ -1,5 +1,8 @@
 package org.odk.collect.android.geo;
 
+import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_MAPBOX_MAP_STYLE;
+import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_REFERENCE_LAYER;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -9,16 +12,13 @@ import com.google.common.collect.ImmutableSet;
 
 import org.odk.collect.android.R;
 import org.odk.collect.android.preferences.PrefUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.shared.Settings;
-import org.odk.collect.android.utilities.ToastUtils;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
-import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_MAPBOX_MAP_STYLE;
-import static org.odk.collect.android.preferences.keys.ProjectKeys.KEY_REFERENCE_LAYER;
 
 class MapboxMapConfigurator implements MapConfigurator {
     private final String prefKey;
@@ -37,7 +37,7 @@ class MapboxMapConfigurator implements MapConfigurator {
     }
 
     @Override public void showUnavailableMessage(Context context) {
-        ToastUtils.showLongToast(context.getString(
+        ToastUtils.showLongToast(context, context.getString(
             R.string.basemap_source_unavailable, context.getString(sourceLabelId)));
     }
 

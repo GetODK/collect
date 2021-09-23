@@ -18,7 +18,7 @@ import org.odk.collect.android.databinding.RangePickerWidgetAnswerBinding;
 import org.odk.collect.android.databinding.RangeWidgetHorizontalBinding;
 import org.odk.collect.android.databinding.RangeWidgetVerticalBinding;
 import org.odk.collect.android.fragments.dialogs.NumberPickerDialog;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.views.TrackingTouchSlider;
 
 import java.math.BigDecimal;
@@ -250,13 +250,13 @@ public class RangeWidgetUtils {
     }
 
     public static boolean isRangeSliderWidgetValid(RangeQuestion rangeQuestion, TrackingTouchSlider slider) {
-        if (!isWidgetValid(rangeQuestion)) {
+        if (!isWidgetValid(slider.getContext(), rangeQuestion)) {
             slider.setEnabled(false);
         }
-        return isWidgetValid(rangeQuestion);
+        return isWidgetValid(slider.getContext(), rangeQuestion);
     }
 
-    static boolean isWidgetValid(RangeQuestion rangeQuestion) {
+    static boolean isWidgetValid(Context context, RangeQuestion rangeQuestion) {
         BigDecimal rangeStart = rangeQuestion.getRangeStart();
         BigDecimal rangeEnd = rangeQuestion.getRangeEnd();
         BigDecimal rangeStep = rangeQuestion.getRangeStep().abs();
@@ -264,16 +264,16 @@ public class RangeWidgetUtils {
         boolean result = true;
         if (rangeStep.compareTo(BigDecimal.ZERO) == 0
                 || rangeEnd.subtract(rangeStart).remainder(rangeStep).compareTo(BigDecimal.ZERO) != 0) {
-            ToastUtils.showLongToast(R.string.invalid_range_widget);
+            ToastUtils.showLongToast(context, R.string.invalid_range_widget);
             result = false;
         }
         return result;
     }
 
     private static boolean isRangePickerWidgetValid(RangeQuestion rangeQuestion, Button widgetButton) {
-        if (!isWidgetValid(rangeQuestion)) {
+        if (!isWidgetValid(widgetButton.getContext(), rangeQuestion)) {
             widgetButton.setEnabled(false);
         }
-        return isWidgetValid(rangeQuestion);
+        return isWidgetValid(widgetButton.getContext(), rangeQuestion);
     }
 }

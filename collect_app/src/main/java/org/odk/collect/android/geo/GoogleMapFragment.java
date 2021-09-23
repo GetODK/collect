@@ -56,7 +56,7 @@ import org.odk.collect.android.storage.StoragePathProvider;
 import org.odk.collect.android.utilities.GeoUtils;
 import org.odk.collect.android.utilities.IconUtils;
 import org.odk.collect.android.utilities.ThemeUtils;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.location.GoogleFusedLocationClient;
 import org.odk.collect.location.LocationClient;
 import org.odk.collect.location.LocationClientProvider;
@@ -125,7 +125,7 @@ public class GoogleMapFragment extends SupportMapFragment implements
             .beginTransaction().replace(containerId, this).commitNow();
         getMapAsync((GoogleMap map) -> {
             if (map == null) {
-                ToastUtils.showShortToast(R.string.google_play_services_error_occured);
+                ToastUtils.showShortToast(requireContext(), R.string.google_play_services_error_occured);
                 if (errorListener != null) {
                     errorListener.onError();
                 }

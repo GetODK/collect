@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 import org.odk.collect.android.R;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 
 public class ExperimentalPreferencesFragment extends BaseProjectPreferencesFragment {
 
@@ -22,7 +22,7 @@ public class ExperimentalPreferencesFragment extends BaseProjectPreferencesFragm
         super.onViewCreated(view, savedInstanceState);
 
         if (getPreferenceScreen().getPreferenceCount() == 0) {
-            ToastUtils.showLongToast("No experimental settings at the moment!");
+            ToastUtils.showLongToast(requireContext(), "No experimental settings at the moment!");
             getParentFragmentManager().popBackStack();
         }
     }

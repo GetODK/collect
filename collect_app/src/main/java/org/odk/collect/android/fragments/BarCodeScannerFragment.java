@@ -13,6 +13,8 @@
 
 package org.odk.collect.android.fragments;
 
+import static org.odk.collect.android.injection.DaggerUtils.getComponent;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -35,7 +37,7 @@ import org.odk.collect.android.R;
 import org.odk.collect.android.utilities.Appearances;
 import org.odk.collect.android.utilities.CameraUtils;
 import org.odk.collect.android.utilities.CodeCaptureManagerFactory;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.views.BarcodeViewDecoder;
 
 import java.io.IOException;
@@ -43,8 +45,6 @@ import java.util.Collection;
 import java.util.zip.DataFormatException;
 
 import javax.inject.Inject;
-
-import static org.odk.collect.android.injection.DaggerUtils.getComponent;
 
 public abstract class BarCodeScannerFragment extends Fragment implements DecoratedBarcodeView.TorchListener {
 
@@ -99,7 +99,7 @@ public abstract class BarCodeScannerFragment extends Fragment implements Decorat
             try {
                 handleScanningResult(barcodeResult);
             } catch (IOException | DataFormatException | IllegalArgumentException e) {
-                ToastUtils.showShortToast(getString(R.string.invalid_qrcode));
+                ToastUtils.showShortToast(requireContext(), getString(R.string.invalid_qrcode));
             }
         });
     }

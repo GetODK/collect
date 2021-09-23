@@ -13,7 +13,7 @@ import org.odk.collect.android.preferences.source.SettingsProvider;
 import org.odk.collect.android.utilities.ActivityAvailability;
 import org.odk.collect.android.utilities.FileProvider;
 import org.odk.collect.android.utilities.MenuDelegate;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.async.Scheduler;
 
 import timber.log.Timber;
@@ -60,7 +60,7 @@ public class QRCodeMenuDelegate implements MenuDelegate {
                 if (activityAvailability.isActivityAvailable(photoPickerIntent)) {
                     activity.startActivityForResult(photoPickerIntent, SELECT_PHOTO);
                 } else {
-                    ToastUtils.showShortToast(activity.getString(R.string.activity_not_found, activity.getString(R.string.choose_image)));
+                    ToastUtils.showShortToast(activity, activity.getString(R.string.activity_not_found, activity.getString(R.string.choose_image)));
                     Timber.w(activity.getString(R.string.activity_not_found, activity.getString(R.string.choose_image)));
                 }
 

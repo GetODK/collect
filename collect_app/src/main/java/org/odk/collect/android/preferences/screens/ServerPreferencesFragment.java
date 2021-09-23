@@ -42,7 +42,7 @@ import org.odk.collect.android.preferences.filters.ControlCharacterFilter;
 import org.odk.collect.android.preferences.filters.WhitespaceFilter;
 import org.odk.collect.android.preferences.keys.ProjectKeys;
 import org.odk.collect.android.utilities.PlayServicesChecker;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.shared.strings.Md5;
 import org.odk.collect.shared.strings.Validator;
 
@@ -200,7 +200,7 @@ public class ServerPreferencesFragment extends BaseProjectPreferencesFragment im
                     if (Validator.isUrlValid(url)) {
                         preference.setSummary(newValue.toString());
                     } else {
-                        ToastUtils.showShortToast(R.string.url_error);
+                        ToastUtils.showShortToast(requireContext(), R.string.url_error);
                         return false;
                     }
                     break;
@@ -210,7 +210,7 @@ public class ServerPreferencesFragment extends BaseProjectPreferencesFragment im
 
                     // do not allow leading and trailing whitespace
                     if (!username.equals(username.trim())) {
-                        ToastUtils.showShortToast(R.string.username_error_whitespace);
+                        ToastUtils.showShortToast(requireContext(), R.string.username_error_whitespace);
                         return false;
                     }
 
@@ -222,7 +222,7 @@ public class ServerPreferencesFragment extends BaseProjectPreferencesFragment im
 
                     // do not allow leading and trailing whitespace
                     if (!pw.equals(pw.trim())) {
-                        ToastUtils.showShortToast(R.string.password_error_whitespace);
+                        ToastUtils.showShortToast(requireContext(), R.string.password_error_whitespace);
                         return false;
                     }
 
@@ -240,7 +240,7 @@ public class ServerPreferencesFragment extends BaseProjectPreferencesFragment im
                     } else if (url.length() == 0) {
                         preference.setSummary(getString(R.string.google_sheets_url_hint));
                     } else {
-                        ToastUtils.showShortToast(R.string.url_error);
+                        ToastUtils.showShortToast(requireContext(), R.string.url_error);
                         return false;
                     }
                     break;

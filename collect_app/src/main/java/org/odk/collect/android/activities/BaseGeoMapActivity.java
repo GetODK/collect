@@ -19,7 +19,7 @@ package org.odk.collect.android.activities;
 import android.os.Bundle;
 
 import org.odk.collect.android.R;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 
 /**
  * Implementation details common to the geo activities.  (After the migration
@@ -34,7 +34,7 @@ public abstract class BaseGeoMapActivity extends CollectAbstractActivity {
         previousState = savedInstanceState;
 
         if (!permissionsProvider.areLocationPermissionsGranted()) {
-            ToastUtils.showLongToast(R.string.not_granted_permission);
+            ToastUtils.showLongToast(this, R.string.not_granted_permission);
             finish();
         }
     }

@@ -19,7 +19,7 @@ import org.odk.collect.android.utilities.ApplicationConstants;
 import org.odk.collect.android.utilities.ExternalAppIntentProvider;
 import org.odk.collect.android.utilities.MediaUtils;
 import org.odk.collect.android.utilities.QuestionMediaManager;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.utilities.WaitingForDataRegistry;
 
 import timber.log.Timber;
@@ -92,7 +92,7 @@ public class ExArbitraryFileWidget extends BaseArbitraryFileWidget {
             Intent intent = externalAppIntentProvider.getIntentToRunExternalApp(getContext(), getFormEntryPrompt(), activityAvailability, Collect.getInstance().getPackageManager());
             fireActivityForResult(intent);
         } catch (Exception | Error e) {
-            ToastUtils.showLongToast(e.getMessage());
+            ToastUtils.showLongToast(Collect.getInstance(), e.getMessage());
         }
     }
 
@@ -101,7 +101,7 @@ public class ExArbitraryFileWidget extends BaseArbitraryFileWidget {
             ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.EX_ARBITRARY_FILE_CHOOSER);
         } catch (SecurityException e) {
             Timber.i(e);
-            ToastUtils.showLongToast(R.string.not_granted_permission);
+            ToastUtils.showLongToast(Collect.getInstance(), R.string.not_granted_permission);
         }
     }
 }

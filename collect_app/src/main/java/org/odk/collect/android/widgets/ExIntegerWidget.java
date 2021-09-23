@@ -14,6 +14,8 @@
 
 package org.odk.collect.android.widgets;
 
+import static org.odk.collect.android.utilities.ApplicationConstants.RequestCodes;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -25,13 +27,11 @@ import org.javarosa.core.model.data.IntegerData;
 import org.odk.collect.android.R;
 import org.odk.collect.android.externaldata.ExternalAppsUtils;
 import org.odk.collect.android.formentry.questions.QuestionDetails;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.utilities.StringWidgetUtils;
-import org.odk.collect.android.utilities.ToastUtils;
 import org.odk.collect.android.widgets.utilities.WaitingForDataRegistry;
 
 import timber.log.Timber;
-
-import static org.odk.collect.android.utilities.ApplicationConstants.RequestCodes;
 
 /**
  * Launch an external app to supply an integer value. If the app
@@ -54,7 +54,7 @@ public class ExIntegerWidget extends ExStringWidget {
             ((Activity) getContext()).startActivityForResult(i, RequestCodes.EX_INT_CAPTURE);
         } catch (SecurityException e) {
             Timber.i(e);
-            ToastUtils.showLongToast(R.string.not_granted_permission);
+            ToastUtils.showLongToast(getContext(), R.string.not_granted_permission);
         }
     }
 

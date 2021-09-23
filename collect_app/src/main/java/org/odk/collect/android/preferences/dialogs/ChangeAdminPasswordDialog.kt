@@ -17,7 +17,7 @@ import org.odk.collect.android.preferences.ProjectPreferencesViewModel
 import org.odk.collect.android.preferences.keys.ProtectedProjectKeys
 import org.odk.collect.android.preferences.source.SettingsProvider
 import org.odk.collect.android.utilities.SoftKeyboardController
-import org.odk.collect.android.utilities.ToastUtils
+import org.odk.collect.androidshared.utils.ToastUtils
 import javax.inject.Inject
 
 class ChangeAdminPasswordDialog : DialogFragment() {
@@ -65,10 +65,16 @@ class ChangeAdminPasswordDialog : DialogFragment() {
 
                 if (password.isEmpty()) {
                     projectPreferencesViewModel.setStateNotProtected()
-                    ToastUtils.showShortToast(R.string.admin_password_disabled)
+                    ToastUtils.showShortToast(
+                        requireContext(),
+                        R.string.admin_password_disabled
+                    )
                 } else {
                     projectPreferencesViewModel.setStateUnlocked()
-                    ToastUtils.showShortToast(R.string.admin_password_changed)
+                    ToastUtils.showShortToast(
+                        requireContext(),
+                        R.string.admin_password_changed
+                    )
                 }
                 dismiss()
             }

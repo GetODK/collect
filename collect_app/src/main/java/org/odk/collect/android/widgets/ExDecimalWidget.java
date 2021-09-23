@@ -26,7 +26,7 @@ import org.odk.collect.android.R;
 import org.odk.collect.android.externaldata.ExternalAppsUtils;
 import org.odk.collect.android.formentry.questions.QuestionDetails;
 import org.odk.collect.android.widgets.utilities.StringWidgetUtils;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.utilities.WaitingForDataRegistry;
 
 import timber.log.Timber;
@@ -54,7 +54,7 @@ public class ExDecimalWidget extends ExStringWidget {
             ((Activity) getContext()).startActivityForResult(i, RequestCodes.EX_DECIMAL_CAPTURE);
         } catch (SecurityException e) {
             Timber.i(e);
-            ToastUtils.showLongToast(R.string.not_granted_permission);
+            ToastUtils.showLongToast(getContext(), R.string.not_granted_permission);
         }
     }
 

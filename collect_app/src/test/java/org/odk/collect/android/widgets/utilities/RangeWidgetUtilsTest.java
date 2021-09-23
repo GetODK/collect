@@ -10,6 +10,7 @@ import static org.odk.collect.android.widgets.support.QuestionWidgetHelpers.prom
 import static org.odk.collect.android.widgets.support.QuestionWidgetHelpers.promptWithReadOnlyAndQuestionDef;
 import static org.odk.collect.android.widgets.support.QuestionWidgetHelpers.widgetTestActivity;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,13 +42,16 @@ public class RangeWidgetUtilsTest {
     private TrackingTouchSlider slider;
     private TextView sampleTextView1;
     private TextView sampleTextView2;
+    private Context context;
 
     @Before
     public void setup() {
-        ApplicationProvider.getApplicationContext().setTheme(R.style.Theme_MaterialComponents);
-        slider = new TrackingTouchSlider(ApplicationProvider.getApplicationContext(), null);
-        sampleTextView1 = new TextView(ApplicationProvider.getApplicationContext());
-        sampleTextView2 = new TextView(ApplicationProvider.getApplicationContext());
+        context = ApplicationProvider.getApplicationContext();
+        context.setTheme(R.style.Theme_MaterialComponents);
+
+        slider = new TrackingTouchSlider(context, null);
+        sampleTextView1 = new TextView(context);
+        sampleTextView2 = new TextView(context);
 
         binding = RangePickerWidgetAnswerBinding.inflate((widgetTestActivity()).getLayoutInflater());
 
@@ -137,7 +141,7 @@ public class RangeWidgetUtilsTest {
     @Test
     public void whenRangeQuestionHasZeroRangeStep_invalidWidgetToastIsShown() {
         when(rangeQuestion.getRangeStep()).thenReturn(BigDecimal.ZERO);
-        assertThat(RangeWidgetUtils.isWidgetValid(rangeQuestion), equalTo(false));
+        assertThat(RangeWidgetUtils.isWidgetValid(context, rangeQuestion), equalTo(false));
 
         String toastText = ShadowToast.getTextOfLatestToast();
         assertThat(toastText, equalTo(ApplicationProvider.getApplicationContext().getString(R.string.invalid_range_widget)));
@@ -146,7 +150,7 @@ public class RangeWidgetUtilsTest {
     @Test
     public void whenPromptHasInvalidWidgetParameters_invalidWidgetToastIsShown() {
         when(rangeQuestion.getRangeStep()).thenReturn(new BigDecimal(2));
-        assertThat(RangeWidgetUtils.isWidgetValid(rangeQuestion), equalTo(false));
+        assertThat(RangeWidgetUtils.isWidgetValid(context, rangeQuestion), equalTo(false));
 
         String toastText = ShadowToast.getTextOfLatestToast();
         assertThat(toastText, equalTo(ApplicationProvider.getApplicationContext().getString(R.string.invalid_range_widget)));

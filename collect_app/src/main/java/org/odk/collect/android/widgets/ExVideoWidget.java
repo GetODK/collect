@@ -20,7 +20,7 @@ import org.odk.collect.android.utilities.ExternalAppIntentProvider;
 import org.odk.collect.android.utilities.FileUtils;
 import org.odk.collect.android.utilities.MediaUtils;
 import org.odk.collect.android.utilities.QuestionMediaManager;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.interfaces.WidgetDataReceiver;
 import org.odk.collect.android.widgets.interfaces.FileWidget;
 import org.odk.collect.android.widgets.utilities.WaitingForDataRegistry;
@@ -104,7 +104,7 @@ public class ExVideoWidget extends QuestionWidget implements FileWidget, WidgetD
             }
         } else if (object != null) {
             if (object instanceof File) {
-                ToastUtils.showLongToast(R.string.invalid_file_type);
+                ToastUtils.showLongToast(Collect.getInstance(), R.string.invalid_file_type);
                 mediaUtils.deleteMediaFile(((File) object).getAbsolutePath());
                 Timber.e("ExVideoWidget's setBinaryData must receive a video file but received: %s", FileUtils.getMimeType((File) object));
             } else {
@@ -132,7 +132,7 @@ public class ExVideoWidget extends QuestionWidget implements FileWidget, WidgetD
             Intent intent = externalAppIntentProvider.getIntentToRunExternalApp(getContext(), getFormEntryPrompt(), activityAvailability, Collect.getInstance().getPackageManager());
             fireActivityForResult(intent);
         } catch (Exception | Error e) {
-            ToastUtils.showLongToast(e.getMessage());
+            ToastUtils.showLongToast(Collect.getInstance(), e.getMessage());
         }
     }
 
@@ -141,7 +141,7 @@ public class ExVideoWidget extends QuestionWidget implements FileWidget, WidgetD
             ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.EX_VIDEO_CHOOSER);
         } catch (SecurityException e) {
             Timber.i(e);
-            ToastUtils.showLongToast(R.string.not_granted_permission);
+            ToastUtils.showLongToast(Collect.getInstance(), R.string.not_granted_permission);
         }
     }
 

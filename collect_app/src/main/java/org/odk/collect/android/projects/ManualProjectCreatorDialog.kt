@@ -29,13 +29,15 @@ import org.odk.collect.android.projects.DuplicateProjectConfirmationKeys.SETTING
 import org.odk.collect.android.utilities.ActivityAvailability
 import org.odk.collect.android.utilities.DialogUtils
 import org.odk.collect.android.utilities.SoftKeyboardController
-import org.odk.collect.android.utilities.ToastUtils
+import org.odk.collect.androidshared.utils.ToastUtils
 import org.odk.collect.material.MaterialFullScreenDialogFragment
 import org.odk.collect.projects.ProjectsRepository
 import org.odk.collect.shared.strings.Validator
 import javax.inject.Inject
 
-class ManualProjectCreatorDialog : MaterialFullScreenDialogFragment(), DuplicateProjectConfirmationDialog.DuplicateProjectConfirmationListener {
+class ManualProjectCreatorDialog :
+    MaterialFullScreenDialogFragment(),
+    DuplicateProjectConfirmationDialog.DuplicateProjectConfirmationListener {
 
     @Inject
     lateinit var projectCreator: ProjectCreator
@@ -68,28 +70,35 @@ class ManualProjectCreatorDialog : MaterialFullScreenDialogFragment(), Duplicate
 
     private lateinit var binding: ManualProjectCreatorDialogLayoutBinding
 
-    val googleAccountResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-        val resultData = result.data
+    val googleAccountResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultData = result.data
 
-        if (result.resultCode == Activity.RESULT_OK && resultData != null && resultData.extras != null) {
-            val accountName = resultData.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
-            googleAccountsManager.selectAccount(accountName)
+            if (result.resultCode == Activity.RESULT_OK && resultData != null && resultData.extras != null) {
+                val accountName = resultData.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
+                googleAccountsManager.selectAccount(accountName)
 
-            val settingsJson = appConfigurationGenerator.getAppConfigurationAsJsonWithGoogleDriveDetails(
-                accountName
-            )
+                val settingsJson =
+                    appConfigurationGenerator.getAppConfigurationAsJsonWithGoogleDriveDetails(
+                        accountName
+                    )
 
-            settingsConnectionMatcher.getProjectWithMatchingConnection(settingsJson)?.let { uuid ->
-                val confirmationArgs = Bundle()
-                confirmationArgs.putString(SETTINGS_JSON, settingsJson)
-                confirmationArgs.putString(MATCHING_PROJECT, uuid)
-                DialogUtils.showIfNotShowing(DuplicateProjectConfirmationDialog::class.java, confirmationArgs, childFragmentManager)
-            } ?: run {
-                Analytics.log(AnalyticsEvents.GOOGLE_ACCOUNT_PROJECT)
-                createProject(settingsJson)
+                settingsConnectionMatcher.getProjectWithMatchingConnection(settingsJson)
+                    ?.let { uuid ->
+                        val confirmationArgs = Bundle()
+                        confirmationArgs.putString(SETTINGS_JSON, settingsJson)
+                        confirmationArgs.putString(MATCHING_PROJECT, uuid)
+                        DialogUtils.showIfNotShowing(
+                            DuplicateProjectConfirmationDialog::class.java,
+                            confirmationArgs,
+                            childFragmentManager
+                        )
+                    } ?: run {
+                    Analytics.log(AnalyticsEvents.GOOGLE_ACCOUNT_PROJECT)
+                    createProject(settingsJson)
+                }
             }
         }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -97,7 +106,11 @@ class ManualProjectCreatorDialog : MaterialFullScreenDialogFragment(), Duplicate
         settingsConnectionMatcher = SettingsConnectionMatcher(projectsRepository, settingsProvider)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = ManualProjectCreatorDialogLayoutBinding.inflate(inflater)
         return binding.root
     }
@@ -145,7 +158,7 @@ class ManualProjectCreatorDialog : MaterialFullScreenDialogFragment(), Duplicate
 
     private fun handleAddingNewProject() {
         if (!Validator.isUrlValid(binding.urlInputText.text?.trim().toString())) {
-            ToastUtils.showShortToast(R.string.url_error)
+            ToastUtils.showShortToast(requireContext(), R.string.url_error)
         } else {
             val settingsJson = appConfigurationGenerator.getAppConfigurationAsJsonWithServerDetails(
                 binding.urlInputText.text?.trim().toString(),
@@ -157,7 +170,11 @@ class ManualProjectCreatorDialog : MaterialFullScreenDialogFragment(), Duplicate
                 val confirmationArgs = Bundle()
                 confirmationArgs.putString(SETTINGS_JSON, settingsJson)
                 confirmationArgs.putString(MATCHING_PROJECT, uuid)
-                DialogUtils.showIfNotShowing(DuplicateProjectConfirmationDialog::class.java, confirmationArgs, childFragmentManager)
+                DialogUtils.showIfNotShowing(
+                    DuplicateProjectConfirmationDialog::class.java,
+                    confirmationArgs,
+                    childFragmentManager
+                )
             } ?: run {
                 createProject(settingsJson)
                 Analytics.log(AnalyticsEvents.MANUAL_CREATE_PROJECT)
@@ -174,7 +191,13 @@ class ManualProjectCreatorDialog : MaterialFullScreenDialogFragment(), Duplicate
                     if (activityAvailability.isActivityAvailable(intent)) {
                         googleAccountResultLauncher.launch(intent)
                     } else {
-                        ToastUtils.showShortToast(getString(R.string.activity_not_found, getString(R.string.choose_account)))
+                        ToastUtils.showShortToast(
+                            requireContext(),
+                            getString(
+                                R.string.activity_not_found,
+                                getString(R.string.choose_account)
+                            )
+                        )
                     }
                 }
 
@@ -188,12 +211,21 @@ class ManualProjectCreatorDialog : MaterialFullScreenDialogFragment(), Duplicate
     override fun createProject(settingsJson: String) {
         projectCreator.createNewProject(settingsJson)
         ActivityUtils.startActivityAndCloseAllOthers(activity, MainMenuActivity::class.java)
-        ToastUtils.showLongToast(getString(R.string.switched_project, currentProjectProvider.getCurrentProject().name))
+        ToastUtils.showLongToast(
+            requireContext(),
+            getString(R.string.switched_project, currentProjectProvider.getCurrentProject().name)
+        )
     }
 
     override fun switchToProject(uuid: String) {
         currentProjectProvider.setCurrentProject(uuid)
         ActivityUtils.startActivityAndCloseAllOthers(activity, MainMenuActivity::class.java)
-        ToastUtils.showLongToast(getString(org.odk.collect.projects.R.string.switched_project, currentProjectProvider.getCurrentProject().name))
+        ToastUtils.showLongToast(
+            requireContext(),
+            getString(
+                org.odk.collect.projects.R.string.switched_project,
+                currentProjectProvider.getCurrentProject().name
+            )
+        )
     }
 }

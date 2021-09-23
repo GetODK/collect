@@ -14,6 +14,8 @@
 
 package org.odk.collect.android.widgets;
 
+import static org.odk.collect.android.utilities.Appearances.FRONT;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -30,13 +32,11 @@ import org.odk.collect.android.activities.ScannerWithFlashlightActivity;
 import org.odk.collect.android.databinding.BarcodeWidgetAnswerBinding;
 import org.odk.collect.android.formentry.questions.QuestionDetails;
 import org.odk.collect.android.listeners.PermissionListener;
-import org.odk.collect.android.utilities.CameraUtils;
-import org.odk.collect.android.utilities.ToastUtils;
 import org.odk.collect.android.utilities.Appearances;
+import org.odk.collect.android.utilities.CameraUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.android.widgets.interfaces.WidgetDataReceiver;
 import org.odk.collect.android.widgets.utilities.WaitingForDataRegistry;
-
-import static org.odk.collect.android.utilities.Appearances.FRONT;
 
 /**
  * Widget that allows user to scan barcodes and add them to the form.
@@ -140,7 +140,7 @@ public class BarcodeWidget extends QuestionWidget implements WidgetDataReceiver 
             if (cameraUtils.isFrontCameraAvailable()) {
                 intent.addExtra(FRONT, true);
             } else {
-                ToastUtils.showLongToast(R.string.error_front_camera_unavailable);
+                ToastUtils.showLongToast(getContext(), R.string.error_front_camera_unavailable);
             }
         }
     }

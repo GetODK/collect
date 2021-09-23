@@ -47,10 +47,10 @@ import org.odk.collect.android.listeners.SelectItemClickListener;
 import org.odk.collect.android.utilities.ContentUriProvider;
 import org.odk.collect.android.utilities.FileUtils;
 import org.odk.collect.android.utilities.FormEntryPromptUtils;
-import org.odk.collect.android.utilities.ScreenContext;
 import org.odk.collect.android.utilities.HtmlUtils;
+import org.odk.collect.android.utilities.ScreenContext;
 import org.odk.collect.android.utilities.ThemeUtils;
-import org.odk.collect.android.utilities.ToastUtils;
+import org.odk.collect.androidshared.utils.ToastUtils;
 import org.odk.collect.audioclips.Clip;
 
 import java.io.File;
@@ -177,7 +177,7 @@ public class AudioVideoImageTextLabel extends RelativeLayout implements View.OnC
             // We should have a video clip, but the file doesn't exist.
             String errorMsg = getContext().getString(R.string.file_missing, videoFile);
             Timber.d("File %s is missing", videoFile);
-            ToastUtils.showLongToast(errorMsg);
+            ToastUtils.showLongToast(getContext(), errorMsg);
             return;
         }
 
@@ -189,7 +189,7 @@ public class AudioVideoImageTextLabel extends RelativeLayout implements View.OnC
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
             getContext().startActivity(intent);
         } else {
-            ToastUtils.showShortToast(getContext().getString(R.string.activity_not_found, getContext().getString(R.string.view_video)));
+            ToastUtils.showShortToast(getContext(), getContext().getString(R.string.activity_not_found, getContext().getString(R.string.view_video)));
         }
     }
 
@@ -254,7 +254,7 @@ public class AudioVideoImageTextLabel extends RelativeLayout implements View.OnC
             getContext().startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Timber.d(e, "No Activity found to handle due to %s", e.getMessage());
-            ToastUtils.showShortToast(getContext().getString(R.string.activity_not_found,
+            ToastUtils.showShortToast(getContext(), getContext().getString(R.string.activity_not_found,
                     getContext().getString(R.string.view_image)));
         }
     }

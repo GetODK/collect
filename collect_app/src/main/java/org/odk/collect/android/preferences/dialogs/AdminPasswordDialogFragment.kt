@@ -16,7 +16,7 @@ import org.odk.collect.android.injection.DaggerUtils
 import org.odk.collect.android.preferences.ProjectPreferencesViewModel
 import org.odk.collect.android.utilities.AdminPasswordProvider
 import org.odk.collect.android.utilities.SoftKeyboardController
-import org.odk.collect.android.utilities.ToastUtils
+import org.odk.collect.androidshared.utils.ToastUtils
 import javax.inject.Inject
 
 class AdminPasswordDialogFragment : DialogFragment() {
@@ -61,7 +61,10 @@ class AdminPasswordDialogFragment : DialogFragment() {
                 if (adminPasswordProvider.adminPassword == binding.editText.text.toString()) {
                     projectPreferencesViewModel.setStateUnlocked()
                 } else {
-                    ToastUtils.showShortToast(R.string.admin_password_incorrect)
+                    ToastUtils.showShortToast(
+                        requireContext(),
+                        R.string.admin_password_incorrect
+                    )
                 }
                 dismiss()
             }
