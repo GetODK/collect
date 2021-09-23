@@ -71,8 +71,8 @@ public class DeleteBlankFormTest {
                 .setServer(testDependencies.server.getURL())
                 .clickGetBlankForm()
                 .clickGetSelected()
-                .assertText("One Question (Version:: 1 ID: one_question) - Success")
-                .clickOK(new MainMenuPage())
+                .assertMessage("All downloads succeeded!")
+                .clickOK()
                 .startBlankForm("One Question")
                 .answerQuestion("what is your age", "22")
                 .swipeToEndScreen()
@@ -87,8 +87,8 @@ public class DeleteBlankFormTest {
 
                 .clickGetBlankForm()
                 .clickGetSelected()
-                .assertText("One Question (Version:: 1 ID: one_question) - Success")
-                .clickOK(new MainMenuPage())
+                .assertMessage("All downloads succeeded!")
+                .clickOK()
                 .clickFillBlankForm()
                 .assertFormExists("One Question");
     }

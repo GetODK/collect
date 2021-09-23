@@ -642,6 +642,12 @@
     <string name="form_save_disk_error">Disk exception occurred during saving the form.</string>
     <string name="form_with_invalid_submission_error">The form has invalid submission.</string>
 
+    <string name="all_downloads_succeeded">All downloads succeeded!</string>
+    <string name="some_downloads_failed">%1$s of %2$s downloads failed!</string>
+    <string name="show_details">Show details</string>
+    <string name="errors">Errors</string>
+    <string name="form_details">ID: %1$s Version: %2$s</string>
+
     <!--
     ##############################################
     # DELETE SAVED FORM

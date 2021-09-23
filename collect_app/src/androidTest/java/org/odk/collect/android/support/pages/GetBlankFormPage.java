@@ -16,8 +16,8 @@ public class GetBlankFormPage extends Page<GetBlankFormPage> {
         return this;
     }
 
-    public OkDialog clickGetSelected() {
+    public FormsDownloadResultPage clickGetSelected() {
         onView(withText(getTranslatedString(R.string.download))).perform(click());
-        return new OkDialog().assertOnPage();
+        return new FormsDownloadResultPage().assertOnPage();
     }
 }

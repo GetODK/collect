@@ -39,8 +39,8 @@ public class GetAndSubmitFormTest {
                 .setServer(testDependencies.server.getURL())
                 .clickGetBlankForm()
                 .clickGetSelected()
-                .assertText("One Question (Version:: 1 ID: one-question) - Success")
-                .clickOK(new MainMenuPage())
+                .assertMessage("All downloads succeeded!")
+                .clickOK()
 
                 // Fill out form
                 .startBlankForm("One Question")

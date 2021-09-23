@@ -56,8 +56,8 @@ public class ServerSettingsTest {
 
                 .clickGetBlankForm()
                 .clickGetSelected()
-                .assertText("One Question (Version:: 1 ID: one-question) - Success")
-                .clickOK(new MainMenuPage());
+                .assertMessage("All downloads succeeded!")
+                .clickOK();
     }
 
     /**

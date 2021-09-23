@@ -13,25 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.odk.collect.forms
 
-package org.odk.collect.forms;
-
-import java.util.List;
-
-public class ManifestFile {
-    private final String hash;
-    private final List<MediaFile> mediaFiles;
-
-    public ManifestFile(String hash, List<MediaFile> mediaFiles) {
-        this.hash = hash;
-        this.mediaFiles = mediaFiles;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public List<MediaFile> getMediaFiles() {
-        return mediaFiles;
-    }
-}
+data class ManifestFile(
+    val hash: String?,
+    val mediaFiles: List<MediaFile?>
+)

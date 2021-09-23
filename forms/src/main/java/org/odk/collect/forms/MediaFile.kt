@@ -13,29 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.odk.collect.forms
 
-package org.odk.collect.forms;
-
-public class MediaFile {
-    private final String filename;
-    private final String hash;
-    private final String downloadUrl;
-
-    public MediaFile(String filename, String hash, String downloadUrl) {
-        this.filename = filename;
-        this.hash = hash;
-        this.downloadUrl = downloadUrl;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public String getDownloadUrl() {
-        return downloadUrl;
-    }
-}
+data class MediaFile(
+    val filename: String?,
+    val hash: String?,
+    val downloadUrl: String?
+)

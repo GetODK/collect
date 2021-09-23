@@ -57,7 +57,9 @@ public class GetBlankFormsTest {
                 .setServer(testDependencies.server.getURL())
                 .clickGetBlankForm()
                 .clickGetSelected()
-                .assertText("One Question (Version:: 1 ID: one-question) - The server https://server.example.com returned status code 500. If you keep having this problem, report it to the person who asked you to collect data.")
-                .clickOK(new GetBlankFormPage());
+                .assertMessage("1 of 1 downloads failed!")
+                .showDetails()
+                .assertError("The server https://server.example.com returned status code 500. If you keep having this problem, report it to the person who asked you to collect data.")
+                .navigateBack();
     }
 }

@@ -42,6 +42,8 @@ import org.odk.collect.android.formmanagement.FormDownloader;
 import org.odk.collect.android.formmanagement.FormSourceExceptionMapper;
 import org.odk.collect.android.formmanagement.ServerFormDetails;
 import org.odk.collect.android.formmanagement.ServerFormsDetailsFetcher;
+import org.odk.collect.android.fragments.dialogs.FormsDownloadResultDialog;
+import org.odk.collect.android.formmanagement.downloaderror.FormsDownloadErrorItem;
 import org.odk.collect.android.views.DayNightProgressDialog;
 import org.odk.collect.forms.FormSourceException;
 import org.odk.collect.android.injection.DaggerUtils;
@@ -88,7 +90,8 @@ import timber.log.Timber;
  */
 public class FormDownloadListActivity extends FormListActivity implements FormListDownloaderListener,
         DownloadFormsTaskListener, AuthDialogUtility.AuthDialogUtilityResultListener,
-        AdapterView.OnItemClickListener, RefreshFormListDialogFragment.RefreshFormListDialogFragmentListener {
+        AdapterView.OnItemClickListener, RefreshFormListDialogFragment.RefreshFormListDialogFragmentListener,
+        FormsDownloadResultDialog.FormDownloadResultDialogListener {
     private static final String FORM_DOWNLOAD_LIST_SORTING_ORDER = "formDownloadListSortingOrder";
 
     public static final String DISPLAY_ONLY_UPDATED_FORMS = "displayOnlyUpdatedForms";
@@ -111,7 +114,6 @@ public class FormDownloadListActivity extends FormListActivity implements FormLi
 
     private final ArrayList<HashMap<String, String>> filteredFormList = new ArrayList<>();
 
-    private static final boolean EXIT = true;
     private static final boolean DO_NOT_EXIT = false;
 
     private boolean displayOnlyUpdatedForms;
@@ -654,7 +656,18 @@ public class FormDownloadListActivity extends FormListActivity implements FormLi
         cleanUpWebCredentials();
 
         DialogUtils.dismissDialog(RefreshFormListDialogFragment.class, getSupportFragmentManager());
-        createAlertDialog(getString(R.string.download_forms_result), getDownloadResultMessage(result), EXIT);
+
+        ArrayList<FormsDownloadErrorItem> failures = new ArrayList<>();
+        for (Map.Entry<ServerFormDetails, String> entry : result.entrySet()) {
+            if (!entry.getValue().equals(getString(R.string.success))) {
+                failures.add(new FormsDownloadErrorItem(entry.getKey().getFormName(), entry.getKey().getFormId(), entry.getKey().getFormVersion(), entry.getValue()));
+            }
+        }
+
+        Bundle args = new Bundle();
+        args.putSerializable(FormsDownloadResultDialog.FAILURES, failures);
+        args.putSerializable(FormsDownloadResultDialog.NUMBER_OF_ALL_FORMS, result.size());
+        DialogUtils.showIfNotShowing(FormsDownloadResultDialog.class, args, getSupportFragmentManager());
 
         // Set result to true for forms which were downloaded
         if (viewModel.isDownloadOnlyMode()) {
@@ -771,5 +784,10 @@ public class FormDownloadListActivity extends FormListActivity implements FormLi
             downloadFormsTask.cancel(true);
         }
         viewModel.setLoadingCanceled(true);
+    }
+
+    @Override
+    public void onCloseDownloadingResult() {
+        finish();
     }
 }

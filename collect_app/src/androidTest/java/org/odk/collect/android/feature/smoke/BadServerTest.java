@@ -51,6 +51,9 @@ public class BadServerTest {
                 .setServer(server.getURL())
                 .clickGetBlankForm()
                 .clickGetSelected()
-                .assertText("One Question (Version:: 1 ID: one-question) - The form has no hash. If you keep having this problem, report it to the person who asked you to collect data.");
+                .assertMessage("1 of 1 downloads failed!")
+                .showDetails()
+                .assertError("The form has no hash. If you keep having this problem, report it to the person who asked you to collect data.")
+                .navigateBack();
     }
 }

@@ -118,6 +118,7 @@ the specific language governing permissions and limitations under the License.
             android:name=".activities.FillBlankFormActivity"
             android:launchMode="singleTop" />
         <activity android:name=".activities.FormDownloadListActivity" />
+        <activity android:name=".formmanagement.downloaderror.FormsDownloadErrorActivity" />
         <activity
             android:name=".activities.DeleteSavedFormActivity"
             android:configChanges="orientation|screenSize" />
