@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/barcode_widget_answer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="?colorOnSurface"
+        app:srcCompat="@drawable/ic_baseline_barcode_scanner_white_24"
+        app:layout_constraintTop_toTopOf="@id/answer"
+        app:layout_constraintBottom_toBottomOf="@id/answer"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/answer"
+        style="@style/Widget.Collect.TextView.WidgetAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        tools:text="123456789" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
