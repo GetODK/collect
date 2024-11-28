@@ -1,7 +1,5 @@
 package org.odk.collect.android.instancemanagement
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.Flow
 import org.odk.collect.analytics.Analytics
 import org.odk.collect.android.analytics.AnalyticsEvents
@@ -22,8 +20,6 @@ import org.odk.collect.androidshared.data.AppState
 import org.odk.collect.androidshared.data.getData
 import org.odk.collect.forms.Form
 import org.odk.collect.forms.instances.Instance
-import org.odk.collect.forms.instances.Instance.STATUS_COMPLETE
-import org.odk.collect.forms.instances.Instance.STATUS_SUBMISSION_FAILED
 import org.odk.collect.metadata.PropertyManager
 import org.odk.collect.projects.ProjectDependencyFactory
 import java.io.File
@@ -38,16 +34,14 @@ class InstancesDataService(
     private val onUpdate: () -> Unit
 ) {
 
-    private val _editableCount = appState.getData(DataKeys.INSTANCES_EDITABLE_COUNT, 0)
-    val editableCount: LiveData<Int> = _editableCount.get().asLiveData()
-
-    private val _sendableCount = appState.getData(DataKeys.INSTANCES_SENDABLE_COUNT, 0)
-    val sendableCount: LiveData<Int> = _sendableCount.get().asLiveData()
-
-    private val _sentCount = appState.getData(DataKeys.INSTANCES_SENT_COUNT, 0)
-    val sentCount: LiveData<Int> = _sentCount.get().asLiveData()
-
+    private val editableCount = appState.getData(DataKeys.INSTANCES_EDITABLE_COUNT, 0)
+    private val sendableCount = appState.getData(DataKeys.INSTANCES_SENDABLE_COUNT, 0)
+    private val sentCount = appState.getData(DataKeys.INSTANCES_SENT_COUNT, 0)
     private val instances = appState.getData<List<Instance>>(DataKeys.INSTANCES, emptyList())
+
+    fun getEditableCount(projectId: String): Flow<Int> = editableCount.get()
+    fun getSendableCount(projectId: String): Flow<Int> = sendableCount.get()
+    fun getSentCount(projectId: String): Flow<Int> = sentCount.get()
 
     fun getInstances(projectId: String): Flow<List<Instance>> {
         return instances.get(projectId)
@@ -71,9 +65,9 @@ class InstancesDataService(
             Instance.STATUS_VALID
         )
 
-        _editableCount.set(editableInstances)
-        _sendableCount.set(sendableInstances)
-        _sentCount.set(sentInstances)
+        editableCount.set(editableInstances)
+        sendableCount.set(sendableInstances)
+        sentCount.set(sentInstances)
         instances.set(projectId, instancesRepository.all)
 
         onUpdate()

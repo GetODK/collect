@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import org.odk.collect.android.instancemanagement.InstanceDiskSynchronizer
 import org.odk.collect.android.instancemanagement.InstancesDataService
@@ -114,14 +115,11 @@ class MainMenuViewModel(
         }) { }
     }
 
-    val editableInstancesCount: LiveData<Int>
-        get() = instancesDataService.editableCount
+    val editableInstancesCount: LiveData<Int> = instancesDataService.getEditableCount("blah").asLiveData()
 
-    val sendableInstancesCount: LiveData<Int>
-        get() = instancesDataService.sendableCount
+    val sendableInstancesCount: LiveData<Int> = instancesDataService.getSendableCount("blah").asLiveData()
 
-    val sentInstancesCount: LiveData<Int>
-        get() = instancesDataService.sentCount
+    val sentInstancesCount: LiveData<Int> = instancesDataService.getSentCount("blah").asLiveData()
 
     fun setSavedForm(uri: Uri?) {
         if (uri == null) {
