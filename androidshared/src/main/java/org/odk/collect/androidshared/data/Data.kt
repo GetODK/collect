@@ -1,9 +1,9 @@
 package org.odk.collect.androidshared.data
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 class Data<T>(private val appState: AppState, private val key: String, private val default: T) {
-    fun get(qualifier: String? = null): Flow<T> {
+    fun get(qualifier: String? = null): StateFlow<T> {
         return appState.getFlow("$qualifier:$key", default)
     }
 

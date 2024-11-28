@@ -1,6 +1,6 @@
 package org.odk.collect.android.instancemanagement
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import org.odk.collect.analytics.Analytics
 import org.odk.collect.android.analytics.AnalyticsEvents
 import org.odk.collect.android.application.Collect
@@ -39,11 +39,11 @@ class InstancesDataService(
     private val sentCount = appState.getData(DataKeys.INSTANCES_SENT_COUNT, 0)
     private val instances = appState.getData<List<Instance>>(DataKeys.INSTANCES, emptyList())
 
-    fun getEditableCount(projectId: String): Flow<Int> = editableCount.get()
-    fun getSendableCount(projectId: String): Flow<Int> = sendableCount.get()
-    fun getSentCount(projectId: String): Flow<Int> = sentCount.get()
+    fun getEditableCount(projectId: String): StateFlow<Int> = editableCount.get(projectId)
+    fun getSendableCount(projectId: String): StateFlow<Int> = sendableCount.get(projectId)
+    fun getSentCount(projectId: String): StateFlow<Int> = sentCount.get(projectId)
 
-    fun getInstances(projectId: String): Flow<List<Instance>> {
+    fun getInstances(projectId: String): StateFlow<List<Instance>> {
         return instances.get(projectId)
     }
 
@@ -65,9 +65,9 @@ class InstancesDataService(
             Instance.STATUS_VALID
         )
 
-        editableCount.set(editableInstances)
-        sendableCount.set(sendableInstances)
-        sentCount.set(sentInstances)
+        editableCount.set(projectId, editableInstances)
+        sendableCount.set(projectId, sendableInstances)
+        sentCount.set(projectId, sentInstances)
         instances.set(projectId, instancesRepository.all)
 
         onUpdate()

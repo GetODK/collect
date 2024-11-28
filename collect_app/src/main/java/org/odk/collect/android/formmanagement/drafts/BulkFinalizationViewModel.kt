@@ -24,7 +24,7 @@ class BulkFinalizationViewModel(
     private val _isFinalizing = MutableNonNullLiveData(false)
     val isFinalizing: NonNullLiveData<Boolean> = _isFinalizing
 
-    val draftsCount = instancesDataService.getEditableCount("blah").asLiveData()
+    val draftsCount = instancesDataService.getEditableCount(projectId).asLiveData()
     val isEnabled =
         settingsProvider.getProtectedSettings().getBoolean(ProtectedProjectKeys.KEY_BULK_FINALIZE)
 

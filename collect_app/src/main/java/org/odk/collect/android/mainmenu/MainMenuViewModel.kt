@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import org.odk.collect.android.instancemanagement.InstanceDiskSynchronizer
 import org.odk.collect.android.instancemanagement.InstancesDataService
 import org.odk.collect.android.instancemanagement.autosend.AutoSendSettingsProvider
@@ -65,6 +66,8 @@ class MainMenuViewModel(
             }
         }
 
+    private val project = MutableLiveData(projectsDataService.getCurrentProject())
+
     private val _savedForm = MutableLiveData<SavedForm>()
     val savedForm: LiveData<Consumable<SavedForm>> = _savedForm.map { Consumable(it) }
 
@@ -110,16 +113,25 @@ class MainMenuViewModel(
     fun refreshInstances() {
         scheduler.immediate<Any?>({
             InstanceDiskSynchronizer(settingsProvider).doInBackground()
-            instancesDataService.update(projectsDataService.getCurrentProject().uuid)
+
+            val currentProject = projectsDataService.getCurrentProject()
+            instancesDataService.update(currentProject.uuid)
+            project.postValue(currentProject)
             null
         }) { }
     }
 
-    val editableInstancesCount: LiveData<Int> = instancesDataService.getEditableCount("blah").asLiveData()
+    val editableInstancesCount: LiveData<Int> = project.switchMap {
+        instancesDataService.getEditableCount(it.uuid).asLiveData()
+    }
 
-    val sendableInstancesCount: LiveData<Int> = instancesDataService.getSendableCount("blah").asLiveData()
+    val sendableInstancesCount: LiveData<Int> = project.switchMap {
+        instancesDataService.getSendableCount(it.uuid).asLiveData()
+    }
 
-    val sentInstancesCount: LiveData<Int> = instancesDataService.getSentCount("blah").asLiveData()
+    val sentInstancesCount: LiveData<Int> = project.switchMap {
+        instancesDataService.getSentCount(it.uuid).asLiveData()
+    }
 
     fun setSavedForm(uri: Uri?) {
         if (uri == null) {
