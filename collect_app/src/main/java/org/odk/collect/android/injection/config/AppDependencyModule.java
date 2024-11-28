@@ -441,8 +441,8 @@ public class AppDependencyModule {
     }
 
     @Provides
-    public ProjectsDataService providesCurrentProjectProvider(SettingsProvider settingsProvider, ProjectsRepository projectsRepository, AnalyticsInitializer analyticsInitializer, Context context, MapsInitializer mapsInitializer) {
-        return new ProjectsDataService(settingsProvider, projectsRepository, analyticsInitializer, mapsInitializer);
+    public ProjectsDataService providesCurrentProjectProvider(Application application, SettingsProvider settingsProvider, ProjectsRepository projectsRepository, AnalyticsInitializer analyticsInitializer, Context context, MapsInitializer mapsInitializer) {
+        return new ProjectsDataService(getState(application), settingsProvider, projectsRepository, analyticsInitializer, mapsInitializer);
     }
 
     @Provides

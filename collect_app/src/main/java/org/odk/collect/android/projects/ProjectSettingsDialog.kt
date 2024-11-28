@@ -24,7 +24,8 @@ import org.odk.collect.projects.ProjectsRepository
 import org.odk.collect.settings.SettingsProvider
 import javax.inject.Inject
 
-class ProjectSettingsDialog(private val viewModelFactory: ViewModelProvider.Factory) : DialogFragment() {
+class ProjectSettingsDialog(private val viewModelFactory: ViewModelProvider.Factory) :
+    DialogFragment() {
 
     @Inject
     lateinit var projectsRepository: ProjectsRepository
@@ -50,10 +51,15 @@ class ProjectSettingsDialog(private val viewModelFactory: ViewModelProvider.Fact
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ProjectSettingsDialogLayoutBinding.inflate(LayoutInflater.from(context))
 
-        val project = currentProjectViewModel.currentProject.value
-        binding.currentProject.setupView(project, settingsProvider.getUnprotectedSettings())
-        binding.currentProject.contentDescription = getString(org.odk.collect.strings.R.string.using_project, project.name)
-        inflateListOfInActiveProjects(requireContext(), project)
+        currentProjectViewModel.currentProject.observe(this) {
+            if (it != null) {
+                binding.currentProject.setupView(it, settingsProvider.getUnprotectedSettings())
+                binding.currentProject.contentDescription =
+                    getString(org.odk.collect.strings.R.string.using_project, it.name)
+
+                inflateListOfInActiveProjects(requireContext(), it)
+            }
+        }
 
         binding.closeIcon.setOnClickListener {
             dismiss()
@@ -99,7 +105,8 @@ class ProjectSettingsDialog(private val viewModelFactory: ViewModelProvider.Fact
             }
 
             projectView.setupView(project, settingsProvider.getUnprotectedSettings(project.uuid))
-            projectView.contentDescription = getString(org.odk.collect.strings.R.string.switch_to_project, project.name)
+            projectView.contentDescription =
+                getString(org.odk.collect.strings.R.string.switch_to_project, project.name)
             binding.projectList.addView(projectView)
         }
     }
@@ -107,7 +114,10 @@ class ProjectSettingsDialog(private val viewModelFactory: ViewModelProvider.Fact
     private fun switchProject(project: Project.Saved) {
         currentProjectViewModel.setCurrentProject(project)
 
-        ActivityUtils.startActivityAndCloseAllOthers(requireActivity(), MainMenuActivity::class.java)
+        ActivityUtils.startActivityAndCloseAllOthers(
+            requireActivity(),
+            MainMenuActivity::class.java
+        )
         ToastUtils.showLongToast(
             requireContext(),
             getString(org.odk.collect.strings.R.string.switched_project, project.name)

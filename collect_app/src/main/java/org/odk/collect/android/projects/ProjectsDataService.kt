@@ -1,18 +1,38 @@
 package org.odk.collect.android.projects
 
+import kotlinx.coroutines.flow.StateFlow
 import org.odk.collect.android.application.initialization.AnalyticsInitializer
 import org.odk.collect.android.application.initialization.MapsInitializer
+import org.odk.collect.android.state.DataKeys
+import org.odk.collect.androidshared.data.AppState
+import org.odk.collect.androidshared.data.getData
 import org.odk.collect.projects.Project
 import org.odk.collect.projects.ProjectsRepository
 import org.odk.collect.settings.SettingsProvider
 import org.odk.collect.settings.keys.MetaKeys
 
 class ProjectsDataService(
+    appState: AppState,
     private val settingsProvider: SettingsProvider,
     private val projectsRepository: ProjectsRepository,
     private val analyticsInitializer: AnalyticsInitializer,
     private val mapsInitializer: MapsInitializer
 ) {
+
+    private val currentProject = appState.getData<Project.Saved?>(DataKeys.PROJECT, null)
+
+    fun update() {
+        val currentProjectId = getCurrentProjectId()
+        if (currentProjectId != null) {
+            currentProject.set(projectsRepository.get(currentProjectId))
+        } else {
+            currentProject.set(null)
+        }
+    }
+
+    fun getCurrentProjectFlow(): StateFlow<Project.Saved?> {
+        return currentProject.get()
+    }
 
     fun getCurrentProject(): Project.Saved {
         val currentProjectId = getCurrentProjectId()
@@ -41,6 +61,8 @@ class ProjectsDataService(
 
         analyticsInitializer.initialize()
         mapsInitializer.initialize()
+
+        update()
     }
 
     private fun getCurrentProjectId(): String? {

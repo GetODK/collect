@@ -66,8 +66,6 @@ class MainMenuViewModel(
             }
         }
 
-    private val project = MutableLiveData(projectsDataService.getCurrentProject())
-
     private val _savedForm = MutableLiveData<SavedForm>()
     val savedForm: LiveData<Consumable<SavedForm>> = _savedForm.map { Consumable(it) }
 
@@ -113,24 +111,22 @@ class MainMenuViewModel(
     fun refreshInstances() {
         scheduler.immediate<Any?>({
             InstanceDiskSynchronizer(settingsProvider).doInBackground()
-
-            val currentProject = projectsDataService.getCurrentProject()
-            instancesDataService.update(currentProject.uuid)
-            project.postValue(currentProject)
+            instancesDataService.update(projectsDataService.getCurrentProject().uuid)
             null
         }) { }
     }
 
-    val editableInstancesCount: LiveData<Int> = project.switchMap {
-        instancesDataService.getEditableCount(it.uuid).asLiveData()
+    private val currentProject = projectsDataService.getCurrentProjectFlow().asLiveData()
+    val editableInstancesCount: LiveData<Int> = currentProject.switchMap {
+        instancesDataService.getEditableCount(it!!.uuid).asLiveData()
     }
 
-    val sendableInstancesCount: LiveData<Int> = project.switchMap {
-        instancesDataService.getSendableCount(it.uuid).asLiveData()
+    val sendableInstancesCount: LiveData<Int> = currentProject.switchMap {
+        instancesDataService.getSendableCount(it!!.uuid).asLiveData()
     }
 
-    val sentInstancesCount: LiveData<Int> = project.switchMap {
-        instancesDataService.getSentCount(it.uuid).asLiveData()
+    val sentInstancesCount: LiveData<Int> = currentProject.switchMap {
+        instancesDataService.getSentCount(it!!.uuid).asLiveData()
     }
 
     fun setSavedForm(uri: Uri?) {
