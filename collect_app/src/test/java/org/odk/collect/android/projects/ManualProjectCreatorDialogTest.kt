@@ -1,5 +1,6 @@
 package org.odk.collect.android.projects
 
+import android.app.Application
 import android.content.Context
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -127,6 +128,7 @@ class ManualProjectCreatorDialogTest {
             }
 
             override fun providesCurrentProjectProvider(
+                application: Application,
                 settingsProvider: SettingsProvider,
                 projectsRepository: ProjectsRepository,
                 analyticsInitializer: AnalyticsInitializer,

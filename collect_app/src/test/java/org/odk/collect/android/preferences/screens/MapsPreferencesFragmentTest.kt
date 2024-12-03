@@ -1,5 +1,6 @@
 package org.odk.collect.android.preferences.screens
 
+import android.app.Application
 import android.content.Context
 import androidx.preference.Preference
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -49,6 +50,7 @@ class MapsPreferencesFragmentTest {
     fun setup() {
         CollectHelpers.overrideAppDependencyModule(object : AppDependencyModule() {
             override fun providesCurrentProjectProvider(
+                application: Application,
                 settingsProvider: SettingsProvider,
                 projectsRepository: ProjectsRepository,
                 analyticsInitializer: AnalyticsInitializer,

@@ -106,6 +106,7 @@ class FormUriActivityTest {
             }
 
             override fun providesCurrentProjectProvider(
+                application: Application,
                 settingsProvider: SettingsProvider,
                 projectsRepository: ProjectsRepository,
                 analyticsInitializer: AnalyticsInitializer,

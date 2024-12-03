@@ -1,5 +1,6 @@
 package org.odk.collect.android.preferences.screens
 
+import android.app.Application
 import android.content.Context
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -46,6 +47,7 @@ class ProjectDisplayPreferencesFragmentTest {
 
         CollectHelpers.overrideAppDependencyModule(object : AppDependencyModule() {
             override fun providesCurrentProjectProvider(
+                application: Application,
                 settingsProvider: SettingsProvider,
                 projectsRepository: ProjectsRepository,
                 analyticsInitializer: AnalyticsInitializer,

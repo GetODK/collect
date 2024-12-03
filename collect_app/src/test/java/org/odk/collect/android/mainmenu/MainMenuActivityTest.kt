@@ -41,7 +41,6 @@ import org.odk.collect.android.utilities.ApplicationConstants
 import org.odk.collect.android.utilities.FormsRepositoryProvider
 import org.odk.collect.android.utilities.InstancesRepositoryProvider
 import org.odk.collect.android.version.VersionInformation
-import org.odk.collect.androidshared.livedata.MutableNonNullLiveData
 import org.odk.collect.androidtest.ActivityScenarioLauncherRule
 import org.odk.collect.async.Scheduler
 import org.odk.collect.crashhandler.CrashHandler
@@ -66,7 +65,7 @@ class MainMenuActivityTest {
 
     private val currentProjectViewModel = mock<CurrentProjectViewModel> {
         on { hasCurrentProject() } doReturn true
-        on { currentProject } doReturn MutableNonNullLiveData(project)
+        on { currentProject } doReturn MutableLiveData(project)
     }
 
     private val permissionsViewModel = mock<RequestPermissionsViewModel> {
