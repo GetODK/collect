@@ -23,10 +23,6 @@ class DataUpdater<T>(private val data: Data<T>, private val updater: (String?) -
     }
 }
 
-fun <T> AppState.getData(key: String, default: T): Data<T> {
-    return Data(this, key, default)
-}
-
 abstract class DataService(private val appState: AppState, private val onUpdate: (() -> Unit)? = null) {
 
     private val dataUpdaters = mutableListOf<DataUpdater<*>>()
@@ -37,16 +33,21 @@ abstract class DataService(private val appState: AppState, private val onUpdate:
     }
 
     protected fun <T> data(key: String, default: T, updater: () -> T): DataDelegate<T> {
-        val data = createData(key, default) { updater() }
+        val data = attachData(key, default) { updater() }
         return DataDelegate(data)
     }
 
     protected fun <T> qualifiedData(key: String, default: T, updater: (String) -> T): DataDelegate<T> {
-        val data = createData(key, default) { updater(it!!) }
+        val data = attachData(key, default) { updater(it!!) }
         return DataDelegate(data)
     }
 
-    private fun <T> createData(key: String, default: T, updater: (String?) -> T): Data<T> {
+    protected fun <T> qualifiedData(key: String, default: T): DataDelegate<T> {
+        val data = Data(appState, key, default)
+        return DataDelegate(data)
+    }
+
+    private fun <T> attachData(key: String, default: T, updater: (String?) -> T): Data<T> {
         val data = Data(appState, key, default)
         dataUpdaters.add(DataUpdater(data, updater))
         return data

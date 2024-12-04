@@ -67,7 +67,7 @@ class BlankFormListViewModel(
     init {
         scheduler.immediate(
             background = {
-                formsDataService.update(projectId)
+                formsDataService.refresh(projectId)
             },
             foreground = {}
         )
@@ -76,7 +76,9 @@ class BlankFormListViewModel(
     fun syncWithServer(): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
         scheduler.immediate(
-            { formsDataService.matchFormsWithServer(projectId) },
+            {
+                formsDataService.matchFormsWithServer(projectId)
+            },
             { value: Boolean ->
                 result.value = value
             }
