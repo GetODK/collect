@@ -5,7 +5,7 @@ import org.odk.collect.android.application.initialization.AnalyticsInitializer
 import org.odk.collect.android.application.initialization.MapsInitializer
 import org.odk.collect.android.state.DataKeys
 import org.odk.collect.androidshared.data.AppState
-import org.odk.collect.androidshared.data.getData
+import org.odk.collect.androidshared.data.DataService
 import org.odk.collect.projects.Project
 import org.odk.collect.projects.ProjectsRepository
 import org.odk.collect.settings.SettingsProvider
@@ -17,16 +17,14 @@ class ProjectsDataService(
     private val projectsRepository: ProjectsRepository,
     private val analyticsInitializer: AnalyticsInitializer,
     private val mapsInitializer: MapsInitializer
-) {
+) : DataService(appState) {
 
-    private val currentProject = appState.getData<Project.Saved?>(DataKeys.PROJECT, null)
-
-    fun update() {
+    private val currentProject by data(DataKeys.PROJECT, null) {
         val currentProjectId = getCurrentProjectId()
         if (currentProjectId != null) {
-            currentProject.set(projectsRepository.get(currentProjectId))
+            projectsRepository.get(currentProjectId)
         } else {
-            currentProject.set(null)
+            null
         }
     }
 
