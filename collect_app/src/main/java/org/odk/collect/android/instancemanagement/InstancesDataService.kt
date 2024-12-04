@@ -34,8 +34,8 @@ class InstancesDataService(
     onUpdate: () -> Unit
 ) : DataService(appState, onUpdate) {
 
-    private val editableCount by data(DataKeys.INSTANCES_EDITABLE_COUNT, 0) { projectId ->
-        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+    private val editableCount by qualifiedData(DataKeys.INSTANCES_EDITABLE_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
         val instancesRepository = projectDependencyModule.instancesRepository
         instancesRepository.getCountByStatus(
             Instance.STATUS_INCOMPLETE,
@@ -44,8 +44,8 @@ class InstancesDataService(
         )
     }
 
-    private val sendableCount by data(DataKeys.INSTANCES_SENDABLE_COUNT, 0) { projectId ->
-        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+    private val sendableCount by qualifiedData(DataKeys.INSTANCES_SENDABLE_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
         val instancesRepository = projectDependencyModule.instancesRepository
         instancesRepository.getCountByStatus(
             Instance.STATUS_COMPLETE,
@@ -53,8 +53,8 @@ class InstancesDataService(
         )
     }
 
-    private val sentCount by data(DataKeys.INSTANCES_SENT_COUNT, 0) { projectId ->
-        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+    private val sentCount by qualifiedData(DataKeys.INSTANCES_SENT_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
         val instancesRepository = projectDependencyModule.instancesRepository
         instancesRepository.getCountByStatus(
             Instance.STATUS_SUBMITTED,
@@ -62,8 +62,8 @@ class InstancesDataService(
         )
     }
 
-    private val instances by data(DataKeys.INSTANCES, emptyList()) { projectId ->
-        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+    private val instances by qualifiedData(DataKeys.INSTANCES, emptyList()) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
         val instancesRepository = projectDependencyModule.instancesRepository
         instancesRepository.all
     }
