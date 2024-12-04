@@ -17,7 +17,7 @@ import org.odk.collect.android.state.DataKeys
 import org.odk.collect.android.utilities.ExternalizableFormDefCache
 import org.odk.collect.android.utilities.FormsUploadResultInterpreter
 import org.odk.collect.androidshared.data.AppState
-import org.odk.collect.androidshared.data.getData
+import org.odk.collect.androidshared.data.DataService
 import org.odk.collect.forms.Form
 import org.odk.collect.forms.instances.Instance
 import org.odk.collect.metadata.PropertyManager
@@ -31,13 +31,42 @@ class InstancesDataService(
     private val notifier: Notifier,
     private val propertyManager: PropertyManager,
     private val httpInterface: OpenRosaHttpInterface,
-    private val onUpdate: () -> Unit
-) {
+    onUpdate: () -> Unit
+) : DataService(appState, onUpdate) {
 
-    private val editableCount = appState.getData(DataKeys.INSTANCES_EDITABLE_COUNT, 0)
-    private val sendableCount = appState.getData(DataKeys.INSTANCES_SENDABLE_COUNT, 0)
-    private val sentCount = appState.getData(DataKeys.INSTANCES_SENT_COUNT, 0)
-    private val instances = appState.getData<List<Instance>>(DataKeys.INSTANCES, emptyList())
+    private val editableCount by data(DataKeys.INSTANCES_EDITABLE_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.getCountByStatus(
+            Instance.STATUS_INCOMPLETE,
+            Instance.STATUS_INVALID,
+            Instance.STATUS_VALID
+        )
+    }
+
+    private val sendableCount by data(DataKeys.INSTANCES_SENDABLE_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.getCountByStatus(
+            Instance.STATUS_COMPLETE,
+            Instance.STATUS_SUBMISSION_FAILED
+        )
+    }
+
+    private val sentCount by data(DataKeys.INSTANCES_SENT_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.getCountByStatus(
+            Instance.STATUS_SUBMITTED,
+            Instance.STATUS_SUBMISSION_FAILED
+        )
+    }
+
+    private val instances by data(DataKeys.INSTANCES, emptyList()) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId!!)
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.all
+    }
 
     fun getEditableCount(projectId: String): StateFlow<Int> = editableCount.get(projectId)
     fun getSendableCount(projectId: String): StateFlow<Int> = sendableCount.get(projectId)
@@ -45,32 +74,6 @@ class InstancesDataService(
 
     fun getInstances(projectId: String): StateFlow<List<Instance>> {
         return instances.get(projectId)
-    }
-
-    fun update(projectId: String) {
-        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
-        val instancesRepository = projectDependencyModule.instancesRepository
-
-        val sendableInstances = instancesRepository.getCountByStatus(
-            Instance.STATUS_COMPLETE,
-            Instance.STATUS_SUBMISSION_FAILED
-        )
-        val sentInstances = instancesRepository.getCountByStatus(
-            Instance.STATUS_SUBMITTED,
-            Instance.STATUS_SUBMISSION_FAILED
-        )
-        val editableInstances = instancesRepository.getCountByStatus(
-            Instance.STATUS_INCOMPLETE,
-            Instance.STATUS_INVALID,
-            Instance.STATUS_VALID
-        )
-
-        editableCount.set(projectId, editableInstances)
-        sendableCount.set(projectId, sendableInstances)
-        sentCount.set(projectId, sentInstances)
-        instances.set(projectId, instancesRepository.all)
-
-        onUpdate()
     }
 
     fun finalizeAllDrafts(projectId: String): FinalizeAllResult {

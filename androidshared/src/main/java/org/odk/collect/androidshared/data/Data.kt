@@ -27,12 +27,13 @@ fun <T> AppState.getData(key: String, default: T): Data<T> {
     return Data(this, key, default)
 }
 
-abstract class DataService(private val appState: AppState) {
+abstract class DataService(private val appState: AppState, private val onUpdate: (() -> Unit)? = null) {
 
     private val dataUpdaters = mutableListOf<DataUpdater<*>>()
 
     fun update(qualifier: String? = null) {
         dataUpdaters.forEach { it.update(qualifier) }
+        onUpdate?.invoke()
     }
 
     protected fun <T> data(key: String, default: T, updater: (String?) -> T): DataDelegate<T> {
