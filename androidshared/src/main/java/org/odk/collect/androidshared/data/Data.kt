@@ -32,6 +32,11 @@ abstract class DataService(private val appState: AppState, private val onUpdate:
         onUpdate?.invoke()
     }
 
+    protected fun <T> data(key: String, default: T): DataDelegate<T> {
+        val data = Data(appState, key, default)
+        return DataDelegate(data)
+    }
+
     protected fun <T> data(key: String, default: T, updater: () -> T): DataDelegate<T> {
         val data = attachData(key, default) { updater() }
         return DataDelegate(data)
@@ -39,11 +44,6 @@ abstract class DataService(private val appState: AppState, private val onUpdate:
 
     protected fun <T> qualifiedData(key: String, default: T, updater: (String) -> T): DataDelegate<T> {
         val data = attachData(key, default) { updater(it!!) }
-        return DataDelegate(data)
-    }
-
-    protected fun <T> qualifiedData(key: String, default: T): DataDelegate<T> {
-        val data = Data(appState, key, default)
         return DataDelegate(data)
     }
 

@@ -32,9 +32,9 @@ class FormsDataService(
         projectDependencies.formsRepository.all
     }
 
-    private val syncing by qualifiedData(DataKeys.SYNC_STATUS_SYNCING, false)
-    private val serverError by qualifiedData<FormSourceException?>(DataKeys.SYNC_STATUS_ERROR, null)
-    private val diskError by qualifiedData<String?>(DataKeys.DISK_ERROR, null)
+    private val syncing by data(DataKeys.SYNC_STATUS_SYNCING, false)
+    private val serverError by data<FormSourceException?>(DataKeys.SYNC_STATUS_ERROR, null)
+    private val diskError by data<String?>(DataKeys.DISK_ERROR, null)
 
     fun getForms(projectId: String): Flow<List<Form>> {
         return forms.get(projectId)
