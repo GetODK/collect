@@ -37,19 +37,19 @@ class FormsDataService(
     private val diskError by data<String?>(DataKeys.DISK_ERROR, null)
 
     fun getForms(projectId: String): Flow<List<Form>> {
-        return forms.get(projectId)
+        return forms.flow(projectId)
     }
 
     fun isSyncing(projectId: String): LiveData<Boolean> {
-        return syncing.get(projectId).asLiveData()
+        return syncing.flow(projectId).asLiveData()
     }
 
     fun getServerError(projectId: String): LiveData<FormSourceException?> {
-        return serverError.get(projectId).asLiveData()
+        return serverError.flow(projectId).asLiveData()
     }
 
     fun getDiskError(projectId: String): LiveData<String?> {
-        return diskError.get(projectId).asLiveData()
+        return diskError.flow(projectId).asLiveData()
     }
 
     fun clear(projectId: String) {

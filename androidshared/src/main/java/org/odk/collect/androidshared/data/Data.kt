@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KProperty
 
 class Data<T>(private val appState: AppState, private val key: String, private val default: T) {
-    fun get(qualifier: String? = null): StateFlow<T> {
+    fun flow(qualifier: String? = null): StateFlow<T> {
         return appState.getFlow("$qualifier:$key", default)
     }
 

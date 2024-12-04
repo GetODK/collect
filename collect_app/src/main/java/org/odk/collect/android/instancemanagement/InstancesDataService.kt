@@ -68,12 +68,12 @@ class InstancesDataService(
         instancesRepository.all
     }
 
-    fun getEditableCount(projectId: String): StateFlow<Int> = editableCount.get(projectId)
-    fun getSendableCount(projectId: String): StateFlow<Int> = sendableCount.get(projectId)
-    fun getSentCount(projectId: String): StateFlow<Int> = sentCount.get(projectId)
+    fun getEditableCount(projectId: String): StateFlow<Int> = editableCount.flow(projectId)
+    fun getSendableCount(projectId: String): StateFlow<Int> = sendableCount.flow(projectId)
+    fun getSentCount(projectId: String): StateFlow<Int> = sentCount.flow(projectId)
 
     fun getInstances(projectId: String): StateFlow<List<Instance>> {
-        return instances.get(projectId)
+        return instances.flow(projectId)
     }
 
     fun finalizeAllDrafts(projectId: String): FinalizeAllResult {

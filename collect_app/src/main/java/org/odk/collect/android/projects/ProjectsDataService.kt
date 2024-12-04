@@ -29,7 +29,7 @@ class ProjectsDataService(
     }
 
     fun getCurrentProjectFlow(): StateFlow<Project.Saved?> {
-        return currentProject.get()
+        return currentProject.flow()
     }
 
     fun getCurrentProject(): Project.Saved {
