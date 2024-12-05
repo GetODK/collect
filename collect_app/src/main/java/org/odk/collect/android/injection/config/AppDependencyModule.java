@@ -335,7 +335,7 @@ public class AppDependencyModule {
 
     @Provides
     public ServerFormsDetailsFetcher providesServerFormDetailsFetcher(FormsRepositoryProvider formsRepositoryProvider, FormSourceProvider formSourceProvider, ProjectsDataService projectsDataService) {
-        Project.Saved currentProject = projectsDataService.getCurrentProject();
+        Project.Saved currentProject = projectsDataService.requireCurrentProject();
         FormsRepository formsRepository = formsRepositoryProvider.create(currentProject.getUuid());
         return new ServerFormsDetailsFetcher(formsRepository, formSourceProvider.create(currentProject.getUuid()));
     }
@@ -425,7 +425,7 @@ public class AppDependencyModule {
     public InstancesDataService providesInstancesDataService(Application application, ProjectsDataService projectsDataService, InstanceSubmitScheduler instanceSubmitScheduler, ProjectDependencyModuleFactory projectsDependencyProviderFactory, Notifier notifier, PropertyManager propertyManager, OpenRosaHttpInterface httpInterface) {
         Function0<Unit> onUpdate = () -> {
             application.getContentResolver().notifyChange(
-                    InstancesContract.getUri(projectsDataService.getCurrentProject().getUuid()),
+                    InstancesContract.getUri(projectsDataService.requireCurrentProject().getUuid()),
                     null
             );
 
@@ -551,7 +551,7 @@ public class AppDependencyModule {
 
     @Provides
     public ProjectResetter providesProjectResetter(StoragePathProvider storagePathProvider, PropertyManager propertyManager, SettingsProvider settingsProvider, FormsRepositoryProvider formsRepositoryProvider, SavepointsRepositoryProvider savepointsRepositoryProvider, InstancesDataService instancesDataService, ProjectsDataService projectsDataService) {
-        return new ProjectResetter(storagePathProvider, propertyManager, settingsProvider, formsRepositoryProvider, savepointsRepositoryProvider, instancesDataService, projectsDataService.getCurrentProject().getUuid());
+        return new ProjectResetter(storagePathProvider, propertyManager, settingsProvider, formsRepositoryProvider, savepointsRepositoryProvider, instancesDataService, projectsDataService.requireCurrentProject().getUuid());
     }
 
     @Provides
@@ -603,7 +603,7 @@ public class AppDependencyModule {
 
     @Provides
     public BlankFormListViewModel.Factory providesBlankFormListViewModel(FormsRepositoryProvider formsRepositoryProvider, InstancesRepositoryProvider instancesRepositoryProvider, Application application, FormsDataService formsDataService, Scheduler scheduler, SettingsProvider settingsProvider, ChangeLockProvider changeLockProvider, ProjectsDataService projectsDataService) {
-        return new BlankFormListViewModel.Factory(instancesRepositoryProvider.create(), application, formsDataService, scheduler, settingsProvider.getUnprotectedSettings(), projectsDataService.getCurrentProject().getUuid());
+        return new BlankFormListViewModel.Factory(instancesRepositoryProvider.create(), application, formsDataService, scheduler, settingsProvider.getUnprotectedSettings(), projectsDataService.requireCurrentProject().getUuid());
     }
 
     @Provides
@@ -614,7 +614,7 @@ public class AppDependencyModule {
 
     @Provides
     public FormLoaderTask.FormEntryControllerFactory formEntryControllerFactory(ProjectsDataService projectsDataService, EntitiesRepositoryProvider entitiesRepositoryProvider, SettingsProvider settingsProvider) {
-        String projectId = projectsDataService.getCurrentProject().getUuid();
+        String projectId = projectsDataService.requireCurrentProject().getUuid();
         EntitiesRepository entitiesRepository = entitiesRepositoryProvider.create(projectId);
         return new CollectFormEntryControllerFactory(entitiesRepository, settingsProvider.getUnprotectedSettings(projectId));
     }

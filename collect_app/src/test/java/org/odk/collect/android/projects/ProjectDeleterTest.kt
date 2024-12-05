@@ -222,7 +222,7 @@ class ProjectDeleterTest {
 
         val result = deleter.deleteProject(project1.uuid)
 
-        assertThat(projectsDataService.getCurrentProject().uuid, equalTo(project2.uuid))
+        assertThat(projectsDataService.requireCurrentProject().uuid, equalTo(project2.uuid))
         assertThat((result as DeleteProjectResult.DeletedSuccessfullyCurrentProject).newCurrentProject, equalTo(project2))
     }
 
@@ -234,7 +234,7 @@ class ProjectDeleterTest {
 
         val result = deleter.deleteProject(project1.uuid)
 
-        assertThat(projectsDataService.getCurrentProject().uuid, equalTo(project2.uuid))
+        assertThat(projectsDataService.requireCurrentProject().uuid, equalTo(project2.uuid))
         assertThat(result, instanceOf(DeleteProjectResult.DeletedSuccessfullyInactiveProject::class.java))
     }
 

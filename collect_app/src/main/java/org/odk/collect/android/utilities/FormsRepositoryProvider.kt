@@ -37,7 +37,7 @@ class FormsRepositoryProvider @JvmOverloads constructor(
     fun create(): FormsRepository {
         val currentProject =
             DaggerUtils.getComponent(Collect.getInstance()).currentProjectProvider()
-                .getCurrentProject()
+                .requireCurrentProject()
         return create(currentProject.uuid)
     }
 }

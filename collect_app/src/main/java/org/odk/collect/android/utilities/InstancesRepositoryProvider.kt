@@ -28,7 +28,7 @@ class InstancesRepositoryProvider @JvmOverloads constructor(
     fun create(): InstancesRepository {
         val currentProject =
             DaggerUtils.getComponent(Collect.getInstance()).currentProjectProvider()
-                .getCurrentProject()
+                .requireCurrentProject()
         return create(currentProject.uuid)
     }
 }

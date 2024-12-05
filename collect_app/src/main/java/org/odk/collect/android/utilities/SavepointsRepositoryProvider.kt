@@ -27,7 +27,7 @@ class SavepointsRepositoryProvider(
     fun create(): SavepointsRepository {
         val currentProject =
             DaggerUtils.getComponent(Collect.getInstance()).currentProjectProvider()
-                .getCurrentProject()
+                .requireCurrentProject()
         return create(currentProject.uuid)
     }
 }

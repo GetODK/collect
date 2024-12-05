@@ -114,7 +114,7 @@ class ManualProjectCreatorDialogTest {
     fun `Server project creation should be triggered after clicking on the 'Add' button`() {
         val projectCreator = mock<ProjectCreator> {}
         val projectsDataService = mock<ProjectsDataService> {
-            on { getCurrentProject() } doReturn Project.DEMO_PROJECT
+            on { requireCurrentProject() } doReturn Project.DEMO_PROJECT
         }
 
         CollectHelpers.overrideAppDependencyModule(object : AppDependencyModule() {

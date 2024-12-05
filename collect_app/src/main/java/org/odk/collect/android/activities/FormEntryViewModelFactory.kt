@@ -67,7 +67,7 @@ class FormEntryViewModelFactory(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        val projectId = projectsDataService.getCurrentProject().uuid
+        val projectId = projectsDataService.requireCurrentProject().uuid
 
         return when (modelClass) {
             FormEntryViewModel::class.java -> FormEntryViewModel(

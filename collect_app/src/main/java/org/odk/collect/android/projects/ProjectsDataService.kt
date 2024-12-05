@@ -21,36 +21,36 @@ class ProjectsDataService(
 
     private val currentProject by data(DataKeys.PROJECT, null) {
         val currentProjectId = getCurrentProjectId()
+
         if (currentProjectId != null) {
             projectsRepository.get(currentProjectId)
-        } else {
-            null
-        }
-    }
-
-    fun getCurrentProjectFlow(): StateFlow<Project.Saved?> {
-        return currentProject.flow()
-    }
-
-    fun getCurrentProject(): Project.Saved {
-        val currentProjectId = getCurrentProjectId()
-
-        if (currentProjectId != null) {
-            val currentProject = projectsRepository.get(currentProjectId)
-
-            if (currentProject != null) {
-                return currentProject
-            } else {
-                throw IllegalStateException("Current project does not exist!")
-            }
         } else {
             val projects = projectsRepository.getAll()
 
             if (projects.isNotEmpty()) {
-                return projects[0]
+                projects[0]
             } else {
-                throw IllegalStateException("No current project!")
+                null
             }
+        }
+    }
+
+    fun getCurrentProject(): StateFlow<Project.Saved?> {
+        return currentProject.flow()
+    }
+
+    @Deprecated(
+        "Most components should be passed project ID/project as a value",
+        replaceWith = ReplaceWith("getCurrentProject().value!!")
+    )
+    fun requireCurrentProject(): Project.Saved {
+        update()
+        val project = getCurrentProject().value
+
+        if (project != null) {
+            return project
+        } else {
+            throw IllegalStateException("No current project!")
         }
     }
 

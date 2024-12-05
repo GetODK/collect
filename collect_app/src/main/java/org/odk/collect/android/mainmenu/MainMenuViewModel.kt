@@ -111,12 +111,12 @@ class MainMenuViewModel(
     fun refreshInstances() {
         scheduler.immediate<Any?>({
             InstanceDiskSynchronizer(settingsProvider).doInBackground()
-            instancesDataService.update(projectsDataService.getCurrentProject().uuid)
+            instancesDataService.update(projectsDataService.requireCurrentProject().uuid)
             null
         }) { }
     }
 
-    private val currentProject = projectsDataService.getCurrentProjectFlow().asLiveData()
+    private val currentProject = projectsDataService.getCurrentProject().asLiveData()
     val editableInstancesCount: LiveData<Int> = currentProject.switchMap {
         instancesDataService.getEditableCount(it!!.uuid).asLiveData()
     }

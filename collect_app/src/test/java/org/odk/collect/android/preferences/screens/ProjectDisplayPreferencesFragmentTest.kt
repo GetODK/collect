@@ -42,7 +42,7 @@ class ProjectDisplayPreferencesFragmentTest {
         projectsDataService = mock(ProjectsDataService::class.java)
         projectsRepository = mock(ProjectsRepository::class.java)
 
-        `when`(projectsDataService.getCurrentProject())
+        `when`(projectsDataService.requireCurrentProject())
             .thenReturn(Project.Saved("123", "Project X", "X", "#cccccc"))
 
         CollectHelpers.overrideAppDependencyModule(object : AppDependencyModule() {

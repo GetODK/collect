@@ -89,7 +89,7 @@ open class FormEntryActivityTestRule :
         val form = DaggerUtils.getComponent(application).formsRepositoryProvider().create()
             .getOneByPath(formPath)
         val projectId = DaggerUtils.getComponent(application).currentProjectProvider()
-            .getCurrentProject().uuid
+            .requireCurrentProject().uuid
 
         return FormFillingIntentFactory.newInstanceIntent(
             application,
@@ -106,7 +106,7 @@ open class FormEntryActivityTestRule :
         val instance = DaggerUtils.getComponent(application).instancesRepositoryProvider().create()
             .getAllByFormId(form!!.formId).first()
         val projectId = DaggerUtils.getComponent(application).currentProjectProvider()
-            .getCurrentProject().uuid
+            .requireCurrentProject().uuid
 
         return FormFillingIntentFactory.editInstanceIntent(
             application,

@@ -123,7 +123,7 @@ class FormUriActivity : LocalizedActivity() {
                 val uri = intent.data!!
                 val uriMimeType = contentResolver.getType(uri)!!
                 if (uriMimeType == FormsContract.CONTENT_ITEM_TYPE) {
-                    startForm(FormsContract.getUri(projectsDataService.getCurrentProject().uuid, savepoint.formDbId))
+                    startForm(FormsContract.getUri(projectsDataService.requireCurrentProject().uuid, savepoint.formDbId))
                 } else {
                     startForm(intent.data!!)
                 }
@@ -224,7 +224,7 @@ private class FormUriViewModel(
         val uriProjectId = uri?.getQueryParameter("projectId")
         val projectId = uriProjectId ?: firstProject.uuid
 
-        return if (projectId != projectsDataService.getCurrentProject().uuid) {
+        return if (projectId != projectsDataService.requireCurrentProject().uuid) {
             resources.getString(string.wrong_project_selected_for_form)
         } else {
             null
@@ -321,7 +321,7 @@ private class FormUriViewModel(
 
     private fun assertDoesNotUseEntitiesOrFormsUpdateNotInProgress(): String? {
         val uriMimeType = contentResolver.getType(uri!!)
-        val projectId = projectsDataService.getCurrentProject().uuid
+        val projectId = projectsDataService.requireCurrentProject().uuid
 
         if (intent.extras?.getString(ApplicationConstants.BundleKeys.FORM_MODE) == ApplicationConstants.FormModes.VIEW_SENT) {
             return null

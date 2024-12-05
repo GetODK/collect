@@ -15,7 +15,7 @@ class CurrentProjectViewModel(
         projectsDataService.update()
     }
 
-    val currentProject = projectsDataService.getCurrentProjectFlow().asLiveData()
+    val currentProject = projectsDataService.getCurrentProject().asLiveData()
 
     fun setCurrentProject(project: Project.Saved) {
         Analytics.log(AnalyticsEvents.SWITCH_PROJECT)
@@ -23,12 +23,7 @@ class CurrentProjectViewModel(
     }
 
     fun hasCurrentProject(): Boolean {
-        return try {
-            projectsDataService.getCurrentProject()
-            true
-        } catch (e: IllegalStateException) {
-            false
-        }
+        return projectsDataService.getCurrentProject().value != null
     }
 
     fun refresh() {

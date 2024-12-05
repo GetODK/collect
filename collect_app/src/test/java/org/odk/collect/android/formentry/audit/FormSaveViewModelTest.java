@@ -98,7 +98,7 @@ public class FormSaveViewModelTest {
 
         audioRecorder = mock(AudioRecorder.class);
         projectsDataService = mock(ProjectsDataService.class);
-        when(projectsDataService.getCurrentProject()).thenReturn(Project.Companion.getDEMO_PROJECT());
+        when(projectsDataService.requireCurrentProject()).thenReturn(Project.Companion.getDEMO_PROJECT());
 
         formSession = new MutableLiveData<>(new FormSession(formController, form));
         viewModel = new FormSaveViewModel(savedStateHandle, () -> CURRENT_TIME, formSaver, mediaUtils, scheduler, audioRecorder, projectsDataService, formSession, entitiesRepository, instancesRepository, savepointsRepository, mock());

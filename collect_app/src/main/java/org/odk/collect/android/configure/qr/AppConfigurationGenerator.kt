@@ -81,7 +81,7 @@ class AppConfigurationGenerator(
     }
 
     private fun getProjectDetailsAsJson(): JSONObject {
-        val currentProject = projectsDataService.getCurrentProject()
+        val currentProject = projectsDataService.requireCurrentProject()
 
         return JSONObject().apply {
             put(AppConfigurationKeys.PROJECT_NAME, currentProject.name)

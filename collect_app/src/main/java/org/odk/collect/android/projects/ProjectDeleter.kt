@@ -22,7 +22,7 @@ class ProjectDeleter(
     private val changeLockProvider: ChangeLockProvider,
     private val settingsProvider: SettingsProvider
 ) {
-    fun deleteProject(projectId: String = projectsDataService.getCurrentProject().uuid): DeleteProjectResult {
+    fun deleteProject(projectId: String = projectsDataService.requireCurrentProject().uuid): DeleteProjectResult {
         return when {
             unsentInstancesDetected(projectId) -> DeleteProjectResult.UnsentInstances
             runningBackgroundJobsDetected(projectId) -> DeleteProjectResult.RunningBackgroundJobs
@@ -65,7 +65,7 @@ class ProjectDeleter(
         DatabaseConnection.cleanUp()
 
         return try {
-            projectsDataService.getCurrentProject()
+            projectsDataService.requireCurrentProject()
             DeleteProjectResult.DeletedSuccessfullyInactiveProject
         } catch (e: IllegalStateException) {
             if (projectsRepository.getAll().isEmpty()) {

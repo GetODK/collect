@@ -19,7 +19,7 @@ class StoragePathProvider(
     @JvmOverloads
     @Deprecated(message = "Use create() instead")
     fun getProjectRootDirPath(projectId: String? = null): String {
-        val uuid = projectId ?: projectsDataService.getCurrentProject().uuid
+        val uuid = projectId ?: projectsDataService.requireCurrentProject().uuid
         val path = getOdkDirPath(StorageSubdirectory.PROJECTS) + File.separator + uuid
 
         if (!File(path).exists()) {

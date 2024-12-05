@@ -20,7 +20,7 @@ class StoragePathProviderTest {
     @Before
     fun setup() {
         val projectsDataService = mock(ProjectsDataService::class.java)
-        `when`(projectsDataService.getCurrentProject()).thenReturn(
+        `when`(projectsDataService.requireCurrentProject()).thenReturn(
             Project.Saved(
                 "123",
                 "Project",

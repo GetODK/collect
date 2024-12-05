@@ -64,7 +64,7 @@ class QRCodeTabsActivity : LocalizedActivity() {
             this,
             settingsImporter,
             qrCodeDecoder,
-            projectsDataService.getCurrentProject()
+            projectsDataService.requireCurrentProject()
         )
 
         val menuProvider = QRCodeMenuProvider(

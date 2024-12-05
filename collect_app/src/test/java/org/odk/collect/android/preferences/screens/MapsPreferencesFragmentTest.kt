@@ -38,7 +38,7 @@ class MapsPreferencesFragmentTest {
 
     private val project = Project.DEMO_PROJECT
     private val projectsDataService = mock<ProjectsDataService>().apply {
-        whenever(getCurrentProject()).thenReturn(project)
+        whenever(requireCurrentProject()).thenReturn(project)
     }
     private val projectsRepository = mock<ProjectsRepository>().apply {
         whenever(get(project.uuid)).thenReturn(project)

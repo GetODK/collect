@@ -88,9 +88,9 @@ class FormMapActivity : LocalizedActivity() {
         ) { _: String?, result: Bundle ->
             if (result.containsKey(SelectionMapFragment.RESULT_SELECTED_ITEM)) {
                 val instanceId = result.getLong(SelectionMapFragment.RESULT_SELECTED_ITEM)
-                startActivity(FormFillingIntentFactory.editInstanceIntent(this, projectsDataService.getCurrentProject().uuid, instanceId))
+                startActivity(FormFillingIntentFactory.editInstanceIntent(this, projectsDataService.requireCurrentProject().uuid, instanceId))
             } else if (result.containsKey(SelectionMapFragment.RESULT_CREATE_NEW_ITEM)) {
-                startActivity(FormFillingIntentFactory.newInstanceIntent(this, FormsContract.getUri(projectsDataService.getCurrentProject().uuid, formId)))
+                startActivity(FormFillingIntentFactory.newInstanceIntent(this, FormsContract.getUri(projectsDataService.requireCurrentProject().uuid, formId)))
             }
         }
     }

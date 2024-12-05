@@ -26,7 +26,7 @@ class ProjectCreatorTest {
     }
 
     private var projectsDataService = mock<ProjectsDataService> {
-        on { getCurrentProject() } doReturn savedProject
+        on { requireCurrentProject() } doReturn savedProject
     }
     private var settingsImporter = mock<ODKAppSettingsImporter> {}
 

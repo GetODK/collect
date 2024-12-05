@@ -166,7 +166,7 @@ class FormUriActivityTest {
         val secondProject = Project.Saved("345", "Second project", "A", "#cccccc")
         projectsRepository.save(firstProject)
         projectsRepository.save(secondProject)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(firstProject)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(firstProject)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -196,7 +196,7 @@ class FormUriActivityTest {
         val secondProject = Project.Saved("345", "Second project", "A", "#cccccc")
         projectsRepository.save(firstProject)
         projectsRepository.save(secondProject)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(secondProject)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(secondProject)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -220,7 +220,7 @@ class FormUriActivityTest {
     fun `When uri is null then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -247,7 +247,7 @@ class FormUriActivityTest {
     fun `When uri is invalid then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -274,7 +274,7 @@ class FormUriActivityTest {
     fun `When uri represents a blank form that does not exist then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val scenario =
             launcherRule.launchForResult<FormUriActivity>(getBlankFormIntent(project.uuid, 1))
@@ -287,7 +287,7 @@ class FormUriActivityTest {
     fun `When uri represents a blank form with non existing form file then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -313,7 +313,7 @@ class FormUriActivityTest {
     fun `When uri represents a saved form that does not exist then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val scenario =
             launcherRule.launchForResult<FormUriActivity>(getSavedIntent(project.uuid, 1))
@@ -326,7 +326,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form with non existing instance file then display alert dialog and remove the instance from the database`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -362,7 +362,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form with zero form definitions then display alert dialog with formId if version does not exist`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val instance = instancesRepository.save(
             Instance.Builder()
@@ -392,7 +392,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form with zero form definitions then display alert dialog with formId and version if both exist`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val instance = instancesRepository.save(
             Instance.Builder()
@@ -425,7 +425,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form with multiple form definitions then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm(
@@ -471,7 +471,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form with only one non-deleted form definitions then start form`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form1 = formsRepository.save(
             FormUtils.buildForm(
@@ -516,7 +516,7 @@ class FormUriActivityTest {
     fun `When attempting to edit an encrypted form then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm(
@@ -555,7 +555,7 @@ class FormUriActivityTest {
     fun `When attempting to edit an incomplete form with disabled editing then start form for view only`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         settingsProvider.getProtectedSettings().save(ProtectedProjectKeys.KEY_EDIT_SAVED, false)
 
@@ -582,7 +582,7 @@ class FormUriActivityTest {
     fun `When attempting to start a new form then there should be no form mode passed with the intent even if editing saved forms is disabled`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         settingsProvider.getProtectedSettings().save(ProtectedProjectKeys.KEY_EDIT_SAVED, false)
 
@@ -604,7 +604,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a finalized form then start form for view only`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -629,7 +629,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a submitted form then start form for view only`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -654,7 +654,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form that failed to submit then start form for view only`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -679,7 +679,7 @@ class FormUriActivityTest {
     fun `Form filling should not be started again after recreating the activity`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -702,7 +702,7 @@ class FormUriActivityTest {
     fun `Form filling should not be started again after recreating the activity before starting`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -724,7 +724,7 @@ class FormUriActivityTest {
     fun `When there is project id specified in uri that represents a blank form and it matches current project id then start form filling`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -744,7 +744,7 @@ class FormUriActivityTest {
     fun `When there is project id specified in uri that represents an incomplete form and it matches current project id then start form filling`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -769,7 +769,7 @@ class FormUriActivityTest {
     fun `When there is project id specified in uri that represents an invalid form and it matches current project id then start form filling`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -794,7 +794,7 @@ class FormUriActivityTest {
     fun `When there is no project id specified in uri that represents a blank form and first available project id matches current project id then start form filling`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -814,7 +814,7 @@ class FormUriActivityTest {
     fun `When there is no project id specified in uri that represents a saved form and first available project id matches current project id then start form filling`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -850,7 +850,7 @@ class FormUriActivityTest {
     fun `If there is a savepoint, display a recovery dialog before starting a blank form`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -873,7 +873,7 @@ class FormUriActivityTest {
     fun `If there is a savepoint, display a recovery dialog before starting a saved form`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -905,7 +905,7 @@ class FormUriActivityTest {
     fun `If there is a savepoint for older version of the blank form, display a recovery dialog and start the old version of the blank form if a user accepts`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val formV1 = formsRepository.save(
             FormUtils.buildForm(
@@ -939,7 +939,7 @@ class FormUriActivityTest {
     fun `If there is a savepoint for older version of the blank form, display a recovery dialog and start the new version of the blank form if a user declines`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val formV1 = formsRepository.save(
             FormUtils.buildForm(
@@ -974,7 +974,7 @@ class FormUriActivityTest {
     fun `An existing savepoint for a blank form should be removed when a user declines`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -1004,7 +1004,7 @@ class FormUriActivityTest {
     fun `An existing savepoint for a saved form should be removed when a user declines`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -1043,7 +1043,7 @@ class FormUriActivityTest {
     fun `When attempting to start a new form that does not use entities and the forms database is locked then start form filling`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -1064,7 +1064,7 @@ class FormUriActivityTest {
     fun `When attempting to start a new form that uses entities and the forms database is locked then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         val form = formsRepository.save(
             FormUtils.buildForm(
@@ -1089,7 +1089,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form that does not use entities and the forms database is locked then start form filling`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm("1", "1", TempFiles.createTempDir().absolutePath).build()
@@ -1115,7 +1115,7 @@ class FormUriActivityTest {
     fun `When attempting to edit a form that uses entities and the forms database is locked then display alert dialog`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm(
@@ -1149,7 +1149,7 @@ class FormUriActivityTest {
     fun `When attempting to view a non-editable form that uses entities and the forms database is locked then start form for view only`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm(
@@ -1180,7 +1180,7 @@ class FormUriActivityTest {
     fun `When attempting to view a non-editable form that uses entities then do not lock the forms database`() {
         val project = Project.Saved("123", "First project", "A", "#cccccc")
         projectsRepository.save(project)
-        whenever(projectsDataService.getCurrentProject()).thenReturn(project)
+        whenever(projectsDataService.requireCurrentProject()).thenReturn(project)
 
         formsRepository.save(
             FormUtils.buildForm(

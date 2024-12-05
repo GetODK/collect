@@ -19,7 +19,7 @@ class CurrentProjectViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val projectsDataService = mock<ProjectsDataService> {
-        on { getCurrentProjectFlow() } doReturn MutableStateFlow(
+        on { getCurrentProject() } doReturn MutableStateFlow(
             Project.Saved(
                 "123",
                 "Project X",
@@ -50,7 +50,7 @@ class CurrentProjectViewModelTest {
 
     @Test
     fun `hasCurrentProject returns false when there is no current project`() {
-        whenever(projectsDataService.getCurrentProject()).thenThrow(IllegalStateException())
+        whenever(projectsDataService.getCurrentProject()).thenReturn(MutableStateFlow(null))
         val currentProjectViewModel = CurrentProjectViewModel(
             projectsDataService
         )

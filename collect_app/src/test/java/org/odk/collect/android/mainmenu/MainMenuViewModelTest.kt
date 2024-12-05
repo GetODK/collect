@@ -45,8 +45,8 @@ class MainMenuViewModelTest {
     private val settingsProvider = InMemSettingsProvider()
 
     private val projectsDataService = mock<ProjectsDataService> {
-        on { getCurrentProject() } doReturn Project.DEMO_PROJECT
-        on { getCurrentProjectFlow() } doReturn MutableStateFlow(Project.DEMO_PROJECT)
+        on { requireCurrentProject() } doReturn Project.DEMO_PROJECT
+        on { getCurrentProject() } doReturn MutableStateFlow(Project.DEMO_PROJECT)
     }
 
     private val instancesDataService = mock<InstancesDataService> {
