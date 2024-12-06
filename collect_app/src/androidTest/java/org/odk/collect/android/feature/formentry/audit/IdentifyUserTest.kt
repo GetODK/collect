@@ -7,6 +7,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
+import org.odk.collect.android.support.StorageUtils
 import org.odk.collect.android.support.StorageUtils.getAuditLogForFirstInstance
 import org.odk.collect.android.support.pages.FormEntryPage
 import org.odk.collect.android.support.pages.FormHierarchyPage
@@ -14,6 +15,7 @@ import org.odk.collect.android.support.pages.IdentifyUserPromptPage
 import org.odk.collect.android.support.pages.MainMenuPage
 import org.odk.collect.android.support.rules.CollectTestRule
 import org.odk.collect.android.support.rules.TestRuleChain
+import java.io.File
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -78,13 +80,15 @@ class IdentifyUserTest {
     }
 
     @Test
-    fun openingForm_andPressingBack_returnsToMainMenu() {
+    fun openingForm_andPressingBack_returnsToMainMenuAndDoesNotLeaveAnEmptyInstanceDir() {
         rule.startAtMainMenu()
             .copyForm(IDENTIFY_USER_AUDIT_FORM)
             .clickFillBlankForm()
             .clickOnFormWithIdentityPrompt("Identify User")
             .closeSoftKeyboard()
             .pressBack(MainMenuPage())
+
+        assertThat(File(StorageUtils.getInstancesDirPath()).listFiles().size, equalTo(0))
     }
 
     @Test
@@ -110,12 +114,14 @@ class IdentifyUserTest {
     }
 
     @Test
-    fun openingForm_andPressingCloseCross_returnsToMainMenu() {
+    fun openingForm_andPressingCloseCross_returnsToMainMenuAndDoesNotLeaveAnEmptyInstanceDir() {
         rule.startAtMainMenu()
             .copyForm(IDENTIFY_USER_AUDIT_FORM)
             .clickFillBlankForm()
             .clickOnFormWithIdentityPrompt("Identify User")
             .pressClose()
+
+        assertThat(File(StorageUtils.getInstancesDirPath()).listFiles().size, equalTo(0))
     }
 
     @Test

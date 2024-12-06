@@ -5,7 +5,6 @@ wget -nc https://repo1.maven.org/maven2/org/robolectric/android-all-instrumented
 wget -nc https://repo1.maven.org/maven2/org/robolectric/android-all-instrumented/12.1-robolectric-8229987-i6/android-all-instrumented-12.1-robolectric-8229987-i6.jar -P robolectric-deps
 wget -nc https://repo1.maven.org/maven2/org/robolectric/android-all-instrumented/13-robolectric-9030017-i6/android-all-instrumented-13-robolectric-9030017-i6.jar -P robolectric-deps
 wget -nc https://repo1.maven.org/maven2/org/robolectric/android-all-instrumented/14-robolectric-10818077-i6/android-all-instrumented-14-robolectric-10818077-i6.jar -P robolectric-deps
-
 dest_dir="src/test/resources"
 mkdir -p collect_app/$dest_dir && cp robolectric-deps.properties collect_app/$dest_dir
 mkdir -p audiorecorder/$dest_dir && cp robolectric-deps.properties audiorecorder/$dest_dir

@@ -10,14 +10,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
+import java.io.IOException;
+
 @RunWith(AndroidJUnit4.class)
 public class IdentityPromptViewModelTest {
 
     @Test
-    public void done_setsUserOnAuditEventLogger() {
+    public void done_setsUserOnAuditEventLogger() throws IOException {
         FormController formController = mock(FormController.class);
         AuditEventLogger auditEventLogger = mock(AuditEventLogger.class);
         when(formController.getAuditEventLogger()).thenReturn(auditEventLogger);
+        when(formController.getInstanceFile()).thenReturn(File.createTempFile("instance", ".xml"));
 
         IdentityPromptViewModel viewModel = new IdentityPromptViewModel();
 

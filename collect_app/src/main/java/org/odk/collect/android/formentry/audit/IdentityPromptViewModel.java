@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import org.odk.collect.android.javarosawrapper.FormController;
+import org.odk.collect.android.utilities.FileUtils;
 
 public class IdentityPromptViewModel extends ViewModel {
 
@@ -20,6 +21,7 @@ public class IdentityPromptViewModel extends ViewModel {
 
     private String identity = "";
     private String formName;
+    private String instanceFolder;
 
     public IdentityPromptViewModel() {
         updateRequiresIdentity();
@@ -28,6 +30,7 @@ public class IdentityPromptViewModel extends ViewModel {
     public void formLoaded(@NonNull FormController formController) {
         this.formName = formController.getFormTitle();
         this.auditEventLogger = formController.getAuditEventLogger();
+        this.instanceFolder = formController.getInstanceFile().getParent();
         updateRequiresIdentity();
     }
 
@@ -71,5 +74,9 @@ public class IdentityPromptViewModel extends ViewModel {
 
     public String getFormTitle() {
         return formName;
+    }
+
+    public void exit() {
+        FileUtils.purgeMediaPath(instanceFolder);
     }
 }
