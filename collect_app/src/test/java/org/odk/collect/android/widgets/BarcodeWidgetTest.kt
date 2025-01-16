@@ -14,7 +14,6 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.verify
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import org.odk.collect.android.R
 import org.odk.collect.android.fakes.FakePermissionsProvider
 import org.odk.collect.android.formentry.questions.QuestionDetails
 import org.odk.collect.android.support.MockFormEntryPromptBuilder
@@ -207,7 +206,7 @@ class BarcodeWidgetTest {
 
         // Check initial value is not shown
         assertThat(
-            widget.binding.answerView.findViewById<View>(R.id.barcode_widget_answer).visibility,
+            widget.binding.answerView.visibility,
             equalTo(View.GONE)
         )
         assertThat(
@@ -219,7 +218,7 @@ class BarcodeWidgetTest {
         // Check updates aren't shown
         widget.setData("updated contents")
         assertThat(
-            widget.binding.answerView.findViewById<View>(R.id.barcode_widget_answer).visibility,
+            widget.binding.answerView.visibility,
             equalTo(View.GONE)
         )
         assertThat(

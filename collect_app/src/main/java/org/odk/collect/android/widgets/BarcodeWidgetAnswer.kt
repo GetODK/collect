@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import org.javarosa.core.model.data.IAnswerData
 import org.odk.collect.android.databinding.BarcodeWidgetAnswerBinding
 
 class BarcodeWidgetAnswer @JvmOverloads constructor(
@@ -13,19 +14,14 @@ class BarcodeWidgetAnswer @JvmOverloads constructor(
     defStyle: Int = 0
 ) : FrameLayout(context, attrs, defStyle) {
     private val binding = BarcodeWidgetAnswerBinding.inflate(LayoutInflater.from(context), this, true)
-    private var hidden = false
+
+    fun setup(answer: IAnswerData?, textSize: Float) {
+        binding.answer.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
+        setAnswer(answer?.displayText)
+    }
 
     fun setAnswer(answer: String?) {
         binding.answer.text = stripInvalidCharacters(answer)
-        binding.root.visibility = if (hidden || binding.answer.text.isNullOrBlank()) GONE else VISIBLE
-    }
-
-    fun setTextSize(textSize: Float) {
-        binding.answer.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-    }
-
-    fun setHidden(hidden: Boolean) {
-        this.hidden = hidden
     }
 
     fun getAnswer(): String {

@@ -42,14 +42,14 @@ class BarcodeWidget(
         } else {
             binding.barcodeButton.setOnClickListener { onButtonClick() }
         }
-        binding.answerView.setHidden(hasAppearance(prompt, Appearances.HIDDEN_ANSWER))
-        binding.answerView.setTextSize(answerFontSize.toFloat())
 
         val answer = prompt.answerText
         if (!answer.isNullOrEmpty()) {
             binding.barcodeButton.text = getContext().getString(R.string.replace_barcode)
         }
-        binding.answerView.setAnswer(prompt.answerText)
+        binding.answerView.setup(prompt.answerValue, answerFontSize.toFloat())
+        val isAnswerHidden = hasAppearance(prompt, Appearances.HIDDEN_ANSWER)
+        binding.answerView.visibility = if (isAnswerHidden || binding.answerView.getAnswer().isBlank()) GONE else VISIBLE
 
         return binding.root
     }
