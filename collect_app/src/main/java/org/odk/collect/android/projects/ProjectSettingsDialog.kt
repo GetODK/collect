@@ -45,7 +45,6 @@ class ProjectSettingsDialog(private val viewModelFactory: ViewModelProvider.Fact
             requireActivity(),
             viewModelFactory
         )[CurrentProjectViewModel::class.java]
-        currentProjectViewModel.refresh()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

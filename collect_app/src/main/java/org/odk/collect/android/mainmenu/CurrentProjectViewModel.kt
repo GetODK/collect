@@ -25,8 +25,4 @@ class CurrentProjectViewModel(
     fun hasCurrentProject(): Boolean {
         return projectsDataService.getCurrentProject().value != null
     }
-
-    fun refresh() {
-        projectsDataService.update()
-    }
 }
