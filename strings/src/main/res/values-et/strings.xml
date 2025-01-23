@@ -73,8 +73,6 @@
   <string name="data_saved_error">Kahjuks ebaõnnestus vormi salvestamine!</string>
   <string name="data_saved_ok">Vorm on edukalt salvestatud!</string>
   <string name="save_point_error">Vea parndamise taastuspunkt %s </string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Välju %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Muudatuste salvestamine</string>
   <string name="saving_form">Vormi salvestamine</string>
@@ -440,7 +438,6 @@
   <string name="cancel_loading_form">Tühista</string>
   <string name="cancel_location">Tühista</string>
   <string name="do_not_change">Tühista</string>
-  <string name="do_not_exit">Tühista</string>
   <string name="success">Õnnestus</string>
   <string name="error_occured">Esines viga</string>
   <string name="please_wait">Palun oodake.</string>

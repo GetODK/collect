@@ -123,8 +123,6 @@
   <string name="data_saved_error">Shranjevanje obrazca ni uspelo!</string>
   <string name="data_saved_ok">Obrazec uspešno shranjen!</string>
   <string name="save_point_error">Napaka pri shranjevanju obnovitvene točke %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Izhod %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Zavrzi obrazec</string>
   <string name="discard_changes">Zavrzi spremembe</string>
@@ -846,7 +844,6 @@
   <string name="cancel_loading_form">Prekini</string>
   <string name="cancel_location">Prekini</string>
   <string name="do_not_change">Prekini</string>
-  <string name="do_not_exit">Prekini</string>
   <string name="canceling">Prekinjam</string>
   <string name="notification_channel_name">Splošna obvestila</string>
   <string name="success">Uspešno</string>

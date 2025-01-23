@@ -112,8 +112,6 @@
   <string name="data_saved_error">Sorry, formulier opslaan mislukt!</string>
   <string name="data_saved_ok">Formulier is opgeslagen!</string>
   <string name="save_point_error">Fout bij maken herstelpunt: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Sluit %s af</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Wijzigingen opslaan</string>
   <string name="keep_editing">Doorgaan met invullen</string>
@@ -535,7 +533,6 @@
   <string name="cancel_loading_form">Terug</string>
   <string name="cancel_location">Terug</string>
   <string name="do_not_change">Annuleer</string>
-  <string name="do_not_exit">Annuleer</string>
   <string name="canceling">Wordt geannuleerd</string>
   <string name="notification_channel_name">Algemene notificaties</string>
   <string name="success">Voltooid</string>

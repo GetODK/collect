@@ -123,8 +123,6 @@
   <string name="data_saved_error">Speichervorgang gescheitert!</string>
   <string name="data_saved_ok">Speichervorgang erfolgreich!</string>
   <string name="save_point_error">Fehler beim Speichern des Wiederherstellungspunkts: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">%s beenden</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Formular verwerfen</string>
   <string name="discard_changes">Änderungen verwerfen</string>
@@ -873,7 +871,6 @@
   <string name="cancel_loading_form">Abbrechen</string>
   <string name="cancel_location">Abbrechen</string>
   <string name="do_not_change">Abbrechen</string>
-  <string name="do_not_exit">Abbrechen</string>
   <string name="canceling">Abbrechen</string>
   <string name="notification_channel_name">Allgemeine Benachrichtigungen</string>
   <string name="success">Erfolg</string>

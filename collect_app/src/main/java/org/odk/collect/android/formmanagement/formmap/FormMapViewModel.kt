@@ -179,7 +179,7 @@ class FormMapViewModel(
             .getBoolean(ProtectedProjectKeys.KEY_EDIT_SAVED)
 
         return IconifiedText(
-            if (canEditSaved) R.drawable.ic_edit else R.drawable.ic_visibility,
+            if (canEditSaved) org.odk.collect.icons.R.drawable.ic_edit else R.drawable.ic_visibility,
             resources.getString(if (canEditSaved) org.odk.collect.strings.R.string.edit_data else org.odk.collect.strings.R.string.view_data)
         )
     }

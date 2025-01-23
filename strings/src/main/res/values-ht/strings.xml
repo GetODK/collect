@@ -103,8 +103,6 @@
   <string name="send">Voye ale</string>
   <string name="data_saved_error">Dezole, sovgad fomilè a echwe</string>
   <string name="data_saved_ok">Fòmilè sovgade ak siksè!</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Soti %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Sovgade chanjman yo</string>
   <string name="keep_editing">Kontinye modifye</string>
@@ -341,7 +339,6 @@
   <string name="cancel_loading_form">Anile</string>
   <string name="cancel_location">Anile</string>
   <string name="do_not_change">Anile</string>
-  <string name="do_not_exit">Anile</string>
   <!--##############################################
      # Projects
      ##############################################-->

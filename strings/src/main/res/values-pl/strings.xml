@@ -103,8 +103,6 @@
   <string name="data_saved_error">Przykro mi, zapis formularza się nie powiódł!</string>
   <string name="data_saved_ok">Formularz został zapisany pomyślnie!</string>
   <string name="save_point_error">Błąd przy zapisywaniu punktu odtwarzania: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Zakończ %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Zapisz Zmiany</string>
   <string name="saving_form">Zapisuję Formularz</string>
@@ -686,7 +684,6 @@
   <string name="cancel_loading_form">Anuluj</string>
   <string name="cancel_location">Anuluj</string>
   <string name="do_not_change">Anuluj</string>
-  <string name="do_not_exit">Anuluj</string>
   <string name="canceling">Anulowanie</string>
   <string name="notification_channel_name">Ogólne powiadomienia</string>
   <string name="success">Sukces</string>

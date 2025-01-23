@@ -68,8 +68,6 @@
   <string name="data_saved_error">Beklager, skjemalagring mislyktes!</string>
   <string name="data_saved_ok">Skjema lagret!</string>
   <string name="save_point_error">Feil under lagring av gjenopprettingspunkt: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Avslutt %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Lagre endringer</string>
   <string name="saving_form">Lagrer skjema</string>
@@ -376,7 +374,6 @@
   <string name="cancel_loading_form">Avbryt</string>
   <string name="cancel_location">Avbryt</string>
   <string name="do_not_change">Avbryt</string>
-  <string name="do_not_exit">Avbryt</string>
   <string name="success">Suksess</string>
   <string name="error_occured">Det er oppstatt en feil</string>
   <string name="please_wait">Vennligst vent.</string>

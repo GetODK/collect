@@ -123,8 +123,6 @@
   <string name="data_saved_error">Не удалось сохранить ответы</string>
   <string name="data_saved_ok">Ответы успешно сохранены</string>
   <string name="save_point_error">Ошибка сохранения точки восстановления: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Выйти из \"%s\"</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Отменить форму</string>
   <string name="discard_changes">Отменить изменения</string>
@@ -826,7 +824,6 @@
   <string name="cancel_loading_form">Отмена</string>
   <string name="cancel_location">Отмена</string>
   <string name="do_not_change">Отмена</string>
-  <string name="do_not_exit">Отмена</string>
   <string name="canceling">Отменяю</string>
   <string name="notification_channel_name">Общие уведомления</string>
   <string name="success">Успешно</string>

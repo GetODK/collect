@@ -63,8 +63,6 @@
   <string name="save_enter_data_description">Ikaw ay nasa dulo ng \"%s\".</string>
   <string name="data_saved_error">Paumanhin, nabigo ang pag-impok ng form!</string>
   <string name="data_saved_ok">Matagumpay na inimpok ang Form!</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Alisan %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Impukin ang mga binago</string>
   <string name="saving_form">Ini-impok ang Form</string>
@@ -332,7 +330,6 @@
   <string name="cancel_loading_form">Urong</string>
   <string name="cancel_location">Urong</string>
   <string name="do_not_change">Urong</string>
-  <string name="do_not_exit">Urong</string>
   <string name="success">Tagumpay</string>
   <string name="error_occured">May Maling Nangyari</string>
   <string name="please_wait">Mag-hintay ng ilang sandali.</string>

@@ -69,8 +69,6 @@
   <string name="data_saved_error">Jammer, stoor van vorm het misluk!</string>
   <string name="data_saved_ok">Vorm suksesvol gestoor!</string>
   <string name="save_point_error">Fout tydens stoor van herstel-punt: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Verlaat %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Stoor Veranderinge</string>
   <string name="saving_form">Besig om vorm te stoor</string>
@@ -372,7 +370,6 @@
   <string name="cancel_loading_form">Kanselleer</string>
   <string name="cancel_location">Kanselleer</string>
   <string name="do_not_change">Kanselleer</string>
-  <string name="do_not_exit">Kanselleer</string>
   <string name="success">Sukses</string>
   <string name="error_occured">Daar was \'n fout</string>
   <string name="please_wait">Wag asseblief \'n paar sekondes.</string>

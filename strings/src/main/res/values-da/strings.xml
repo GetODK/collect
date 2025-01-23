@@ -84,8 +84,6 @@
   <string name="data_saved_error">Formularen kunne ikke gemmes</string>
   <string name="data_saved_ok">Formular gemt </string>
   <string name="save_point_error">Kunne ikke gemme gendannelsespunkt: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Afslut 1%s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Gem ændringer</string>
   <string name="saving_form">Gemmer formular</string>
@@ -501,7 +499,6 @@
   <string name="cancel_loading_form">Afbryd</string>
   <string name="cancel_location">Afbryd</string>
   <string name="do_not_change">Afbryd</string>
-  <string name="do_not_exit">Afbryd</string>
   <string name="canceling">Afbryder</string>
   <string name="success">Voila!</string>
   <string name="error_occured">Der opstod en fejl</string>

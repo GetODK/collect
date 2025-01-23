@@ -123,8 +123,6 @@
   <string name="data_saved_error">Uložení dotazníku selhalo!</string>
   <string name="data_saved_ok">Dotazník úspěšně uložen!</string>
   <string name="save_point_error">Chyba při ukládání bodu obnovení: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Konec %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Zrušit formulář</string>
   <string name="discard_changes">Zrušit změny</string>
@@ -866,7 +864,6 @@
   <string name="cancel_loading_form">Zrušit</string>
   <string name="cancel_location">Zrušit</string>
   <string name="do_not_change">Zrušit</string>
-  <string name="do_not_exit">Zrušit</string>
   <string name="canceling">Zrušení</string>
   <string name="notification_channel_name">Obecná upozornění</string>
   <string name="success">Úspěch</string>

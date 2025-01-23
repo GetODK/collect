@@ -123,8 +123,6 @@
   <string name="data_saved_error">Désolé, l\'enregistrement du formulaire a échoué.</string>
   <string name="data_saved_ok">Le formulaire a été enregistré avec succès.</string>
   <string name="save_point_error">Erreur lors de l\'enregistrement du point de récupération: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Quitter %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Supprimer le formulaire</string>
   <string name="discard_changes">Supprimer les modifications</string>
@@ -877,7 +875,6 @@
   <string name="cancel_loading_form">Annuler</string>
   <string name="cancel_location">Annuler</string>
   <string name="do_not_change">Annuler</string>
-  <string name="do_not_exit">Annuler</string>
   <string name="canceling">En train d\'annuler</string>
   <string name="notification_channel_name">Notifications générales</string>
   <string name="success">Succès</string>

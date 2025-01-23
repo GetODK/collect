@@ -99,8 +99,6 @@
   <string name="data_saved_error">Вибачте, не вдалось зберегти анкету!</string>
   <string name="data_saved_ok">Анкету успішно збережено!</string>
   <string name="save_point_error">Помилка при збереженні точки відновлення: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Вийти з %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Зберегти зміни</string>
   <string name="saving_form">Зберігаю анкету</string>
@@ -651,7 +649,6 @@
   <string name="cancel_loading_form">Скасувати</string>
   <string name="cancel_location">Скасувати</string>
   <string name="do_not_change">Скасувати</string>
-  <string name="do_not_exit">Скасувати</string>
   <string name="canceling">Скасування</string>
   <string name="notification_channel_name">Загальні сповіщення</string>
   <string name="success">Успішно!</string>

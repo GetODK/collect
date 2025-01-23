@@ -123,8 +123,6 @@
   <string name="data_saved_error">Spiacenti, salvataggio modulo fallito!</string>
   <string name="data_saved_ok">Modulo salvato correttamente!</string>
   <string name="save_point_error">Errore nel salvataggio del punto di ripristino: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Uscita %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Elimina formulario</string>
   <string name="discard_changes">Non salvare le modifiche</string>
@@ -876,7 +874,6 @@
   <string name="cancel_loading_form">Annulla</string>
   <string name="cancel_location">Annulla</string>
   <string name="do_not_change">Annulla</string>
-  <string name="do_not_exit">Annulla</string>
   <string name="canceling">Annullando</string>
   <string name="notification_channel_name">Impostazioni Generali</string>
   <string name="success">Successo</string>

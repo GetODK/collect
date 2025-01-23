@@ -101,8 +101,6 @@
   <string name="data_saved_error">უკაცრავად, ფორმა ვერ შეინახა!</string>
   <string name="data_saved_ok">ფორმა წარმატებით შეინახა!</string>
   <string name="save_point_error">შეცდომა აღდგენის წერტილის შენახვისას: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">%s-დან გამოსვლა</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">ფორმაში ცვლილებების გაუქმება</string>
   <string name="discard_changes">ცვლილებების გაუქმება</string>
@@ -416,7 +414,6 @@
   <string name="cancel_loading_form">გაუქმება</string>
   <string name="cancel_location">გაუქმება</string>
   <string name="do_not_change">გაუქმება</string>
-  <string name="do_not_exit">გაუქმება</string>
   <string name="canceling">მიმდინარეობს გაუქმება</string>
   <string name="success">წარმატება</string>
   <string name="error_occured">მოხდა შეცდომა</string>

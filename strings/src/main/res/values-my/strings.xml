@@ -80,8 +80,6 @@
   <string name="data_saved_error">ပုံစံအား မသိမ်းဆည်းနိုင်ပါ</string>
   <string name="data_saved_ok">ပုံစံအားအောင်မြင်စွာ သိမ်းဆည်းနိုင်ပါသည်</string>
   <string name="save_point_error">ပြန်လည်ရယူသည့် နေရာ အမှားဖြစ်ပေါ်%s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">ထြက္ရန္ %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">ေျပာင္းလဲမွုမ်ားကို သိမ္းဆည္းရန္</string>
   <string name="saving_form">ပံုစံသိမ္းဆည္းေနပါသည္</string>
@@ -352,7 +350,6 @@
   <string name="cancel_loading_form">ပယ်ဖျက်ပါ</string>
   <string name="cancel_location">ပယ်ဖျက်ပါ</string>
   <string name="do_not_change">မလုပ်တော့ပါ</string>
-  <string name="do_not_exit">မလုပ်တော့ပါ</string>
   <string name="canceling">ပယ်ဖျက်နေသည်</string>
   <string name="success">ေအာင္ျမင္ပါၿပီ</string>
   <string name="error_occured">မွားယြင္းေနပါသည္</string>

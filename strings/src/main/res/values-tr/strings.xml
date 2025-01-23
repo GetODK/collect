@@ -96,8 +96,6 @@
   <string name="send">Gönder</string>
   <string name="data_saved_error">Form kaydedilirken hata oluştu</string>
   <string name="data_saved_ok">From başarılı bir şekilde saklandi</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Çıkış %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Formu iptal et.</string>
   <string name="discard_changes">Değişiklikleri iptal et</string>
@@ -374,7 +372,6 @@
   <string name="cancel_loading_form">Vazgeç</string>
   <string name="cancel_location">Vazgeç</string>
   <string name="do_not_change">Vazgeç</string>
-  <string name="do_not_exit">Vazgeç</string>
   <string name="success">Başarılı</string>
   <string name="error_occured">Hata Oluştu</string>
   <string name="please_wait">Biraz Bekleyin..</string>

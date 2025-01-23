@@ -78,8 +78,6 @@
   <string name="data_saved_error">माफ गर्नुहोला , फारम संचित हुन सकेन !</string>
   <string name="data_saved_ok">फारम सफलतापूर्वक संचित भयो !</string>
   <string name="save_point_error">रिकभरी बिन्दु संचित गर्दा गल्ति भयो: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">बाहिर निस्कनुहोस् %s </string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">परिवर्तनहरु संचित गर्नुहोस् </string>
   <string name="saving_form">फारम संचित गरिदैछ |</string>
@@ -463,7 +461,6 @@
   <string name="cancel_loading_form">फिर्ता जानुहोस्</string>
   <string name="cancel_location">फिर्ता जानुहोस्</string>
   <string name="do_not_change">फिर्ता जानुहोस्</string>
-  <string name="do_not_exit">फिर्ता जानुहोस्</string>
   <string name="canceling">फिर्ता हुँदै</string>
   <string name="success">सफल</string>
   <string name="error_occured">गल्ती भयो </string>

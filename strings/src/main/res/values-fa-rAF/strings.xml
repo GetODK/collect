@@ -120,8 +120,6 @@
   <string name="data_saved_error">متاسفانه فرم ذخیره نشد!</string>
   <string name="data_saved_ok">فرم با موفقیت ذخیره شد!</string>
   <string name="save_point_error">خطا در ذخیره نقطه یابی: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">خروج %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">نادیده گرفتن فرم</string>
   <string name="discard_changes">نادیده گرفتن تغییرات</string>
@@ -798,7 +796,6 @@
   <string name="cancel_loading_form">لغو</string>
   <string name="cancel_location">لغو</string>
   <string name="do_not_change">انصراف</string>
-  <string name="do_not_exit">انصراف</string>
   <string name="canceling">لغو کردن</string>
   <string name="notification_channel_name">اطلاعیه های عمومی</string>
   <string name="success">موفقیت </string>

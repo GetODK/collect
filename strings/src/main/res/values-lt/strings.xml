@@ -62,8 +62,6 @@
   <string name="save_enter_data_description">Jūs esate \"%s\" pabaigoje.</string>
   <string name="data_saved_error">Deja, formos išsaugoti nepavyko!</string>
   <string name="data_saved_ok">Forma sėkmingai išsaugota!</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Išeiti %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Išsaugoti pakeitimus</string>
   <string name="saving_form">Forma išsaugoma</string>
@@ -331,7 +329,6 @@
   <string name="cancel_loading_form">Atšaukti</string>
   <string name="cancel_location">Atšaukti</string>
   <string name="do_not_change">Atšaukti</string>
-  <string name="do_not_exit">Atšaukti</string>
   <string name="success">Sėkmingai</string>
   <string name="error_occured">Įvyko klaida</string>
   <string name="please_wait">Prašome šiek tiek palaukti.</string>

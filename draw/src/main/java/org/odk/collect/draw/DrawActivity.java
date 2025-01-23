@@ -18,7 +18,6 @@ package org.odk.collect.draw;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -29,18 +28,14 @@ import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.viewmodel.CreationExtras;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.odk.collect.androidshared.bitmap.ImageFileUtils;
@@ -52,8 +47,6 @@ import org.odk.collect.settings.keys.MetaKeys;
 import org.odk.collect.strings.localization.LocalizedActivity;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -82,8 +75,6 @@ public class DrawActivity extends LocalizedActivity {
     private File savepointImage;
 
     private DrawView drawView;
-    private String alertTitleString;
-    private AlertDialog alertDialog;
 
     private DrawViewModel drawViewModel;
 
@@ -210,17 +201,6 @@ public class DrawActivity extends LocalizedActivity {
         // original)
         // output -- where the output should be written
 
-        if (OPTION_SIGNATURE.equals(loadOption)) {
-            alertTitleString = getString(org.odk.collect.strings.R.string.quit_application,
-                    getString(org.odk.collect.strings.R.string.sign_button));
-        } else if (OPTION_ANNOTATE.equals(loadOption)) {
-            alertTitleString = getString(org.odk.collect.strings.R.string.quit_application,
-                    getString(org.odk.collect.strings.R.string.markup_image));
-        } else {
-            alertTitleString = getString(org.odk.collect.strings.R.string.quit_application,
-                    getString(org.odk.collect.strings.R.string.draw_image));
-        }
-
         drawView.setupView(OPTION_SIGNATURE.equals(loadOption));
 
         viewModel.getPenColor().observe(this, penColor -> {
@@ -286,35 +266,11 @@ public class DrawActivity extends LocalizedActivity {
      * saving
      */
     private void createQuitDrawDialog() {
-        int dividerHeight = getResources().getDimensionPixelSize(org.odk.collect.androidshared.R.dimen.margin_extra_small);
-        ListView actionListView = new ListView(this);
-        actionListView.setPadding(0, dividerHeight, 0, 0);
-        actionListView.setDivider(new ColorDrawable(Color.TRANSPARENT));
-        actionListView.setDividerHeight(dividerHeight);
-
-        List<IconMenuListAdapter.IconMenuItem> items;
-        items = Arrays.asList(new IconMenuListAdapter.IconMenuItem(org.odk.collect.icons.R.drawable.ic_save, org.odk.collect.strings.R.string.keep_changes),
-                new IconMenuListAdapter.IconMenuItem(org.odk.collect.icons.R.drawable.ic_delete, org.odk.collect.strings.R.string.discard_changes));
-
-        final IconMenuListAdapter adapter = new IconMenuListAdapter(this, items);
-        actionListView.setAdapter(adapter);
-        actionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                IconMenuListAdapter.IconMenuItem item = (IconMenuListAdapter.IconMenuItem) adapter.getItem(position);
-                if (item.getTextResId() == org.odk.collect.strings.R.string.keep_changes) {
-                    drawViewModel.save(drawView);
-                } else {
-                    cancelAndClose();
-                }
-                alertDialog.dismiss();
-            }
-        });
-        alertDialog = new MaterialAlertDialogBuilder(this)
-                .setTitle(alertTitleString)
-                .setPositiveButton(getString(org.odk.collect.strings.R.string.do_not_exit), null)
-                .setView(actionListView).create();
-        alertDialog.show();
+        QuitDrawingDialog.show(
+                this,
+                this::cancelAndClose,
+                () -> drawViewModel.save(drawView)
+        );
     }
 
     private void clear(View view) {

@@ -123,8 +123,6 @@
   <string name="data_saved_error">表格儲存失敗!</string>
   <string name="data_saved_ok">表格已成功儲存!</string>
   <string name="save_point_error">錯誤！儲存還原點文件：%s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">退出 %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">放棄表格</string>
   <string name="discard_changes">放棄變更</string>
@@ -868,7 +866,6 @@
   <string name="cancel_loading_form">取消</string>
   <string name="cancel_location">取消</string>
   <string name="do_not_change">取消</string>
-  <string name="do_not_exit">取消</string>
   <string name="canceling">正在取消</string>
   <string name="notification_channel_name">一般通知</string>
   <string name="success">成功</string>

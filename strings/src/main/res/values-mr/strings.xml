@@ -78,8 +78,6 @@
   <string name="data_saved_error">क्षमस्व, एक फॉर्म हटविणे क्रिया आधीच प्रगतीपथावर आहे!</string>
   <string name="data_saved_ok">फॉर्म यशस्वीरित्या जतन केला!</string>
   <string name="save_point_error">पुनर्प्राप्ती बिंदू जतन करताना त्रुटी: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">मधून निर्गमन करा %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">बदल जतन करा</string>
   <string name="saving_form">फॉर्म जतन केला जात आहे</string>
@@ -493,7 +491,6 @@
   <string name="cancel_loading_form">रद्द करा</string>
   <string name="cancel_location">रद्द करा</string>
   <string name="do_not_change">रद्द करा</string>
-  <string name="do_not_exit">रद्द करा</string>
   <string name="success">यश</string>
   <string name="error_occured">त्रुटी झाले</string>
   <string name="please_wait">कृपया काही क्षण प्रतीक्षा करा</string>

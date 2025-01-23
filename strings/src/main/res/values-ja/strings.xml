@@ -103,8 +103,6 @@
   <string name="data_saved_error">申し訳ありません、フォームが保存できませんでした!</string>
   <string name="data_saved_ok">フォームを保存しました!</string>
   <string name="save_point_error">リカバリーポイントの保存中にエラー: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">%s を終了</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">変更を保存する</string>
   <string name="saving_form">フォームを保存中</string>
@@ -730,7 +728,6 @@
   <string name="cancel_loading_form">キャンセル</string>
   <string name="cancel_location">キャンセル</string>
   <string name="do_not_change">キャンセル</string>
-  <string name="do_not_exit">キャンセル</string>
   <string name="canceling">キャンセル中</string>
   <string name="notification_channel_name">全般通知</string>
   <string name="success">成功しました</string>

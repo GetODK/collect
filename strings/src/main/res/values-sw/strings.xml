@@ -114,8 +114,6 @@
   <string name="data_saved_error">Samahani, uhifadhi wa fomu umeshindikana!</string>
   <string name="data_saved_ok">Umefanikiwa kuhifadhi fomu!</string>
   <string name="save_point_error">Hitilafu katika kuhifadhi alama ya urejeshi \"recovery point\" :%s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Toka %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Futa fomu</string>
   <string name="discard_changes">Kataa mabadiliko</string>
@@ -672,7 +670,6 @@
   <string name="cancel_loading_form">Sitisha</string>
   <string name="cancel_location">Sitisha</string>
   <string name="do_not_change">Sitisha</string>
-  <string name="do_not_exit">Sitisha</string>
   <string name="canceling">Inasitishwa</string>
   <string name="success">Mafanikio</string>
   <string name="error_occured">Kosa limetokea</string>

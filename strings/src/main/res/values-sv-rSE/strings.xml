@@ -99,8 +99,6 @@
   <string name="data_saved_error">Tyvärr, formuläret kunde inte sparas!</string>
   <string name="data_saved_ok">Formuläret har sparats!</string>
   <string name="save_point_error">Fel vid sparande av återställningspunkt: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Avsluta %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Spara ändringar</string>
   <string name="saving_form">Sparar formulär</string>
@@ -630,7 +628,6 @@ Dela ODK Collect med dem.</string>
   <string name="cancel_loading_form">Avbryt</string>
   <string name="cancel_location">Avbryt</string>
   <string name="do_not_change">Avbryt</string>
-  <string name="do_not_exit">Avbryt</string>
   <string name="canceling">Avbryter</string>
   <string name="notification_channel_name">Allmäna notifieringar</string>
   <string name="success">Lyckades</string>

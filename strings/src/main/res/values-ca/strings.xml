@@ -75,8 +75,6 @@
   <string name="data_saved_error">Ho sentim, el formulari no s\'ha desat be!</string>
   <string name="data_saved_ok">Formulari desat correctament!</string>
   <string name="save_point_error">Error al guardar el punt de recuperació: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Sortida %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Desar els canvis</string>
   <string name="saving_form">Desant formulari</string>
@@ -437,7 +435,6 @@
   <string name="cancel_loading_form">Cancel·lar</string>
   <string name="cancel_location">Cancel·lar</string>
   <string name="do_not_change">Cancel·lar</string>
-  <string name="do_not_exit">Cancel·lar</string>
   <string name="success">Correcte</string>
   <string name="error_occured">S\'ha produït un error</string>
   <string name="please_wait">Un moment si us plau.</string>

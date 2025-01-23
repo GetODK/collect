@@ -31,7 +31,6 @@
   <string name="download">I-karga ang Pinili</string>
     <string name="downloading_data">Kumakabit sa Server</string>
   <string name="do_not_change">Urong</string>
-  <string name="do_not_exit">Urong</string>
   <string name="do_not_save">Balewalain ang mga binago</string>
   <string name="enter_data">Punan ang Blangkong Form</string>
   <string name="error_occured">May Maling Nangyari</string>
@@ -59,7 +58,6 @@
     <string name="play_video">I-play ang Bidyo</string>
   <string name="please_wait">Mag-hintay ng ilang sandali.</string>
   <string name="please_wait_long">Mag-hintay. Ito ay maaring tumagal ng ilang minuto.</string>
-  <string name="quit_application">Alisan %s</string>
   <string name="refresh">Sariwain</string>
   <string name="replace_barcode">Palitan ang Barcode</string>
   <string name="required_answer_error">Paumanhin, ang tugon na ito ay kailangan!</string>

@@ -123,8 +123,6 @@
   <string name="data_saved_error">¡Atención, el formulario no se ha guardado correctamente!</string>
   <string name="data_saved_ok">Formulario guardado correctamente</string>
   <string name="save_point_error">Error al guardar punto de recuperación: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Salir %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Descartar formulario</string>
   <string name="discard_changes">Descartar los cambios</string>
@@ -876,7 +874,6 @@
   <string name="cancel_loading_form">Cancelar</string>
   <string name="cancel_location">Cancelar</string>
   <string name="do_not_change">Cancelar</string>
-  <string name="do_not_exit">Cancelar</string>
   <string name="canceling">Cancelando</string>
   <string name="notification_channel_name">Notificaciones generales</string>
   <string name="success">Correcto</string>

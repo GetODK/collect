@@ -103,8 +103,6 @@
   <string name="data_saved_error">Mwihangane, kubika amakuru byanze! </string>
   <string name="data_saved_ok">Amakuru yabitswe! </string>
   <string name="save_point_error">Ikosa mukwisevinga biragaruka: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Sohoka 1%s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Bika ibyo wahinduye</string>
   <string name="saving_form">Ibika ry\'amakuru yinyandiko shingiro.</string>
@@ -741,7 +739,6 @@ N\'ukomea guhura n\'iki kibazo, wakigeza kuwa gusabye gukusanya  amakuru.</strin
   <string name="cancel_loading_form">Bikuremo</string>
   <string name="cancel_location">Bikuremo</string>
   <string name="do_not_change">Bikuremo</string>
-  <string name="do_not_exit">Bikuremo</string>
   <string name="canceling">Birikuvamo</string>
   <string name="notification_channel_name">Ubutumwa bukwibutsa</string>
   <string name="success">Byakunze</string>

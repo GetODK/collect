@@ -70,8 +70,6 @@
   <string name="data_saved_error">Ne pare rău, salvarea formularului nu a reușit!</string>
   <string name="data_saved_ok">Salvarea formularului a reușit!</string>
   <string name="save_point_error">Eroare la salvarea punctului de recuperare: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Ieșire %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Salvați modificările</string>
   <string name="saving_form">Salvare formular</string>
@@ -398,7 +396,6 @@
   <string name="cancel_loading_form">Anulează</string>
   <string name="cancel_location">Anulează</string>
   <string name="do_not_change">Anulați</string>
-  <string name="do_not_exit">Anulați</string>
   <string name="success">Succes</string>
   <string name="error_occured">Eroare</string>
   <string name="please_wait">Vă rugăm să așteptați câteva momente.</string>

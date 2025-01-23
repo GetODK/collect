@@ -123,8 +123,6 @@
   <string name="data_saved_error">Pahoittelut, lomakkeen tallennus epäonnistui!</string>
   <string name="data_saved_ok">Lomake tallennettu!</string>
   <string name="save_point_error">Virhe tallentaessa palautuspistettä: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Poistu täältä: %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">Hylkää lomake</string>
   <string name="discard_changes">Hylkää muutokset</string>
@@ -873,7 +871,6 @@
   <string name="cancel_loading_form">Peruuta</string>
   <string name="cancel_location">Peruuta</string>
   <string name="do_not_change">Peruuta</string>
-  <string name="do_not_exit">Peruuta</string>
   <string name="canceling">Perutaan</string>
   <string name="notification_channel_name">Yleiset ilmoitukset</string>
   <string name="success">Onnistui</string>

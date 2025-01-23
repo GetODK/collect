@@ -72,8 +72,6 @@
   <string name="data_saved_error">ขออภัย ไม่สามารถบันทึกแบบสำรวจได้</string>
   <string name="data_saved_ok">บันทึกแบบสำรวจเรียบร้อยแล้ว</string>
   <string name="save_point_error">มีข้อผิดพลาดในการบันทึกจุดย้อนคืน : %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">ออกจาก %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">บันทึกการเปลี่ยนแปลง</string>
   <string name="saving_form">กำลังบันทึกแบบสำรวจ</string>
@@ -440,7 +438,6 @@
   <string name="cancel_loading_form">ยกเลิก</string>
   <string name="cancel_location">ยกเลิก</string>
   <string name="do_not_change">ยกเลิก</string>
-  <string name="do_not_exit">ยกเลิก</string>
   <string name="canceling">กำลังยกเลิก</string>
   <string name="success">สำเร็จ</string>
   <string name="error_occured">มีข้อผิดพลาดเกิดขึ้น</string>

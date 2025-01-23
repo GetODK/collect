@@ -61,8 +61,6 @@
   <string name="data_saved_error">দু:খিত, ফরম সংরক্ষিত হয়নি</string>
   <string name="data_saved_ok">ফরম সংরক্ষিত হয়েছে</string>
   <string name="save_point_error">ত্রুটি সংরক্ষণ উদ্ধার পয়েন্টঃ %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">%s প্রস্থান</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">পরিবর্তন সংরক্ষণকরুন</string>
   <string name="saving_form">ফরম সংরক্ষন করা হচ্ছে।</string>
@@ -338,7 +336,6 @@
   <string name="cancel_loading_form">বাতিল</string>
   <string name="cancel_location">বাতিল</string>
   <string name="do_not_change">বাতিল</string>
-  <string name="do_not_exit">প্রস্থান হবেন না?</string>
   <string name="success">সাফল্য </string>
   <string name="error_occured">ত্রুটি ঘটেছে</string>
   <string name="please_wait">দয়া করে কিছু সময় অপেক্ষা করুন।</string>

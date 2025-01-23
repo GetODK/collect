@@ -63,8 +63,6 @@
   <string name="data_saved_error">Xin lỗi, biểu mẫu không lưu được!</string>
   <string name="data_saved_ok">Biểu mẫu đã được lưu!</string>
   <string name="save_point_error">Lỗi lưu lại điểm khôi phục: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Thoát %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Lưu thay đổi</string>
   <string name="saving_form">Đang lưu biểu mẫu</string>
@@ -336,7 +334,6 @@
   <string name="cancel_loading_form">Huỷ</string>
   <string name="cancel_location">Huỷ</string>
   <string name="do_not_change">Huỷ</string>
-  <string name="do_not_exit">Huỷ</string>
   <string name="success">Thành công</string>
   <string name="error_occured">Lỗi xuất hiện</string>
   <string name="please_wait">Hãy đợi 1 lúc.</string>

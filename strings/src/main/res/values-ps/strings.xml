@@ -53,8 +53,6 @@
   <string name="data_saved_error">اوبخښی، د فورمي ثبتول ناکامه شو!</string>
   <string name="data_saved_ok">فورمه په بریالی توکه ثبت شو!</string>
   <string name="save_point_error">د خطا ثبت بیا موندولو نښه: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">خارج شی %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="saving_form">فورمه د ثبت کیدو په حال کښی</string>
   <!--Displayed when an attempt is made to start form filling, but the form is broken-->
@@ -310,7 +308,6 @@
   <string name="cancel_loading_form">فسخ کول</string>
   <string name="cancel_location">فسخ کول</string>
   <string name="do_not_change">فسخ کول</string>
-  <string name="do_not_exit">فسخ کول</string>
   <string name="canceling">فسخ کولو کی قرار لری</string>
   <string name="error_occured">خطا وشوله</string>
   <string name="please_wait">مهرباني وکړئ څو ځلې انتظار وکړئ.</string>

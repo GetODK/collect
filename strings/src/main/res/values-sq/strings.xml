@@ -88,8 +88,6 @@
   <string name="data_saved_error">Ndjesë, ruajtja e formualrit dështoi!</string>
   <string name="data_saved_ok">Formulari u ruajt me sukses!</string>
   <string name="save_point_error">Gabim në ruajtjen e pikës së shpëtimit: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Dil %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Ruaj ndryshimet</string>
   <string name="saving_form">Duke ruajtur formularin</string>
@@ -536,7 +534,6 @@
   <string name="cancel_loading_form">Anullo</string>
   <string name="cancel_location">Anullo</string>
   <string name="do_not_change">Anullo</string>
-  <string name="do_not_exit">Anullo</string>
   <string name="canceling">Duke anuluar</string>
   <string name="success">Sukses</string>
   <string name="error_occured">Ndodhi një gabim</string>

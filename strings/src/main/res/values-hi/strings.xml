@@ -83,8 +83,6 @@
   <string name="data_saved_error">क्षमा करें, फॉर्म संरक्षण असफल!</string>
   <string name="data_saved_ok">फॉर्म सफलतापूर्वक संरक्षित!</string>
   <string name="save_point_error">रिकवरी बिंदु %sसंरक्षण में त्रुटि है  </string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">बाहर आयें %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">बदलाव संरक्षित करें</string>
   <string name="saving_form">फॉर्म संरक्षित हो रहा है </string>
@@ -502,7 +500,6 @@
   <string name="cancel_loading_form">रद्द करें</string>
   <string name="cancel_location">रद्द करें</string>
   <string name="do_not_change">रद्द करें</string>
-  <string name="do_not_exit">रद्द करें </string>
   <string name="success">सफल</string>
   <string name="error_occured">गलती हुई</string>
   <string name="please_wait">कृपया कुछ क्षण प्रतीक्षा करें</string>

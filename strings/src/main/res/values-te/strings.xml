@@ -103,8 +103,6 @@
   <string name="data_saved_error">క్షమించండి, ఫారం సేవ్ అవ్వలేదు</string>
   <string name="data_saved_ok">ఫారం విజయవంతంగా సేవ్ చేయబడింది!</string>
   <string name="save_point_error">రికవరీ పాయింట్‌ను సేవ్ చేయడంలో లోపం ఉంది: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Exit %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">మార్పులను సేవ్ చెయ్యి</string>
   <string name="saving_form">ఫారం సేవ్ చేయబడుతుంది</string>
@@ -694,7 +692,6 @@
   <string name="cancel_loading_form">రద్దు చేయి</string>
   <string name="cancel_location">రద్దు చేయి</string>
   <string name="do_not_change">రద్దు చేయి</string>
-  <string name="do_not_exit">రద్దు చేయి</string>
   <string name="canceling">రద్దు చేయబడుతుంది </string>
   <string name="notification_channel_name">సాధారణ నోటిఫికేషన్‌లు</string>
   <string name="success">సక్సెస్ </string>

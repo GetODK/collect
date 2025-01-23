@@ -10,10 +10,10 @@
         android:padding="@dimen/margin_large">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/save_explanation"
+            android:id="@+id/save_drawing_explanation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/save_explanation"
+            android:text="@string/save_drawing_explanation"
             android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,10 +31,10 @@
             app:iconSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/save_explanation" />
+            app:layout_constraintTop_toBottomOf="@id/save_drawing_explanation" />
 
         <org.odk.collect.androidshared.ui.multiclicksafe.MultiClickSafeMaterialButton
-            android:id="@+id/keep_editing_outlined"
+            android:id="@+id/keep_editing"
             style="?materialButtonOutlinedIconStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -48,36 +48,17 @@
             app:layout_constraintTop_toBottomOf="@id/discard_changes" />
 
         <org.odk.collect.androidshared.ui.multiclicksafe.MultiClickSafeMaterialButton
-            android:id="@+id/keep_editing_filled"
-            style="?materialButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="@string/keep_editing"
-            android:visibility="gone"
-            app:icon="@drawable/ic_edit"
-            app:iconGravity="textStart"
-            app:iconSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/discard_changes" />
-
-        <org.odk.collect.androidshared.ui.multiclicksafe.MultiClickSafeMaterialButton
-            android:id="@+id/save_changes"
+            android:id="@+id/saveChanges"
             style="?materialButtonIconStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="@string/save_as_draft"
+            android:text="@string/keep_changes"
             app:icon="@drawable/ic_save"
             app:iconGravity="textStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/discard_changes"
             app:layout_constraintStart_toStartOf="@id/discard_changes"
-            app:layout_constraintTop_toBottomOf="@id/keep_editing_outlined" />
-
+            app:layout_constraintTop_toBottomOf="@id/keep_editing" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>
-
-

@@ -68,8 +68,6 @@
   <string name="data_saved_error">معافی, فارم محفوظ نہیں ہوسکا</string>
   <string name="data_saved_ok">فارم کامیابی سے محفوظ کیا گیا</string>
   <string name="save_point_error">ریکوری پوانٹ سیو کرتے وقت خرابی: %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">‎%s‏ سے نکل جائیں</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">تبدیلیوں کو محفوظ کریں</string>
   <string name="saving_form">فارم محفوظ ہو رہا ہے</string>
@@ -317,7 +315,6 @@
   <string name="cancel_loading_form">منسوخ</string>
   <string name="cancel_location">منسوخ</string>
   <string name="do_not_change">منسوخ</string>
-  <string name="do_not_exit">منسوخ</string>
   <string name="success">کامیابی</string>
   <string name="error_occured">غلطی ہوگئ</string>
   <string name="please_wait">براہ مہربانی۔ چند منٹ انتظار کرلیں</string>

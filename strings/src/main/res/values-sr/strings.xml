@@ -101,8 +101,6 @@
   <string name="data_saved_error">Izvini, čuvanje formulara nije uspjelo!</string>
   <string name="data_saved_ok">Formular je uspješno sačuvan!</string>
   <string name="save_point_error">Greška u čuvanju tačke povratka: %s </string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">Izlaz %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">Sačuvaj izmjene</string>
   <string name="saving_form">Čuvam formular</string>
@@ -652,7 +650,6 @@
   <string name="cancel_loading_form">Odustani</string>
   <string name="cancel_location">Odustani</string>
   <string name="do_not_change">Odustani</string>
-  <string name="do_not_exit">Odustani</string>
   <string name="canceling">Odustajem</string>
   <string name="notification_channel_name">Opšta obavještenja</string>
   <string name="success">Uspjeh</string>

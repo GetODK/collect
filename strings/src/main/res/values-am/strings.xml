@@ -73,8 +73,6 @@
   <string name="data_saved_error">ይቅርታ፣ ቅፁን ማስቀመጥ አልተሳካም!</string>
   <string name="data_saved_ok">ቅፁ በተሳካ ሁኔታ ተቀምጧል!</string>
   <string name="save_point_error">የመልሶ ማግኛ ነጥብ ማስቀመጥ አልተቻለም፡ 1 %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">ከ 1 %s ይውጡ</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="keep_changes">ለውጦችን አስቀምጥ</string>
   <string name="saving_form">ቅጽን በማስቀመጥ ላይ</string>
@@ -420,7 +418,6 @@
   <string name="cancel_loading_form">ሰርዝ</string>
   <string name="cancel_location">ሰርዝ</string>
   <string name="do_not_change">ሰርዝ</string>
-  <string name="do_not_exit">ሰርዝ</string>
   <string name="success">ስኬት</string>
   <string name="error_occured">ስህተት ተከስቷል</string>
   <string name="please_wait">እባክዎ ጥቂት ጊዜ ይጠብቁ</string>

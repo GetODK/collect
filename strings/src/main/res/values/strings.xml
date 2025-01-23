@@ -155,8 +155,6 @@
     <string name="data_saved_ok">Form successfully saved!</string>
     <string name="save_point_error">Error saving recovery point: %s</string>
 
-    <!-- Dialog title when exiting a drawing view. The name of the kind of drawing will be included -->
-    <string name="quit_application">Exit %s</string>
     <!-- Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded> -->
     <string name="do_not_save">Discard Form</string>
     <string name="discard_changes">Discard Changes</string>
@@ -246,7 +244,10 @@
     <string name="annotate_image">Annotate Image</string>
     <string name="gif_not_supported">Gif files are not supported</string>
     <string name="invalid_file_type">Application returned an invalid file type</string>
-    <!-- Dialog heading for saving annotated image -->
+    <!-- Title displayed in a dialog for saving a signature, drawing, or annotated image -->
+    <string name="save_drawing_title">Save changes?</string>
+    <!-- Explanation message displayed in a dialog for saving a signature, drawing, or annotated image -->
+    <string name="save_drawing_explanation">Do you want to save changes before you exit?</string>
     <string name="save_and_close">Save and Close</string>
     <string name="signature_capture">Signature Capture</string>
     <string name="sign_button">Gather Signature</string>
@@ -1067,7 +1068,6 @@
     <string name="cancel_loading_form">Cancel</string>
     <string name="cancel_location">Cancel</string>
     <string name="do_not_change">Cancel</string>
-    <string name="do_not_exit">Cancel</string>
     <string name="canceling">Canceling</string>
 
     <string name="notification_channel_name">General notifications</string>

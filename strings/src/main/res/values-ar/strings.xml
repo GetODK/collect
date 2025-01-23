@@ -118,8 +118,6 @@
   <string name="data_saved_error">عذرًا، لم يتمّ حفظ الاستمارة!</string>
   <string name="data_saved_ok">تمّ حفظ الاستمارة بنجاح!</string>
   <string name="save_point_error">خطأ في حفظ نقطة الاسترداد %s</string>
-  <!--Dialog title when exiting a drawing view. The name of the kind of drawing will be included-->
-  <string name="quit_application">خروج %s</string>
   <!--Used when exiting a form filling session in which a form was not properly loaded. &lt; and &gt; surrounds the text so it will appear as <no form loaded>-->
   <string name="do_not_save">التخلص من النموذج</string>
   <string name="discard_changes">تجاهل التعديلات</string>
@@ -781,7 +779,6 @@
   <string name="cancel_loading_form">إلغاء</string>
   <string name="cancel_location">إلغاء</string>
   <string name="do_not_change">إلغاء</string>
-  <string name="do_not_exit">إلغاء</string>
   <string name="canceling">جاري الإلغاء</string>
   <string name="notification_channel_name">الإشعارات العامة</string>
   <string name="success">نجاح</string>
