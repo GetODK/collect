@@ -1044,10 +1044,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">Odkljukajte, da ne prikazujete v osnutkih</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">Nova funkcionalnost</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">Seznam osnutekov zdaj prikazuje zaznane napake. Vsakič, ko obrazec shranite kot osnutek, se izpolnjeni odgovori ponovno preverijo. \n\nOsnutki, označeni z \"Napake\", imajo manjkajoča zahtevana vprašanja ali imajo vrednosti, ki niso dovoljene.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">Ničesar ni na voljo za prikaz</string>
   <!--Message displayed when the list of blank forms is empty-->
   <string name="empty_list_of_blank_forms_title">Brez praznih obrazcev</string>

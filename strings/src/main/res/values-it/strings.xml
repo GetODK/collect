@@ -1073,10 +1073,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">Deseleziona per nasconderlo dalle bozze</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">Nuova funzionalità</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">La lista bozza ora mostra gli errori di convalida. Ogni volta che salvi un formulario come bozza, il suo stato di convalida viene aggiornato.\n\nLe bozze contrassegnate con \"Errori\" mancano di domande obbligatorie o contengono valori non consentiti.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">Niente disponibile da visualizzare</string>
   <!--Message displayed when the list of blank forms is empty-->
   <string name="empty_list_of_blank_forms_title">Nessun formulario vuoto</string>

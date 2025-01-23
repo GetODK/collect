@@ -69,7 +69,7 @@ public class QuickSaveTest {
                 .clickSave()
                 .pressBackAndDiscardChanges()
 
-                .clickDrafts(1, false)
+                .clickDrafts(1)
                 .clickOnForm("Two Question Required")
                 .assertText("Another Reuben");
     }

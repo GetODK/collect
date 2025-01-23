@@ -12,5 +12,4 @@ object MetaKeys {
     const val LAST_LAUNCHED = "last_launched"
     const val LAST_USED_PEN_COLOR = "last_used_pen_color"
     const val PERMISSIONS_REQUESTED = "permissions_requested"
-    const val DRAFTS_PILLS_EDUCATION_SHOWN = "drafts_pills_education_shown"
 }

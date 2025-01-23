@@ -1074,10 +1074,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">Desmarque para ocultarse de los borradores</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">Nueva función</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">La lista borrador ahora muestra errores de validación. Cada vez que guarda un formulario como borrador, su estado de validación se actualiza.\n\nA los borradores marcados con \"Errores\" les faltan preguntas obligatorias o tienen valores que no están permitidos.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">No hay nada disponible para mostrar.</string>
   <!--Message displayed when the list of blank forms is empty-->
   <string name="empty_list_of_blank_forms_title">No hay formularios en blanco</string>

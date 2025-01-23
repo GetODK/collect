@@ -1034,10 +1034,8 @@ Constraint processing</string>
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">ڈرافٹس میں سے چھپانے کے لئے uncheck کریں</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">نیا فیچر</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">ڈرافٹ کی فہرست اب validation کی غلطیاں بھی دکھائے گی۔ ہر دفعہ جب آپ کسی فارم کو ڈرافٹ کے طور پر محفوظ کریں گے، اس کا validation کا سٹیٹس update ہو جائے گا۔ جن ڈرافٹس میں غلطیاں موجود ہیں، ان میں یا تو ضروری سوالات کے جوابات نہیں ہیں، یا پھران میں کوئی value غلط ہے۔ </string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">یہاں دکھانے کو کچھ نہیں ہے</string>
   <!--Message displayed when the list of blank forms is empty-->
   <!--Subtext displayed when the list of blank forms is empty-->

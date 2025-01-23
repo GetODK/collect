@@ -1075,10 +1075,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">Décochez pour masquer dans les ébauches.</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">Nouvelle fonctionnalité</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">La liste des ébauches montre désormais les erreurs de validation. Chaque fois que vous enregistrez une ébauche, son statut de validation est mis à jour.\n\nLes ébauches marquées avec \"Erreurs\" ont des questions obligatoires non renseignées ou contiennent des valeurs non autorisées.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">Rien à afficher</string>
   <!--Message displayed when the list of blank forms is empty-->
   <string name="empty_list_of_blank_forms_title">Aucun Formulaire Vierge</string>

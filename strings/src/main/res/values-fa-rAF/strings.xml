@@ -978,10 +978,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">برای پنهان شدن از پیش نویس ها، علامت را بردارید.</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">ویژگی های جدید</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">فهرست پیش‌نویس اکنون خطاهای اعتبارسنجی را نشان می‌دهد. هر بار که فرمی را به‌عنوان پیش‌نویس ذخیره می‌کنید، وضعیت اعتبارسنجی آن به‌روزرسانی می‌شود.\n\nپیش‌نویس‌هایی که با «خطاها» علامت‌گذاری شده‌اند، یا سؤالات لازم را ندارند یا مقادیری دارند که مجاز نیستند.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">چیزی برای نمایش در دسترس نیست</string>
   <!--Message displayed when the list of blank forms is empty-->
   <!--Subtext displayed when the list of blank forms is empty-->

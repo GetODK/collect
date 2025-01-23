@@ -34,8 +34,6 @@ import androidx.annotation.NonNull;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import org.odk.collect.android.R;
 import org.odk.collect.android.adapters.InstanceListCursorAdapter;
 import org.odk.collect.android.dao.CursorLoaderFactory;
@@ -59,8 +57,6 @@ import org.odk.collect.async.Scheduler;
 import org.odk.collect.lists.EmptyListView;
 import org.odk.collect.material.MaterialProgressDialogFragment;
 import org.odk.collect.settings.SettingsProvider;
-import org.odk.collect.settings.keys.MetaKeys;
-import org.odk.collect.strings.R.string;
 
 import java.util.Arrays;
 
@@ -117,16 +113,6 @@ public class InstanceChooserList extends AppListActivity implements AdapterView.
         if (formMode == null || ApplicationConstants.FormModes.EDIT_SAVED.equalsIgnoreCase(formMode)) {
             setTitle(getString(org.odk.collect.strings.R.string.review_data));
             editMode = true;
-
-            if (!settingsProvider.getMetaSettings().getBoolean(MetaKeys.DRAFTS_PILLS_EDUCATION_SHOWN)) {
-                new MaterialAlertDialogBuilder(this)
-                        .setTitle(string.new_feature)
-                        .setMessage(string.drafts_pills_education_message)
-                        .setPositiveButton(string.ok, null)
-                        .show();
-
-                settingsProvider.getMetaSettings().save(MetaKeys.DRAFTS_PILLS_EDUCATION_SHOWN, true);
-            }
         } else {
             setTitle(getString(org.odk.collect.strings.R.string.view_sent_forms));
             EmptyListView emptyListView = findViewById(android.R.id.empty);

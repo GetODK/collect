@@ -1062,10 +1062,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">Abwählen um von Entwürfen zu verbergen</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">Neue Funktion</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">Die Entwurfsliste zeigt jetzt Validierungsfehler an. Bei jedem Speichern als Entwurf eines Formulars wird dessen Validierungsstatus aktualisiert.\n\nEntwürfe, die mit \"Fehler\" markiert sind, haben entweder fehlende Antworten bei Pflichtfragen oder ungültige Antworten.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">Keine Inhalte vorhanden.</string>
   <!--Message displayed when the list of blank forms is empty-->
   <string name="empty_list_of_blank_forms_title">Keine leeren Formulare</string>

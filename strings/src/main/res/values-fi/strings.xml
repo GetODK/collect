@@ -1062,10 +1062,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">Poista rasti piilottaaksesi Luonnos-näkymästä</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">Uusi ominaisuus</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">Luonnoslista näyttää nyt varmennusvirheet. Lomakkeen varmennustila päivitetään aina kun tallennat lomakkeen luonnoksena.\n\nLuonnoksissa, joissa on merkintä \"Virhe\", on joko puuttuvia vaadittuja vastauksia tai arvoja, joita ei sallita.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">Ei näytettävää</string>
   <!--Message displayed when the list of blank forms is empty-->
   <string name="empty_list_of_blank_forms_title">Ei tyhjiä lomakkeita</string>

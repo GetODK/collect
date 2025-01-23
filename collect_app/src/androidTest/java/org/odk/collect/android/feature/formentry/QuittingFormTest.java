@@ -104,7 +104,7 @@ public class QuittingFormTest {
                 .pressBack(new SaveOrDiscardFormDialog<>(new MainMenuPage()))
                 .clickSaveChanges()
 
-                .clickDrafts(1, false)
+                .clickDrafts(1)
                 .clickOnForm("Two Question Required")
                 .assertText("Another Reuben");
     }

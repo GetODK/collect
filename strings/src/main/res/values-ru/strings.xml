@@ -975,10 +975,8 @@
   <!--Title of section of features that the user can uncheck to hide from the Drafts screen-->
   <string name="uncheck_to_hide_from_drafts">Снимите галочку, чтобы скрыть из черновиков</string>
   <!--Title for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="new_feature">Новая функция</string>
-  <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
-  <string name="drafts_pills_education_message">Список черновиков теперь показывает ошибки при проверке. Каждый раз, когда вы сохраняете форму как черновик, ее статус проверки обновляется.\n\nЧерновики, помеченные как «Ошибки», либо не содержат обязательных вопросов, либо содержат недопустимые значения.</string>
-  <!--Message displayed when the list of questions is empty-->
+    <!--Message for dialog explaining the drafts marked with "Error" shown to the user the first time they view the Drafts screen-->
+    <!--Message displayed when the list of questions is empty-->
   <string name="empty_list_of_questions">Ничего недоступно для отображения</string>
   <!--Message displayed when the list of blank forms is empty-->
   <string name="empty_list_of_blank_forms_title">Нет пустых форм</string>
