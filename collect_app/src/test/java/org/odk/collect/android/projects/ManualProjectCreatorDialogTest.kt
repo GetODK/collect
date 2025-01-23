@@ -1,5 +1,6 @@
 package org.odk.collect.android.projects
 
+import android.app.Application
 import android.content.Context
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -113,7 +114,7 @@ class ManualProjectCreatorDialogTest {
     fun `Server project creation should be triggered after clicking on the 'Add' button`() {
         val projectCreator = mock<ProjectCreator> {}
         val projectsDataService = mock<ProjectsDataService> {
-            on { getCurrentProject() } doReturn Project.DEMO_PROJECT
+            on { requireCurrentProject() } doReturn Project.DEMO_PROJECT
         }
 
         CollectHelpers.overrideAppDependencyModule(object : AppDependencyModule() {
@@ -127,6 +128,7 @@ class ManualProjectCreatorDialogTest {
             }
 
             override fun providesCurrentProjectProvider(
+                application: Application,
                 settingsProvider: SettingsProvider,
                 projectsRepository: ProjectsRepository,
                 analyticsInitializer: AnalyticsInitializer,

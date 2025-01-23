@@ -53,7 +53,7 @@ class BlankFormListViewModelTest {
     @Test
     fun `updates forms when created`() {
         createViewModel()
-        verify(formsDataService).update(projectId)
+        verify(formsDataService).refresh(projectId)
     }
 
     @Test

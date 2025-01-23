@@ -38,18 +38,18 @@ class QRCodeScannerFragment : BarCodeScannerFragment() {
 
     @Throws(IOException::class, DataFormatException::class)
     override fun handleScanningResult(result: BarcodeResult) {
-        val oldProjectName = projectsDataService.getCurrentProject().name
+        val oldProjectName = projectsDataService.requireCurrentProject().name
 
         val settingsImportingResult = settingsImporter.fromJSON(
             CompressionUtils.decompress(result.text),
-            projectsDataService.getCurrentProject()
+            projectsDataService.requireCurrentProject()
         )
 
         when (settingsImportingResult) {
             SettingsImportingResult.SUCCESS -> {
                 Analytics.log(AnalyticsEvents.RECONFIGURE_PROJECT)
 
-                val newProjectName = projectsDataService.getCurrentProject().name
+                val newProjectName = projectsDataService.requireCurrentProject().name
                 if (newProjectName != oldProjectName) {
                     File(storagePathProvider.getProjectRootDirPath() + File.separator + oldProjectName).delete()
                     File(storagePathProvider.getProjectRootDirPath() + File.separator + newProjectName).createNewFile()

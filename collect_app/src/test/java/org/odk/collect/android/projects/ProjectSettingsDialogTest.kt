@@ -1,6 +1,7 @@
 package org.odk.collect.android.projects
 
 import androidx.core.view.children
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.test.espresso.Espresso.onView
@@ -26,7 +27,6 @@ import org.odk.collect.android.injection.config.AppDependencyModule
 import org.odk.collect.android.mainmenu.CurrentProjectViewModel
 import org.odk.collect.android.preferences.screens.ProjectPreferencesActivity
 import org.odk.collect.android.support.CollectHelpers
-import org.odk.collect.androidshared.livedata.MutableNonNullLiveData
 import org.odk.collect.androidshared.ui.FragmentFactoryBuilder
 import org.odk.collect.fragmentstest.FragmentScenarioLauncherRule
 import org.odk.collect.projects.InMemProjectsRepository
@@ -40,7 +40,7 @@ import org.odk.collect.testshared.RobolectricHelpers
 class ProjectSettingsDialogTest {
 
     private val currentProjectViewModel: CurrentProjectViewModel = mock {
-        on { currentProject } doReturn MutableNonNullLiveData(
+        on { currentProject } doReturn MutableLiveData(
             Project.Saved(
                 "x",
                 "Project X",

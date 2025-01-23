@@ -395,7 +395,7 @@ public class FormDownloadListActivity extends FormListActivity implements FormLi
             // show dialog box
             DialogFragmentUtils.showIfNotShowing(RefreshFormListDialogFragment.class, getSupportFragmentManager());
 
-            downloadFormsTask = new DownloadFormsTask(projectsDataService.getCurrentProject().getUuid(), formsDataService);
+            downloadFormsTask = new DownloadFormsTask(projectsDataService.requireCurrentProject().getUuid(), formsDataService);
             downloadFormsTask.setDownloaderListener(this);
 
             if (viewModel.getUrl() != null) {

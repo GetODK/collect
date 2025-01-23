@@ -2103,7 +2103,7 @@ public class FormFillingActivity extends LocalizedActivity implements AnimationL
             String path = getAbsoluteInstancePath();
             if (path != null) {
                 if (formSaveViewModel.getInstance() != null) {
-                    uri = InstancesContract.getUri(projectsDataService.getCurrentProject().getUuid(), formSaveViewModel.getInstance().getDbId());
+                    uri = InstancesContract.getUri(projectsDataService.requireCurrentProject().getUuid(), formSaveViewModel.getInstance().getDbId());
                 }
             }
 

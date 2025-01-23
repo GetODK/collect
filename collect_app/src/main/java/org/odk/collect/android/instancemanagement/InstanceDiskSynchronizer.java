@@ -194,7 +194,7 @@ public class InstanceDiskSynchronizer {
         String instancePath = instance.getInstanceFilePath();
         File instanceXml = new File(instancePath);
         if (!new File(instanceXml.getParentFile(), "submission.xml.enc").exists()) {
-            Uri uri = InstancesContract.getUri(projectsDataService.getCurrentProject().getUuid(), instance.getDbId());
+            Uri uri = InstancesContract.getUri(projectsDataService.requireCurrentProject().getUuid(), instance.getDbId());
             InstanceMetadata instanceMetadata = new InstanceMetadata(getInstanceIdFromInstance(instancePath), null, null);
             EncryptionUtils.EncryptedFormInformation formInfo = EncryptionUtils.getEncryptedFormInformation(uri, instanceMetadata);
 

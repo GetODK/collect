@@ -69,7 +69,7 @@ class ExistingProjectMigratorTest {
         }
 
         existingProjectMigrator.run()
-        val existingProject = currentProjectProvider.getCurrentProject()
+        val existingProject = currentProjectProvider.requireCurrentProject()
 
         legacyRootDirs.forEach {
             assertThat(it.exists(), `is`(false))
@@ -92,7 +92,7 @@ class ExistingProjectMigratorTest {
         TempFiles.createTempFile(cacheDir, "file", ".temp")
 
         existingProjectMigrator.run()
-        val existingProject = currentProjectProvider.getCurrentProject()
+        val existingProject = currentProjectProvider.requireCurrentProject()
 
         assertThat(cacheDir.exists(), `is`(false))
 
@@ -119,7 +119,7 @@ class ExistingProjectMigratorTest {
         }
 
         existingProjectMigrator.run()
-        val existingProject = currentProjectProvider.getCurrentProject()
+        val existingProject = currentProjectProvider.requireCurrentProject()
         getProjectDirPaths(existingProject.uuid).forEach {
             val dir = File(it)
             assertThat(dir.exists(), `is`(true))
@@ -141,7 +141,7 @@ class ExistingProjectMigratorTest {
         oldAdminSettings.edit().putString("adminKey", "adminValue").apply()
 
         existingProjectMigrator.run()
-        val existingProject = currentProjectProvider.getCurrentProject()
+        val existingProject = currentProjectProvider.requireCurrentProject()
 
         val generalSettings = settingsProvider.getUnprotectedSettings(existingProject.uuid)
         assertThat(

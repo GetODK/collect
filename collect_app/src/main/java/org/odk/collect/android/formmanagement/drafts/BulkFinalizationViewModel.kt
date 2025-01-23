@@ -2,6 +2,7 @@ package org.odk.collect.android.formmanagement.drafts
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import org.odk.collect.android.instancemanagement.FinalizeAllResult
 import org.odk.collect.android.instancemanagement.InstancesDataService
 import org.odk.collect.androidshared.data.Consumable
@@ -23,7 +24,7 @@ class BulkFinalizationViewModel(
     private val _isFinalizing = MutableNonNullLiveData(false)
     val isFinalizing: NonNullLiveData<Boolean> = _isFinalizing
 
-    val draftsCount = instancesDataService.editableCount
+    val draftsCount = instancesDataService.getEditableCount(projectId).asLiveData()
     val isEnabled =
         settingsProvider.getProtectedSettings().getBoolean(ProtectedProjectKeys.KEY_BULK_FINALIZE)
 

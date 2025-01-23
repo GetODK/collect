@@ -1,6 +1,7 @@
 package org.odk.collect.android.state
 
 object DataKeys {
+    const val PROJECT = "project"
     const val INSTANCES_EDITABLE_COUNT = "instancesEditableCount"
     const val INSTANCES_SENDABLE_COUNT = "instancesSendableCount"
     const val INSTANCES_SENT_COUNT = "instancesSentCount"

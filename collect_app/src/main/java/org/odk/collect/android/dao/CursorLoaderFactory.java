@@ -119,7 +119,7 @@ public class CursorLoaderFactory {
     }
 
     private CursorLoader getInstancesCursorLoader(String selection, String[] selectionArgs, String sortOrder) {
-        Uri uri = InstancesContract.getUri(projectsDataService.getCurrentProject().getUuid());
+        Uri uri = InstancesContract.getUri(projectsDataService.requireCurrentProject().getUuid());
 
         return new CursorLoader(
                 Collect.getInstance(),

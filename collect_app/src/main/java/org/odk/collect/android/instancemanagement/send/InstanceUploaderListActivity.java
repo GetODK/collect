@@ -257,7 +257,7 @@ public class InstanceUploaderListActivity extends LocalizedActivity implements
     private void updateAutoSendStatus() {
         // This shouldn't use WorkManager directly but it's likely this code will be removed when
         // we eventually move sending forms to a Foreground Service (rather than a blocking AsyncTask)
-        String tag = ((FormUpdateAndInstanceSubmitScheduler) instanceSubmitScheduler).getAutoSendTag(projectsDataService.getCurrentProject().getUuid());
+        String tag = ((FormUpdateAndInstanceSubmitScheduler) instanceSubmitScheduler).getAutoSendTag(projectsDataService.requireCurrentProject().getUuid());
         LiveData<List<WorkInfo>> statuses = WorkManager.getInstance().getWorkInfosForUniqueWorkLiveData(tag);
         statuses.observe(this, workStatuses -> {
             if (workStatuses != null) {
@@ -379,7 +379,7 @@ public class InstanceUploaderListActivity extends LocalizedActivity implements
             ToastUtils.showLongToast(this, org.odk.collect.strings.R.string.encrypted_form);
         } else {
             long instanceId = c.getLong(c.getColumnIndex(DatabaseInstanceColumns._ID));
-            Intent intent = FormFillingIntentFactory.editInstanceIntent(this, projectsDataService.getCurrentProject().getUuid(), instanceId);
+            Intent intent = FormFillingIntentFactory.editInstanceIntent(this, projectsDataService.requireCurrentProject().getUuid(), instanceId);
             startActivity(intent);
         }
     }

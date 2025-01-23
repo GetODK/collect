@@ -1,5 +1,6 @@
 package org.odk.collect.android.preferences.screens
 
+import android.app.Application
 import android.content.Context
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
@@ -41,11 +42,12 @@ class ProjectDisplayPreferencesFragmentTest {
         projectsDataService = mock(ProjectsDataService::class.java)
         projectsRepository = mock(ProjectsRepository::class.java)
 
-        `when`(projectsDataService.getCurrentProject())
+        `when`(projectsDataService.requireCurrentProject())
             .thenReturn(Project.Saved("123", "Project X", "X", "#cccccc"))
 
         CollectHelpers.overrideAppDependencyModule(object : AppDependencyModule() {
             override fun providesCurrentProjectProvider(
+                application: Application,
                 settingsProvider: SettingsProvider,
                 projectsRepository: ProjectsRepository,
                 analyticsInitializer: AnalyticsInitializer,

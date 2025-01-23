@@ -60,7 +60,7 @@ class DeleteFormsActivity : LocalizedActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerUtils.getComponent(this).inject(this)
 
-        val projectId = projectsDataService.getCurrentProject().uuid
+        val projectId = projectsDataService.requireCurrentProject().uuid
         val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
 
         val viewModelFactory = ViewModelFactory(

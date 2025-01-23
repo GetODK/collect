@@ -11,7 +11,7 @@ import org.odk.collect.android.notifications.Notifier
 import org.odk.collect.android.projects.ProjectDependencyModule
 import org.odk.collect.android.state.DataKeys
 import org.odk.collect.androidshared.data.AppState
-import org.odk.collect.androidshared.data.getData
+import org.odk.collect.androidshared.data.DataService
 import org.odk.collect.forms.Form
 import org.odk.collect.forms.FormSourceException
 import org.odk.collect.projects.ProjectDependencyFactory
@@ -25,31 +25,47 @@ class FormsDataService(
     private val notifier: Notifier,
     private val projectDependencyModuleFactory: ProjectDependencyFactory<ProjectDependencyModule>,
     private val clock: Supplier<Long>
-) {
+) : DataService(appState) {
 
-    private val forms = appState.getData(DataKeys.FORMS, emptyList<Form>())
-    private val syncing = appState.getData(DataKeys.SYNC_STATUS_SYNCING, false)
-    private val serverError = appState.getData<FormSourceException?>(DataKeys.SYNC_STATUS_ERROR, null)
-    private val diskError = appState.getData<String?>(DataKeys.DISK_ERROR, null)
+    private val forms by qualifiedData(DataKeys.FORMS, emptyList<Form>()) { projectId ->
+        val projectDependencies = projectDependencyModuleFactory.create(projectId)
+        projectDependencies.formsRepository.all
+    }
+
+    private val syncing by data(DataKeys.SYNC_STATUS_SYNCING, false)
+    private val serverError by data<FormSourceException?>(DataKeys.SYNC_STATUS_ERROR, null)
+    private val diskError by data<String?>(DataKeys.DISK_ERROR, null)
 
     fun getForms(projectId: String): Flow<List<Form>> {
-        return forms.get(projectId)
+        return forms.flow(projectId)
     }
 
     fun isSyncing(projectId: String): LiveData<Boolean> {
-        return syncing.get(projectId).asLiveData()
+        return syncing.flow(projectId).asLiveData()
     }
 
     fun getServerError(projectId: String): LiveData<FormSourceException?> {
-        return serverError.get(projectId).asLiveData()
+        return serverError.flow(projectId).asLiveData()
     }
 
     fun getDiskError(projectId: String): LiveData<String?> {
-        return diskError.get(projectId).asLiveData()
+        return diskError.flow(projectId).asLiveData()
     }
 
     fun clear(projectId: String) {
         serverError.set(projectId, null)
+    }
+
+    fun refresh(projectId: String) {
+        val projectDependencies = projectDependencyModuleFactory.create(projectId)
+        projectDependencies.formsLock.withLock { acquiredLock ->
+            if (acquiredLock) {
+                startSync(projectId)
+                syncWithStorage(projectId)
+                update(projectId)
+                finishSyncWithStorage(projectId)
+            }
+        }
     }
 
     fun downloadForms(
@@ -109,7 +125,7 @@ class FormsDataService(
                         }
                     }
 
-                    syncWithDb(projectId)
+                    update(projectId)
                 } catch (_: FormSourceException) {
                     // Ignored
                 }
@@ -154,7 +170,7 @@ class FormsDataService(
                     e
                 }
 
-                syncWithDb(projectId)
+                update(projectId)
                 finishSyncWithServer(projectId, exception)
                 exception == null
             } else {
@@ -170,19 +186,8 @@ class FormsDataService(
             projectDependencies.instancesRepository,
             formId
         )
-        syncWithDb(projectId)
-    }
 
-    fun update(projectId: String) {
-        val projectDependencies = projectDependencyModuleFactory.create(projectId)
-        projectDependencies.formsLock.withLock { acquiredLock ->
-            if (acquiredLock) {
-                startSync(projectId)
-                syncWithStorage(projectId)
-                syncWithDb(projectId)
-                finishSyncWithStorage(projectId)
-            }
-        }
+        update(projectId)
     }
 
     private fun syncWithStorage(projectId: String) {
@@ -206,11 +211,6 @@ class FormsDataService(
 
     private fun finishSyncWithStorage(projectId: String) {
         syncing.set(projectId, false)
-    }
-
-    private fun syncWithDb(projectId: String) {
-        val projectDependencies = projectDependencyModuleFactory.create(projectId)
-        forms.set(projectId, projectDependencies.formsRepository.all)
     }
 }
 

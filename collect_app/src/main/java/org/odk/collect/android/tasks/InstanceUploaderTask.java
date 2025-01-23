@@ -153,7 +153,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
         InstanceDeleter instanceDeleter = new InstanceDeleter(instancesRepository, formsRepository);
         instanceDeleter.delete(instancesToDelete.map(Instance::getDbId).toArray(Long[]::new));
 
-        instancesDataService.update(projectsDataService.getCurrentProject().getUuid());
+        instancesDataService.update(projectsDataService.requireCurrentProject().getUuid());
         return outcome;
     }
 

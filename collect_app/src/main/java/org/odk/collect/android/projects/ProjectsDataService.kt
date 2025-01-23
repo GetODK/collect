@@ -1,38 +1,56 @@
 package org.odk.collect.android.projects
 
+import kotlinx.coroutines.flow.StateFlow
 import org.odk.collect.android.application.initialization.AnalyticsInitializer
 import org.odk.collect.android.application.initialization.MapsInitializer
+import org.odk.collect.android.state.DataKeys
+import org.odk.collect.androidshared.data.AppState
+import org.odk.collect.androidshared.data.DataService
 import org.odk.collect.projects.Project
 import org.odk.collect.projects.ProjectsRepository
 import org.odk.collect.settings.SettingsProvider
 import org.odk.collect.settings.keys.MetaKeys
 
 class ProjectsDataService(
+    appState: AppState,
     private val settingsProvider: SettingsProvider,
     private val projectsRepository: ProjectsRepository,
     private val analyticsInitializer: AnalyticsInitializer,
     private val mapsInitializer: MapsInitializer
-) {
+) : DataService(appState) {
 
-    fun getCurrentProject(): Project.Saved {
+    private val currentProject by data(DataKeys.PROJECT, null) {
         val currentProjectId = getCurrentProjectId()
 
         if (currentProjectId != null) {
-            val currentProject = projectsRepository.get(currentProjectId)
-
-            if (currentProject != null) {
-                return currentProject
-            } else {
-                throw IllegalStateException("Current project does not exist!")
-            }
+            projectsRepository.get(currentProjectId)
         } else {
             val projects = projectsRepository.getAll()
 
             if (projects.isNotEmpty()) {
-                return projects[0]
+                projects[0]
             } else {
-                throw IllegalStateException("No current project!")
+                null
             }
+        }
+    }
+
+    fun getCurrentProject(): StateFlow<Project.Saved?> {
+        return currentProject.flow()
+    }
+
+    @Deprecated(
+        "Most components should be passed project ID/project as a value",
+        replaceWith = ReplaceWith("getCurrentProject().value!!")
+    )
+    fun requireCurrentProject(): Project.Saved {
+        update()
+        val project = getCurrentProject().value
+
+        if (project != null) {
+            return project
+        } else {
+            throw IllegalStateException("No current project!")
         }
     }
 
@@ -41,6 +59,8 @@ class ProjectsDataService(
 
         analyticsInitializer.initialize()
         mapsInitializer.initialize()
+
+        update()
     }
 
     private fun getCurrentProjectId(): String? {

@@ -30,7 +30,6 @@ import org.odk.collect.androidshared.data.consume
 import org.odk.collect.androidshared.ui.DialogFragmentUtils
 import org.odk.collect.androidshared.ui.SnackbarUtils
 import org.odk.collect.androidshared.ui.multiclicksafe.MultiClickGuard
-import org.odk.collect.projects.Project
 import org.odk.collect.settings.SettingsProvider
 import org.odk.collect.strings.R.string
 import org.odk.collect.webpage.WebViewActivity
@@ -69,9 +68,11 @@ class MainMenuFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        currentProjectViewModel.currentProject.observe(viewLifecycleOwner) { (_, name): Project.Saved ->
-            requireActivity().invalidateOptionsMenu()
-            requireActivity().title = name
+        currentProjectViewModel.currentProject.observe(viewLifecycleOwner) { project ->
+            if (project != null) {
+                requireActivity().invalidateOptionsMenu()
+                requireActivity().title = project.name
+            }
         }
 
         val binding = MainMenuBinding.bind(view)
@@ -104,17 +105,27 @@ class MainMenuFragment(
                 displayDismissButton = true
             )
         }
+
+        currentProjectViewModel.currentProject.observe(viewLifecycleOwner) {
+            if (it?.isOldGoogleDriveProject == true) {
+                binding.googleDriveDeprecationBanner.root.visibility = View.VISIBLE
+                binding.googleDriveDeprecationBanner.learnMoreButton.setOnClickListener {
+                    val intent = Intent(requireContext(), WebViewActivity::class.java)
+                    intent.putExtra("url", "https://forum.getodk.org/t/40097")
+                    startActivity(intent)
+                }
+            } else {
+                binding.googleDriveDeprecationBanner.root.visibility = View.GONE
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-
-        currentProjectViewModel.refresh()
         mainMenuViewModel.refreshInstances()
 
         val binding = MainMenuBinding.bind(requireView())
         setButtonsVisibility(binding)
-        manageGoogleDriveDeprecationBanner(binding)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -248,18 +259,5 @@ class MainMenuFragment(
             if (mainMenuViewModel.shouldGetBlankFormButtonBeVisible()) View.VISIBLE else View.GONE
         binding.manageForms.visibility =
             if (mainMenuViewModel.shouldDeleteSavedFormButtonBeVisible()) View.VISIBLE else View.GONE
-    }
-
-    private fun manageGoogleDriveDeprecationBanner(binding: MainMenuBinding) {
-        if (currentProjectViewModel.currentProject.value.isOldGoogleDriveProject) {
-            binding.googleDriveDeprecationBanner.root.visibility = View.VISIBLE
-            binding.googleDriveDeprecationBanner.learnMoreButton.setOnClickListener {
-                val intent = Intent(requireContext(), WebViewActivity::class.java)
-                intent.putExtra("url", "https://forum.getodk.org/t/40097")
-                startActivity(intent)
-            }
-        } else {
-            binding.googleDriveDeprecationBanner.root.visibility = View.GONE
-        }
     }
 }

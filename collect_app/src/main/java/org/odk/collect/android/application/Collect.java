@@ -299,7 +299,7 @@ public class Collect extends Application implements
                         @NonNull
                         @Override
                         public EntitiesRepository providesEntitiesRepository() {
-                            String projectId = applicationComponent.currentProjectProvider().getCurrentProject().getUuid();
+                            String projectId = applicationComponent.currentProjectProvider().requireCurrentProject().getUuid();
                             return applicationComponent.entitiesRepositoryProvider().create(projectId);
                         }
 

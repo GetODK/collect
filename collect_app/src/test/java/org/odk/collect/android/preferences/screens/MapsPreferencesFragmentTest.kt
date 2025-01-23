@@ -1,5 +1,6 @@
 package org.odk.collect.android.preferences.screens
 
+import android.app.Application
 import android.content.Context
 import androidx.preference.Preference
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -37,7 +38,7 @@ class MapsPreferencesFragmentTest {
 
     private val project = Project.DEMO_PROJECT
     private val projectsDataService = mock<ProjectsDataService>().apply {
-        whenever(getCurrentProject()).thenReturn(project)
+        whenever(requireCurrentProject()).thenReturn(project)
     }
     private val projectsRepository = mock<ProjectsRepository>().apply {
         whenever(get(project.uuid)).thenReturn(project)
@@ -49,6 +50,7 @@ class MapsPreferencesFragmentTest {
     fun setup() {
         CollectHelpers.overrideAppDependencyModule(object : AppDependencyModule() {
             override fun providesCurrentProjectProvider(
+                application: Application,
                 settingsProvider: SettingsProvider,
                 projectsRepository: ProjectsRepository,
                 analyticsInitializer: AnalyticsInitializer,

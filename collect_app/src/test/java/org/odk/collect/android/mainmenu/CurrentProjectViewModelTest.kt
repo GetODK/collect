@@ -1,6 +1,7 @@
 package org.odk.collect.android.mainmenu
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo
 import org.junit.Rule
@@ -9,7 +10,6 @@ import org.mockito.Mockito.verify
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import org.odk.collect.android.application.initialization.AnalyticsInitializer
 import org.odk.collect.android.projects.ProjectsDataService
 import org.odk.collect.projects.Project
 
@@ -19,13 +19,17 @@ class CurrentProjectViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val projectsDataService = mock<ProjectsDataService> {
-        on { getCurrentProject() } doReturn Project.Saved("123", "Project X", "X", "#cccccc")
+        on { getCurrentProject() } doReturn MutableStateFlow(
+            Project.Saved(
+                "123",
+                "Project X",
+                "X",
+                "#cccccc"
+            )
+        )
     }
 
-    private val analyticsInitializer = mock<AnalyticsInitializer>()
-    private val currentProjectViewModel = CurrentProjectViewModel(
-        projectsDataService
-    )
+    private val currentProjectViewModel by lazy { CurrentProjectViewModel(projectsDataService) }
 
     @Test
     fun `Initial current project should be set`() {
@@ -46,7 +50,7 @@ class CurrentProjectViewModelTest {
 
     @Test
     fun `hasCurrentProject returns false when there is no current project`() {
-        whenever(projectsDataService.getCurrentProject()).thenThrow(IllegalStateException())
+        whenever(projectsDataService.getCurrentProject()).thenReturn(MutableStateFlow(null))
         val currentProjectViewModel = CurrentProjectViewModel(
             projectsDataService
         )

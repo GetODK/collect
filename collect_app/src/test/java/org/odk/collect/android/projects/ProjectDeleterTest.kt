@@ -15,6 +15,7 @@ import org.odk.collect.android.preferences.Defaults
 import org.odk.collect.android.storage.StoragePathProvider
 import org.odk.collect.android.utilities.ChangeLockProvider
 import org.odk.collect.android.utilities.InstancesRepositoryProvider
+import org.odk.collect.androidshared.data.AppState
 import org.odk.collect.forms.instances.Instance
 import org.odk.collect.formstest.InMemInstancesRepository
 import org.odk.collect.projects.InMemProjectsRepository
@@ -37,7 +38,7 @@ class ProjectDeleterTest {
         whenever(create(project1.uuid)).thenReturn(instancesRepository)
     }
     private val settingsProvider = InMemSettingsProvider()
-    private val projectsDataService = ProjectsDataService(settingsProvider, projectsRepository, mock(), mock())
+    private val projectsDataService = ProjectsDataService(AppState(), settingsProvider, projectsRepository, mock(), mock())
     private val formUpdateScheduler = mock<FormUpdateScheduler>()
     private val instanceSubmitScheduler = mock<InstanceSubmitScheduler>()
     private val storagePathProvider = mock<StoragePathProvider>().apply {
@@ -221,7 +222,7 @@ class ProjectDeleterTest {
 
         val result = deleter.deleteProject(project1.uuid)
 
-        assertThat(projectsDataService.getCurrentProject().uuid, equalTo(project2.uuid))
+        assertThat(projectsDataService.requireCurrentProject().uuid, equalTo(project2.uuid))
         assertThat((result as DeleteProjectResult.DeletedSuccessfullyCurrentProject).newCurrentProject, equalTo(project2))
     }
 
@@ -233,7 +234,7 @@ class ProjectDeleterTest {
 
         val result = deleter.deleteProject(project1.uuid)
 
-        assertThat(projectsDataService.getCurrentProject().uuid, equalTo(project2.uuid))
+        assertThat(projectsDataService.requireCurrentProject().uuid, equalTo(project2.uuid))
         assertThat(result, instanceOf(DeleteProjectResult.DeletedSuccessfullyInactiveProject::class.java))
     }
 

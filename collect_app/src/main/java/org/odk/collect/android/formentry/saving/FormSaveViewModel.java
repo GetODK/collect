@@ -249,7 +249,7 @@ public class FormSaveViewModel extends ViewModel implements MaterialProgressDial
                 handleTaskResult(saveToDiskResult, saveRequest);
                 clearMediaFiles();
             }
-        }, new ArrayList<>(originalFiles.values()), projectsDataService.getCurrentProject().getUuid(), entitiesRepository, instancesRepository).execute();
+        }, new ArrayList<>(originalFiles.values()), projectsDataService.requireCurrentProject().getUuid(), entitiesRepository, instancesRepository).execute();
     }
 
     private void handleTaskResult(SaveToDiskResult taskResult, SaveRequest saveRequest) {
@@ -273,7 +273,7 @@ public class FormSaveViewModel extends ViewModel implements MaterialProgressDial
                         formController.getAuditEventLogger().logEvent(AuditEvent.AuditEventType.FORM_EXIT, false, clock.get());
                         formController.getAuditEventLogger().logEvent(AuditEvent.AuditEventType.FORM_FINALIZE, true, clock.get());
 
-                        instancesDataService.instanceFinalized(projectsDataService.getCurrentProject().getUuid(), form);
+                        instancesDataService.instanceFinalized(projectsDataService.requireCurrentProject().getUuid(), form);
                     } else {
                         formController.getAuditEventLogger().logEvent(AuditEvent.AuditEventType.FORM_EXIT, true, clock.get());
                     }

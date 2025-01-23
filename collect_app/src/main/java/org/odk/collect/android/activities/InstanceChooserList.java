@@ -157,7 +157,7 @@ public class InstanceChooserList extends AppListActivity implements AdapterView.
         init();
 
         BulkFinalizationViewModel bulkFinalizationViewModel = new BulkFinalizationViewModel(
-                projectsDataService.getCurrentProject().getUuid(),
+                projectsDataService.requireCurrentProject().getUuid(),
                 scheduler,
                 instancesDataService,
                 settingsProvider
@@ -198,7 +198,7 @@ public class InstanceChooserList extends AppListActivity implements AdapterView.
             if (view.isEnabled()) {
                 Cursor c = (Cursor) listView.getAdapter().getItem(position);
                 long instanceId = c.getLong(c.getColumnIndex(DatabaseInstanceColumns._ID));
-                Uri instanceUri = InstancesContract.getUri(projectsDataService.getCurrentProject().getUuid(), instanceId);
+                Uri instanceUri = InstancesContract.getUri(projectsDataService.requireCurrentProject().getUuid(), instanceId);
 
                 String action = getIntent().getAction();
                 if (Intent.ACTION_PICK.equals(action)) {

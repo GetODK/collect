@@ -193,7 +193,7 @@ class FormsDataServiceTest {
         formsDataService.matchFormsWithServer(project.uuid)
 
         assertThat(formsDataService.getServerError(project.uuid).getOrAwaitValue(), equalTo(error))
-        formsDataService.update(project.uuid)
+        formsDataService.refresh(project.uuid)
         assertThat(formsDataService.getServerError(project.uuid).getOrAwaitValue(), equalTo(error))
     }
 
@@ -239,7 +239,7 @@ class FormsDataServiceTest {
         changeLock.lock()
 
         isSyncing.recordValues { projectValues ->
-            formsDataService.update(project.uuid)
+            formsDataService.refresh(project.uuid)
             assertThat(projectValues, equalTo(listOf(false)))
         }
     }

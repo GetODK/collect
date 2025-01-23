@@ -1,8 +1,6 @@
 package org.odk.collect.android.instancemanagement
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import org.odk.collect.analytics.Analytics
 import org.odk.collect.android.analytics.AnalyticsEvents
 import org.odk.collect.android.application.Collect
@@ -19,11 +17,9 @@ import org.odk.collect.android.state.DataKeys
 import org.odk.collect.android.utilities.ExternalizableFormDefCache
 import org.odk.collect.android.utilities.FormsUploadResultInterpreter
 import org.odk.collect.androidshared.data.AppState
-import org.odk.collect.androidshared.data.getData
+import org.odk.collect.androidshared.data.DataService
 import org.odk.collect.forms.Form
 import org.odk.collect.forms.instances.Instance
-import org.odk.collect.forms.instances.Instance.STATUS_COMPLETE
-import org.odk.collect.forms.instances.Instance.STATUS_SUBMISSION_FAILED
 import org.odk.collect.metadata.PropertyManager
 import org.odk.collect.projects.ProjectDependencyFactory
 import java.io.File
@@ -35,48 +31,49 @@ class InstancesDataService(
     private val notifier: Notifier,
     private val propertyManager: PropertyManager,
     private val httpInterface: OpenRosaHttpInterface,
-    private val onUpdate: () -> Unit
-) {
+    onUpdate: () -> Unit
+) : DataService(appState, onUpdate) {
 
-    private val _editableCount = appState.getData(DataKeys.INSTANCES_EDITABLE_COUNT, 0)
-    val editableCount: LiveData<Int> = _editableCount.get().asLiveData()
-
-    private val _sendableCount = appState.getData(DataKeys.INSTANCES_SENDABLE_COUNT, 0)
-    val sendableCount: LiveData<Int> = _sendableCount.get().asLiveData()
-
-    private val _sentCount = appState.getData(DataKeys.INSTANCES_SENT_COUNT, 0)
-    val sentCount: LiveData<Int> = _sentCount.get().asLiveData()
-
-    private val instances = appState.getData<List<Instance>>(DataKeys.INSTANCES, emptyList())
-
-    fun getInstances(projectId: String): Flow<List<Instance>> {
-        return instances.get(projectId)
-    }
-
-    fun update(projectId: String) {
+    private val editableCount by qualifiedData(DataKeys.INSTANCES_EDITABLE_COUNT, 0) { projectId ->
         val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
         val instancesRepository = projectDependencyModule.instancesRepository
-
-        val sendableInstances = instancesRepository.getCountByStatus(
-            Instance.STATUS_COMPLETE,
-            Instance.STATUS_SUBMISSION_FAILED
-        )
-        val sentInstances = instancesRepository.getCountByStatus(
-            Instance.STATUS_SUBMITTED,
-            Instance.STATUS_SUBMISSION_FAILED
-        )
-        val editableInstances = instancesRepository.getCountByStatus(
+        instancesRepository.getCountByStatus(
             Instance.STATUS_INCOMPLETE,
             Instance.STATUS_INVALID,
             Instance.STATUS_VALID
         )
+    }
 
-        _editableCount.set(editableInstances)
-        _sendableCount.set(sendableInstances)
-        _sentCount.set(sentInstances)
-        instances.set(projectId, instancesRepository.all)
+    private val sendableCount by qualifiedData(DataKeys.INSTANCES_SENDABLE_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.getCountByStatus(
+            Instance.STATUS_COMPLETE,
+            Instance.STATUS_SUBMISSION_FAILED
+        )
+    }
 
-        onUpdate()
+    private val sentCount by qualifiedData(DataKeys.INSTANCES_SENT_COUNT, 0) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.getCountByStatus(
+            Instance.STATUS_SUBMITTED,
+            Instance.STATUS_SUBMISSION_FAILED
+        )
+    }
+
+    private val instances by qualifiedData(DataKeys.INSTANCES, emptyList()) { projectId ->
+        val projectDependencyModule = projectDependencyModuleFactory.create(projectId)
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.all
+    }
+
+    fun getEditableCount(projectId: String): StateFlow<Int> = editableCount.flow(projectId)
+    fun getSendableCount(projectId: String): StateFlow<Int> = sendableCount.flow(projectId)
+    fun getSentCount(projectId: String): StateFlow<Int> = sentCount.flow(projectId)
+
+    fun getInstances(projectId: String): StateFlow<List<Instance>> {
+        return instances.flow(projectId)
     }
 
     fun finalizeAllDrafts(projectId: String): FinalizeAllResult {

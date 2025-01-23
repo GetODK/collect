@@ -34,30 +34,26 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class InstancesDataServiceTest {
-
-    private val settings = InMemSettings().also {
-        it.save(ProjectKeys.KEY_SERVER_URL, "http://example.com")
-    }
-
-    private val changeLocks = ChangeLocks(BooleanChangeLock(), BooleanChangeLock())
-    private val formsRepository = InMemFormsRepository()
-    private val instancesRepository = InMemInstancesRepository()
-
-    private val projectsDependencyModuleFactory = ProjectDependencyFactory {
+    private val projectsDependencyModuleFactory = CachingProjectDependencyModuleFactory { projectId ->
         ProjectDependencyModule(
-            it,
-            { settings },
-            { formsRepository },
-            { instancesRepository },
+            projectId,
+            {
+                InMemSettings().also {
+                    it.save(ProjectKeys.KEY_SERVER_URL, "http://example.com")
+                }
+            },
+            { InMemFormsRepository() },
+            { InMemInstancesRepository() },
             mock(),
-            { changeLocks },
+            { ChangeLocks(BooleanChangeLock(), BooleanChangeLock()) },
             mock(),
             mock(),
             mock()
         )
     }
 
-    private val projectDependencyModule = projectsDependencyModuleFactory.create("blah")
+    private val projectId = "projectId"
+    private val projectDependencyModule = projectsDependencyModuleFactory.create(projectId)
     private val httpInterface = mock<OpenRosaHttpInterface>()
     private val notifier = mock<Notifier>()
 
@@ -75,25 +71,25 @@ class InstancesDataServiceTest {
     @Test
     fun `instances should not be deleted if the instances database is locked`() {
         projectDependencyModule.instancesLock.lock()
-        val result = instancesDataService.deleteInstances("projectId", longArrayOf(1))
+        val result = instancesDataService.deleteInstances(projectId, longArrayOf(1))
         assertThat(result, equalTo(false))
     }
 
     @Test
     fun `instances should be deleted if the instances database is not locked`() {
-        val result = instancesDataService.deleteInstances("projectId", longArrayOf(1))
+        val result = instancesDataService.deleteInstances(projectId, longArrayOf(1))
         assertThat(result, equalTo(true))
     }
 
     @Test
     fun `sendInstances() returns true when there are no instances to send`() {
-        val result = instancesDataService.sendInstances("projectId")
+        val result = instancesDataService.sendInstances(projectId)
         assertThat(result, equalTo(true))
     }
 
     @Test
     fun `sendInstances() does not notify when there are no instances to send`() {
-        instancesDataService.sendInstances("projectId")
+        instancesDataService.sendInstances(projectId)
         verifyNoInteractions(notifier)
     }
 
@@ -108,7 +104,7 @@ class InstancesDataServiceTest {
         whenever(httpInterface.executeGetRequest(any(), any(), any()))
             .doReturn(HttpGetResult(null, emptyMap(), "", 500))
 
-        val result = instancesDataService.sendInstances("projectId")
+        val result = instancesDataService.sendInstances(projectId)
         assertThat(result, equalTo(false))
     }
 
@@ -118,12 +114,48 @@ class InstancesDataServiceTest {
         val form = formsRepository.save(FormFixtures.form())
 
         val instancesRepository = projectDependencyModule.instancesRepository
-        instancesRepository.save(InstanceFixtures.instance(form = form, canDeleteBeforeSend = false, status = STATUS_INCOMPLETE))
-        instancesRepository.save(InstanceFixtures.instance(form = form, canDeleteBeforeSend = false, status = STATUS_COMPLETE))
-        instancesRepository.save(InstanceFixtures.instance(form = form, canDeleteBeforeSend = false, status = STATUS_INVALID))
-        instancesRepository.save(InstanceFixtures.instance(form = form, canDeleteBeforeSend = false, status = STATUS_VALID))
-        instancesRepository.save(InstanceFixtures.instance(form = form, canDeleteBeforeSend = false, status = STATUS_SUBMITTED))
-        instancesRepository.save(InstanceFixtures.instance(form = form, canDeleteBeforeSend = false, status = STATUS_SUBMISSION_FAILED))
+        instancesRepository.save(
+            InstanceFixtures.instance(
+                form = form,
+                canDeleteBeforeSend = false,
+                status = STATUS_INCOMPLETE
+            )
+        )
+        instancesRepository.save(
+            InstanceFixtures.instance(
+                form = form,
+                canDeleteBeforeSend = false,
+                status = STATUS_COMPLETE
+            )
+        )
+        instancesRepository.save(
+            InstanceFixtures.instance(
+                form = form,
+                canDeleteBeforeSend = false,
+                status = STATUS_INVALID
+            )
+        )
+        instancesRepository.save(
+            InstanceFixtures.instance(
+                form = form,
+                canDeleteBeforeSend = false,
+                status = STATUS_VALID
+            )
+        )
+        instancesRepository.save(
+            InstanceFixtures.instance(
+                form = form,
+                canDeleteBeforeSend = false,
+                status = STATUS_SUBMITTED
+            )
+        )
+        instancesRepository.save(
+            InstanceFixtures.instance(
+                form = form,
+                canDeleteBeforeSend = false,
+                status = STATUS_SUBMISSION_FAILED
+            )
+        )
 
         instancesDataService.reset(projectDependencyModule.projectId)
         val remainingInstances = instancesRepository.all
@@ -132,5 +164,38 @@ class InstancesDataServiceTest {
         assertThat(remainingInstances.any { it.status == STATUS_SUBMISSION_FAILED }, equalTo(true))
         assertThat(File(remainingInstances[0].instanceFilePath).parentFile?.exists(), equalTo(true))
         assertThat(File(remainingInstances[1].instanceFilePath).parentFile?.exists(), equalTo(true))
+    }
+
+    @Test
+    fun `#update updates instances and counts`() {
+        val instancesRepository = projectDependencyModule.instancesRepository
+        instancesRepository.save(InstanceFixtures.instance(status = STATUS_COMPLETE))
+        instancesRepository.save(InstanceFixtures.instance(status = STATUS_SUBMITTED))
+        instancesRepository.save(InstanceFixtures.instance(status = STATUS_INCOMPLETE))
+
+        instancesDataService.update(projectId)
+        assertThat(
+            instancesDataService.getInstances(projectId).value,
+            equalTo(instancesRepository.all)
+        )
+        assertThat(instancesDataService.getSentCount(projectId).value, equalTo(1))
+        assertThat(instancesDataService.getEditableCount(projectId).value, equalTo(1))
+        assertThat(instancesDataService.getSendableCount(projectId).value, equalTo(1))
+        assertThat(instancesDataService.getInstances("otherProjectId").value, equalTo(emptyList()))
+        assertThat(instancesDataService.getSentCount("otherProjectId").value, equalTo(0))
+        assertThat(instancesDataService.getEditableCount("otherProjectId").value, equalTo(0))
+        assertThat(instancesDataService.getSendableCount("otherProjectId").value, equalTo(0))
+    }
+}
+
+class CachingProjectDependencyModuleFactory(private val moduleFactory: (String) -> ProjectDependencyModule) :
+    ProjectDependencyFactory<ProjectDependencyModule> {
+
+    private val modules = mutableMapOf<String, ProjectDependencyModule>()
+
+    override fun create(projectId: String): ProjectDependencyModule {
+        return modules.getOrPut(projectId) {
+            moduleFactory(projectId)
+        }
     }
 }

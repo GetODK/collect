@@ -133,7 +133,7 @@ class ManualProjectCreatorDialog :
         ActivityUtils.startActivityAndCloseAllOthers(activity, MainMenuActivity::class.java)
         ToastUtils.showLongToast(
             requireContext(),
-            getString(org.odk.collect.strings.R.string.switched_project, projectsDataService.getCurrentProject().name)
+            getString(org.odk.collect.strings.R.string.switched_project, projectsDataService.requireCurrentProject().name)
         )
     }
 
@@ -144,7 +144,7 @@ class ManualProjectCreatorDialog :
             requireContext(),
             getString(
                 org.odk.collect.strings.R.string.switched_project,
-                projectsDataService.getCurrentProject().name
+                projectsDataService.requireCurrentProject().name
             )
         )
     }

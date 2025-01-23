@@ -53,7 +53,7 @@ class JavaRosaInitializer(
         XFormUtils.setXFormParserFactory(dynamicPreloadXFormParserFactory)
 
         val localEntitiesExternalInstanceParserFactory = LocalEntitiesExternalInstanceParserFactory(
-            { entitiesRepositoryProvider.create(projectsDataService.getCurrentProject().uuid) },
+            { entitiesRepositoryProvider.create(projectsDataService.requireCurrentProject().uuid) },
             { settingsProvider.getUnprotectedSettings().getBoolean(ProjectKeys.KEY_LOCAL_ENTITIES) }
         )
 

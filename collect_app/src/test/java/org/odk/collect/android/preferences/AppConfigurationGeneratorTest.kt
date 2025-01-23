@@ -23,7 +23,7 @@ class AppConfigurationGeneratorTest {
     private val settingsProvider = InMemSettingsProvider()
 
     private val projectsDataService: ProjectsDataService = mock {
-        on { getCurrentProject() } doReturn Project.Saved("1", "Project X", "X", "#cccccc")
+        on { requireCurrentProject() } doReturn Project.Saved("1", "Project X", "X", "#cccccc")
     }
 
     val projectDetails = mapOf(

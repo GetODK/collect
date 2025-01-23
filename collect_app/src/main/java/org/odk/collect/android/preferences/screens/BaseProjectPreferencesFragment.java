@@ -39,7 +39,7 @@ public abstract class BaseProjectPreferencesFragment extends BasePreferencesFrag
         DaggerUtils.getComponent(context).inject(this);
         projectPreferencesViewModel = new ViewModelProvider(requireActivity(), factory).get(ProjectPreferencesViewModel.class);
 
-        projectId = projectsDataService.getCurrentProject().getUuid();
+        projectId = projectsDataService.requireCurrentProject().getUuid();
         settings = settingsProvider.getUnprotectedSettings(projectId);
     }
 
