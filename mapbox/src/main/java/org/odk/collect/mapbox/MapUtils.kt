@@ -18,7 +18,7 @@ object MapUtils {
         pointAnnotationManager: PointAnnotationManager,
         point: MapPoint,
         draggable: Boolean,
-        @MapFragment.IconAnchor iconAnchor: String,
+        @MapFragment.Companion.IconAnchor iconAnchor: String,
         iconDrawableId: Int,
         context: Context
     ): PointAnnotation {
@@ -53,7 +53,7 @@ object MapUtils {
         return pointAnnotationManager.create(pointAnnotationOptionsList)
     }
 
-    private fun getIconAnchorValue(@MapFragment.IconAnchor iconAnchor: String): IconAnchor {
+    private fun getIconAnchorValue(@MapFragment.Companion.IconAnchor iconAnchor: String): IconAnchor {
         return when (iconAnchor) {
             MapFragment.BOTTOM -> IconAnchor.BOTTOM
             else -> IconAnchor.CENTER

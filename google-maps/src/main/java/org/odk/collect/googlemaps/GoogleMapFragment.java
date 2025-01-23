@@ -98,9 +98,8 @@ public class GoogleMapFragment extends Fragment implements
     private final MapFragmentDelegate mapFragmentDelegate = new MapFragmentDelegate(
             this,
             this::createConfigurator,
-            () -> {
-                return settingsProvider.getUnprotectedSettings();
-            },
+            () -> settingsProvider.getUnprotectedSettings(),
+            () -> settingsProvider.getMetaSettings(),
             this::onConfigChanged
     );
 
@@ -127,6 +126,7 @@ public class GoogleMapFragment extends Fragment implements
     private File referenceLayerFile;
     private TileOverlay referenceOverlay;
     private boolean hasCenter;
+    private boolean isUserZooming;
 
     @Override
     public void init(@Nullable ReadyListener readyListener, @Nullable ErrorListener errorListener) {
@@ -170,9 +170,20 @@ public class GoogleMapFragment extends Fragment implements
             googleMap.setMyLocationEnabled(false);
             googleMap.setMinZoomPreference(1);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                    toLatLng(INITIAL_CENTER), INITIAL_ZOOM));
+                    toLatLng(MapFragment.Companion.getINITIAL_CENTER()), INITIAL_ZOOM));
             googleMap.setOnCameraMoveListener(() -> scaleView.update(googleMap.getCameraPosition().zoom, googleMap.getCameraPosition().target.latitude));
-            googleMap.setOnCameraIdleListener(() -> scaleView.update(googleMap.getCameraPosition().zoom, googleMap.getCameraPosition().target.latitude));
+            googleMap.setOnCameraMoveStartedListener(reason -> {
+                if (reason == GoogleMap.OnCameraMoveStartedListener.REASON_GESTURE) {
+                    isUserZooming = true;
+                }
+            });
+            googleMap.setOnCameraIdleListener(() -> {
+                scaleView.update(googleMap.getCameraPosition().zoom, googleMap.getCameraPosition().target.latitude);
+                if (isUserZooming) {
+                    mapFragmentDelegate.onZoomLevelChangedByUserListener(googleMap.getCameraPosition().zoom);
+                    isUserZooming = false;
+                }
+            });
             loadReferenceOverlay();
 
             // If the screen is rotated before the map is ready, this fragment
@@ -224,9 +235,15 @@ public class GoogleMapFragment extends Fragment implements
         super.onDestroy();
     }
 
+    @NonNull
+    @Override
+    public MapFragmentDelegate getMapFragmentDelegate() {
+        return mapFragmentDelegate;
+    }
+
     @Override public @NonNull MapPoint getCenter() {
         if (map == null) {  // during Robolectric tests, map will be null
-            return INITIAL_CENTER;
+            return MapFragment.Companion.getINITIAL_CENTER();
         }
         LatLng target = map.getCameraPosition().target;
         return new MapPoint(target.latitude, target.longitude);
@@ -265,7 +282,7 @@ public class GoogleMapFragment extends Fragment implements
         hasCenter = true;
     }
 
-    @Override public void zoomToBoundingBox(Iterable<MapPoint> points, double scaleFactor, boolean animate) {
+    @Override public void zoomToBoundingBox(@Nullable Iterable<MapPoint> points, double scaleFactor, boolean animate) {
         if (map == null) {  // during Robolectric tests, map will be null
             return;
         }
@@ -696,7 +713,7 @@ public class GoogleMapFragment extends Fragment implements
         );
     }
 
-    private static float getIconAnchorValueX(@IconAnchor String iconAnchor) {
+    private static float getIconAnchorValueX(@MapFragment.Companion.IconAnchor String iconAnchor) {
         switch (iconAnchor) {
             case BOTTOM:
             default:
@@ -704,7 +721,7 @@ public class GoogleMapFragment extends Fragment implements
         }
     }
 
-    private static float getIconAnchorValueY(@IconAnchor String iconAnchor) {
+    private static float getIconAnchorValueY(@MapFragment.Companion.IconAnchor String iconAnchor) {
         switch (iconAnchor) {
             case BOTTOM:
                 return 1.0f;

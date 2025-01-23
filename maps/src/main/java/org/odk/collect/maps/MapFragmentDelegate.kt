@@ -1,6 +1,7 @@
 package org.odk.collect.maps
 
 import android.os.Bundle
+import org.odk.collect.settings.keys.MetaKeys.LAST_KNOWN_ZOOM_LEVEL
 import org.odk.collect.shared.settings.Settings
 import org.odk.collect.shared.settings.Settings.OnSettingChangeListener
 import java.util.function.Consumer
@@ -8,14 +9,18 @@ import java.util.function.Consumer
 class MapFragmentDelegate(
     private val mapFragment: MapFragment,
     configuratorProvider: () -> MapConfigurator,
-    settingsProvider: () -> Settings,
+    unprotectedSettingsProvider: () -> Settings,
+    metaSettingsProvider: () -> Settings,
     private val onConfigChanged: Consumer<Bundle>
 ) : OnSettingChangeListener {
 
     private val configurator by lazy { configuratorProvider() }
-    private val settings by lazy { settingsProvider() }
+    private val unprotectedSettings by lazy { unprotectedSettingsProvider() }
+    private val metaSettings by lazy { metaSettingsProvider() }
 
     private var savedInstanceState: Bundle? = null
+    var zoomLevel: Float? = null
+        private set
 
     fun onCreate(savedInstanceState: Bundle?) {
         this.savedInstanceState = savedInstanceState
@@ -33,22 +38,32 @@ class MapFragmentDelegate(
     }
 
     fun onStart() {
-        onConfigChanged.accept(configurator.buildConfig(settings))
-        settings.registerOnSettingChangeListener(this)
+        if (metaSettings.contains(LAST_KNOWN_ZOOM_LEVEL)) {
+            zoomLevel = metaSettings.getFloat(LAST_KNOWN_ZOOM_LEVEL)
+        }
+        onConfigChanged.accept(configurator.buildConfig(unprotectedSettings))
+        unprotectedSettings.registerOnSettingChangeListener(this)
     }
 
     fun onStop() {
-        settings.unregisterOnSettingChangeListener(this)
+        if (zoomLevel != null) {
+            metaSettings.save(LAST_KNOWN_ZOOM_LEVEL, zoomLevel)
+        }
+        unprotectedSettings.unregisterOnSettingChangeListener(this)
     }
 
     fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelable(MAP_CENTER_KEY, mapFragment.center)
-        outState.putDouble(MAP_ZOOM_KEY, mapFragment.zoom)
+        outState.putParcelable(MAP_CENTER_KEY, mapFragment.getCenter())
+        outState.putDouble(MAP_ZOOM_KEY, mapFragment.getZoom())
+    }
+
+    fun onZoomLevelChangedByUserListener(zoomLevel: Float?) {
+        this.zoomLevel = zoomLevel
     }
 
     override fun onSettingChanged(key: String) {
         if (configurator.prefKeys.contains(key)) {
-            onConfigChanged.accept(configurator.buildConfig(settings))
+            onConfigChanged.accept(configurator.buildConfig(unprotectedSettings))
         }
     }
 

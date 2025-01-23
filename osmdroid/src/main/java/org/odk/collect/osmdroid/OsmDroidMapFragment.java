@@ -110,6 +110,7 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
             this,
             () -> mapConfigurator,
             () -> settingsProvider.getUnprotectedSettings(),
+            () -> settingsProvider.getMetaSettings(),
             this::onConfigChanged
     );
 
@@ -130,6 +131,7 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
     private File referenceLayerFile;
     private TilesOverlay referenceOverlay;
     private boolean hasCenter;
+    private boolean isSystemZooming;
 
     @Override
     public void init(@Nullable ReadyListener readyListener, @Nullable ErrorListener errorListener) {
@@ -198,11 +200,30 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         map.setMinZoomLevel(2.0);
         map.setMaxZoomLevel(22.0);
-        map.getController().setCenter(toGeoPoint(INITIAL_CENTER));
+        map.getController().setCenter(toGeoPoint(MapFragment.Companion.getINITIAL_CENTER()));
         map.getController().setZoom((int) INITIAL_ZOOM);
         map.setTilesScaledToDpi(true);
         map.setFlingEnabled(false);
         map.getOverlays().add(new ScaleBarOverlay(map));
+        map.addMapListener(new MapListener() {
+            @Override
+            public boolean onZoom(ZoomEvent event) {
+                if (!isSystemZooming) {
+                    float zoomLevel = (float) event.getZoomLevel();
+                    if (zoomLevel < 2) {
+                        mapFragmentDelegate.onZoomLevelChangedByUserListener(2f);
+                    } else {
+                        mapFragmentDelegate.onZoomLevelChangedByUserListener(zoomLevel);
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(ScrollEvent event) {
+                return false;
+            }
+        });
         addAttributionAndMapEventsOverlays();
         loadReferenceOverlay();
         addMapLayoutChangeListener(map);
@@ -225,6 +246,12 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
             }
         }, 100);
         return view;
+    }
+
+    @NonNull
+    @Override
+    public MapFragmentDelegate getMapFragmentDelegate() {
+        return mapFragmentDelegate;
     }
 
     @Override
@@ -261,16 +288,18 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
         // We're ignoring the 'animate' flag because OSMDroid doesn't provide
         // support for simultaneously animating the viewport center and zoom level.
         if (center != null) {
+            isSystemZooming = true;
             // setCenter() must be done last; setZoom() does not preserve the center.
             map.getController().setZoom((int) Math.round(zoom));
             map.getController().setCenter(toGeoPoint(center));
+            isSystemZooming = false;
         }
 
         hasCenter = true;
     }
 
     @Override
-    public void zoomToBoundingBox(Iterable<MapPoint> points, double scaleFactor, boolean animate) {
+    public void zoomToBoundingBox(@Nullable Iterable<MapPoint> points, double scaleFactor, boolean animate) {
         if (points != null) {
             int count = 0;
             List<GeoPoint> geoPoints = new ArrayList<>();
@@ -292,7 +321,11 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
                 // did it, not because it's known to be the best solution.
                 final BoundingBox box = BoundingBox.fromGeoPoints(geoPoints)
                         .increaseByScale((float) (1 / scaleFactor));
-                new Handler().postDelayed(() -> map.zoomToBoundingBox(box, animate), 100);
+                new Handler().postDelayed(() -> {
+                    isSystemZooming = true;
+                    map.zoomToBoundingBox(box, animate);
+                    isSystemZooming = false;
+                }, 100);
             }
         }
 
@@ -637,7 +670,7 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
         return marker;
     }
 
-    private float getIconAnchorValueX(@IconAnchor String iconAnchor) {
+    private float getIconAnchorValueX(@MapFragment.Companion.IconAnchor String iconAnchor) {
         switch (iconAnchor) {
             case BOTTOM:
             default:
@@ -645,7 +678,7 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
         }
     }
 
-    private float getIconAnchorValueY(@IconAnchor String iconAnchor) {
+    private float getIconAnchorValueY(@MapFragment.Companion.IconAnchor String iconAnchor) {
         switch (iconAnchor) {
             case BOTTOM:
                 return Marker.ANCHOR_BOTTOM;

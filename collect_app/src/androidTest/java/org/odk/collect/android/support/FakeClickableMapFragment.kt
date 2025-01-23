@@ -3,8 +3,10 @@ package org.odk.collect.android.support
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.Fragment
+import org.mockito.Mockito.mock
 import org.odk.collect.maps.LineDescription
 import org.odk.collect.maps.MapFragment
+import org.odk.collect.maps.MapFragmentDelegate
 import org.odk.collect.maps.MapPoint
 import org.odk.collect.maps.PolygonDescription
 import org.odk.collect.maps.markers.MarkerDescription
@@ -22,6 +24,9 @@ class FakeClickableMapFragment : Fragment(), MapFragment {
         readyListener?.onReady(this)
     }
 
+    override val mapFragmentDelegate: MapFragmentDelegate
+        get() = mock()
+
     override fun getCenter(): MapPoint {
         return MapPoint(0.0, 0.0)
     }
@@ -37,7 +42,7 @@ class FakeClickableMapFragment : Fragment(), MapFragment {
     override fun zoomToPoint(center: MapPoint?, zoom: Double, animate: Boolean) {}
 
     override fun zoomToBoundingBox(
-        points: MutableIterable<MapPoint>?,
+        points: Iterable<MapPoint>?,
         scaleFactor: Double,
         animate: Boolean
     ) {}

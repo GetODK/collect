@@ -1,29 +1,8 @@
-/*
- * Copyright (C) 2018 Nafundi
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
+package org.odk.collect.maps
 
-package org.odk.collect.maps;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringDef;
-
-import org.odk.collect.maps.markers.MarkerDescription;
-import org.odk.collect.maps.markers.MarkerIconDescription;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.util.List;
+import androidx.annotation.StringDef
+import org.odk.collect.maps.markers.MarkerDescription
+import org.odk.collect.maps.markers.MarkerIconDescription
 
 /**
  * Interface for a Fragment that renders a map view.  The plan is to have one
@@ -45,48 +24,50 @@ import java.util.List;
  * three distinct modes), the map always supports all three kinds of features,
  * even though the geo widgets only use one kind of feature at a time.
  */
-public interface MapFragment {
-    MapPoint INITIAL_CENTER = new MapPoint(0, -30);
-    float INITIAL_ZOOM = 2;
-    float POINT_ZOOM = 16;
+interface MapFragment {
+    val mapFragmentDelegate: MapFragmentDelegate
 
-    String KEY_REFERENCE_LAYER = "REFERENCE_LAYER";
+    fun init(readyListener: ReadyListener?, errorListener: ErrorListener?)
 
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({BOTTOM, CENTER})
-    @interface IconAnchor {}
-
-    String CENTER = "center";
-    String BOTTOM = "bottom";
-
-    void init(@Nullable ReadyListener readyListener, @Nullable ErrorListener errorListener);
-
-    /** Gets the point currently shown at the center of the map view. */
-    @NonNull MapPoint getCenter();
+    /** Gets the point currently shown at the center of the map view.  */
+    fun getCenter(): MapPoint
 
     /**
      * Gets the current zoom level.  For maps that only support zooming by
      * powers of 2, the zoom level will always be an integer.
      */
-    double getZoom();
+    fun getZoom(): Double
 
     /**
      * Centers the map view on the given point, leaving zoom level unchanged,
      * possibly with animation.
      */
-    void setCenter(@Nullable MapPoint center, boolean animate);
+    fun setCenter(center: MapPoint?, animate: Boolean)
+
+    /**
+     * Centers the map view on the current location, zooming in to the last zoom level set by the
+     * user if available, or to a close-up level deemed appropriate by
+     * the implementation, possibly with animation.
+     */
+    fun zoomToCurrentLocation(center: MapPoint?) {
+        zoomToPoint(
+            center,
+            mapFragmentDelegate.zoomLevel?.toDouble() ?: POINT_ZOOM.toDouble(),
+            true
+        )
+    }
 
     /**
      * Centers the map view on the given point, zooming in to a close-up level
      * deemed appropriate by the implementation, possibly with animation.
      */
-    void zoomToPoint(@Nullable MapPoint center, boolean animate);
+    fun zoomToPoint(center: MapPoint?, animate: Boolean)
 
     /**
      * Centers the map view on the given point with a zoom level as close as
      * possible to the given zoom level, possibly with animation.
      */
-    void zoomToPoint(@Nullable MapPoint center, double zoom, boolean animate);
+    fun zoomToPoint(center: MapPoint?, zoom: Double, animate: Boolean)
 
     /**
      * Adjusts the map's viewport to enclose all of the given points, possibly
@@ -96,65 +77,65 @@ public interface MapFragment {
      * to occupy at most 80% of the width and 80% of the height of the viewport,
      * ensuring a margin of at least 10% on all sides.
      */
-    void zoomToBoundingBox(Iterable<MapPoint> points, double scaleFactor, boolean animate);
+    fun zoomToBoundingBox(points: Iterable<MapPoint>?, scaleFactor: Double, animate: Boolean)
 
     /**
      * Adds a marker to the map at the given location. If draggable is true,
      * the user will be able to drag the marker to change its location.
      * Returns a positive integer, the featureId for the newly added shape.
      */
-    int addMarker(MarkerDescription markerDescription);
+    fun addMarker(markerDescription: MarkerDescription): Int
 
-    List<Integer> addMarkers(List<MarkerDescription> markers);
+    fun addMarkers(markers: List<MarkerDescription>): List<Int>
 
-    /** Sets the icon for a marker. */
-    void setMarkerIcon(int featureId, MarkerIconDescription markerIconDescription);
+    /** Sets the icon for a marker.  */
+    fun setMarkerIcon(featureId: Int, markerIconDescription: MarkerIconDescription)
 
-    /** Gets the location of an existing marker. */
-    MapPoint getMarkerPoint(int featureId);
+    /** Gets the location of an existing marker.  */
+    fun getMarkerPoint(featureId: Int): MapPoint?
 
     /**
      * Adds a polyline to the map with the given sequence of vertices.
      * The vertices will have handles that can be dragged by the user.
      * Returns a positive integer, the featureId for the newly added shape.
      */
-    int addPolyLine(LineDescription lineDescription);
+    fun addPolyLine(lineDescription: LineDescription): Int
 
     /**
      * Adds a polygon to the map with given sequence of vertices. * Returns a positive integer,
      * the featureId for the newly added shape.
      */
-    int addPolygon(PolygonDescription polygonDescription);
+    fun addPolygon(polygonDescription: PolygonDescription): Int
 
-    /** Appends a vertex to the polyline or polygon specified by featureId. */
-    void appendPointToPolyLine(int featureId, @NonNull MapPoint point);
+    /** Appends a vertex to the polyline or polygon specified by featureId.  */
+    fun appendPointToPolyLine(featureId: Int, point: MapPoint)
 
     /**
      * Removes the last vertex of the polyline or polygon specified by featureId.
      * If there are no vertices, does nothing.
      */
-    void removePolyLineLastPoint(int featureId);
+    fun removePolyLineLastPoint(featureId: Int)
 
     /**
      * Returns the vertices of the polyline or polygon specified by featureId, or an
      * empty list if the featureId does not identify an existing polyline or polygon.
      */
-    @NonNull List<MapPoint> getPolyLinePoints(int featureId);
+    fun getPolyLinePoints(featureId: Int): List<MapPoint>
 
-    /** Removes all map features from the map. */
-    void clearFeatures();
+    /** Removes all map features from the map.  */
+    fun clearFeatures()
 
-    /** Sets or clears the callback for a click on the map. */
-    void setClickListener(@Nullable PointListener listener);
+    /** Sets or clears the callback for a click on the map.  */
+    fun setClickListener(listener: PointListener?)
 
-    /** Sets or clears the callback for a long press on the map. */
-    void setLongPressListener(@Nullable PointListener listener);
+    /** Sets or clears the callback for a long press on the map.  */
+    fun setLongPressListener(listener: PointListener?)
 
-    /** Sets or clears the callback for a click on a feature. */
-    void setFeatureClickListener(@Nullable FeatureListener listener);
+    /** Sets or clears the callback for a click on a feature.  */
+    fun setFeatureClickListener(listener: FeatureListener?)
 
-    /** Sets or clears the callback for when a drag is completed. */
-    void setDragEndListener(@Nullable FeatureListener listener);
+    /** Sets or clears the callback for when a drag is completed.  */
+    fun setDragEndListener(listener: FeatureListener?)
 
     /**
      * Enables/disables GPS tracking.  While enabled, the GPS location is shown
@@ -162,13 +143,13 @@ public interface MapFragment {
      * runOnGpsLocationReady(), and every GPS fix will invoke the callback set
      * by setGpsLocationListener().
      */
-    void setGpsLocationEnabled(boolean enabled);
+    fun setGpsLocationEnabled(enabled: Boolean)
 
-    /** Gets the last GPS location fix, or null if there hasn't been one. */
-    @Nullable MapPoint getGpsLocation();
+    /** Gets the last GPS location fix, or null if there hasn't been one.  */
+    fun getGpsLocation(): MapPoint?
 
-    /** Gets the provider of the last fix, or null if there hasn't been one. */
-    @Nullable String getLocationProvider();
+    /** Gets the provider of the last fix, or null if there hasn't been one.  */
+    fun getLocationProvider(): String?
 
     /**
      * Queues a callback to be invoked on the UI thread as soon as a GPS fix is
@@ -178,35 +159,49 @@ public interface MapFragment {
      * Activities that set callbacks should call setGpsLocationEnabled(false)
      * in their onStop() or onDestroy() methods, to prevent invalid callbacks.
      */
-    void runOnGpsLocationReady(@NonNull ReadyListener listener);
+    fun runOnGpsLocationReady(listener: ReadyListener)
 
     /**
      * Sets or clears the callback for GPS location updates.  This callback
      * will only be invoked while GPS is enabled with setGpsLocationEnabled().
      */
-    void setGpsLocationListener(@Nullable PointListener listener);
+    fun setGpsLocationListener(listener: PointListener?)
 
-    void setRetainMockAccuracy(boolean retainMockAccuracy);
+    fun setRetainMockAccuracy(retainMockAccuracy: Boolean)
 
     /**
-     * @return true if the {@link MapFragment} center has already been set (by {@link MapFragment#zoomToPoint(MapPoint, boolean)} for instance).
+     * @return true if the [MapFragment] center has already been set (by [MapFragment.zoomToPoint] for instance).
      */
-    boolean hasCenter();
+    fun hasCenter(): Boolean
 
-    interface ErrorListener {
-        void onError();
+    fun interface ErrorListener {
+        fun onError()
     }
 
-    interface ReadyListener {
-        void onReady(@NonNull MapFragment mapFragment);
+    fun interface ReadyListener {
+        fun onReady(mapFragment: MapFragment)
     }
 
-    interface PointListener {
-        void onPoint(@NonNull MapPoint point);
+    fun interface PointListener {
+        fun onPoint(point: MapPoint)
     }
 
-    interface FeatureListener {
-        void onFeature(int featureId);
+    fun interface FeatureListener {
+        fun onFeature(featureId: Int)
     }
 
+    companion object {
+        val INITIAL_CENTER: MapPoint = MapPoint(0.0, -30.0)
+        const val INITIAL_ZOOM: Float = 2f
+        const val POINT_ZOOM: Float = 16f
+
+        const val KEY_REFERENCE_LAYER: String = "REFERENCE_LAYER"
+
+        @Retention(AnnotationRetention.SOURCE)
+        @StringDef(BOTTOM, CENTER)
+        annotation class IconAnchor
+
+        const val CENTER: String = "center"
+        const val BOTTOM: String = "bottom"
+    }
 }

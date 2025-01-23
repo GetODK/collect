@@ -270,7 +270,7 @@ public class GeoPolyActivity extends LocalizedActivity implements GeoPolySetting
         });
 
         zoomButton = findViewById(R.id.zoom);
-        zoomButton.setOnClickListener(v -> map.zoomToPoint(map.getGpsLocation(), true));
+        zoomButton.setOnClickListener(v -> map.zoomToCurrentLocation(map.getGpsLocation()));
 
         List<MapPoint> points = new ArrayList<>();
         Intent intent = getIntent();
@@ -412,7 +412,7 @@ public class GeoPolyActivity extends LocalizedActivity implements GeoPolySetting
     private void onGpsLocationReady(MapFragment map) {
         // Don't zoom to current location if a user is manually entering points
         if (getWindow().isActive() && (!inputActive || recordingEnabled)) {
-            map.zoomToPoint(map.getGpsLocation(), true);
+            map.zoomToCurrentLocation(map.getGpsLocation());
         }
         updateUi();
     }

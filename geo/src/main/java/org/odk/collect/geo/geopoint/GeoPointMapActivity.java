@@ -238,7 +238,7 @@ public class GeoPointMapActivity extends LocalizedActivity {
 
         // Focuses on marked location
         zoomButton.setEnabled(false);
-        zoomButton.setOnClickListener(v -> map.zoomToPoint(map.getGpsLocation(), true));
+        zoomButton.setOnClickListener(v -> map.zoomToCurrentLocation(map.getGpsLocation()));
 
         // Menu Layer Toggle
         findViewById(R.id.layer_menu).setOnClickListener(v -> {
@@ -354,7 +354,7 @@ public class GeoPointMapActivity extends LocalizedActivity {
             }
 
             if (!foundFirstLocation) {
-                map.zoomToPoint(map.getGpsLocation(), true);
+                map.zoomToCurrentLocation(map.getGpsLocation());
                 foundFirstLocation = true;
             }
 

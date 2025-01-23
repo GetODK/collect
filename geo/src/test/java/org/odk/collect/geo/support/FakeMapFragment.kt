@@ -1,11 +1,14 @@
 package org.odk.collect.geo.support
 
 import androidx.fragment.app.Fragment
+import org.mockito.Mockito.mock
+import org.mockito.kotlin.whenever
 import org.odk.collect.maps.LineDescription
 import org.odk.collect.maps.MapFragment
 import org.odk.collect.maps.MapFragment.FeatureListener
 import org.odk.collect.maps.MapFragment.PointListener
 import org.odk.collect.maps.MapFragment.ReadyListener
+import org.odk.collect.maps.MapFragmentDelegate
 import org.odk.collect.maps.MapPoint
 import org.odk.collect.maps.PolygonDescription
 import org.odk.collect.maps.markers.MarkerDescription
@@ -30,6 +33,7 @@ class FakeMapFragment : Fragment(), MapFragment {
     private val polygons = mutableMapOf<Int, PolygonDescription>()
     private var hasCenter = false
     private val featureIds = mutableListOf<Int>()
+    private var zoomLevelSetByUser: Float? = null
 
     override fun init(
         readyListener: ReadyListener?,
@@ -38,12 +42,17 @@ class FakeMapFragment : Fragment(), MapFragment {
         this.readyListener = readyListener
     }
 
+    override val mapFragmentDelegate: MapFragmentDelegate
+        get() = mock<MapFragmentDelegate?>().also {
+            whenever(it.zoomLevel).thenReturn(zoomLevelSetByUser)
+        }
+
     fun ready() {
         readyListener?.onReady(this)
     }
 
     override fun getCenter(): MapPoint {
-        return center ?: DEFAULT_CENTER
+        return center ?: MapFragment.INITIAL_CENTER
     }
 
     override fun getZoom(): Double {
@@ -58,7 +67,7 @@ class FakeMapFragment : Fragment(), MapFragment {
     override fun zoomToPoint(center: MapPoint?, animate: Boolean) {
         zoomBoundingBox = null
         this.center = center
-        this.zoom = DEFAULT_POINT_ZOOM
+        this.zoom = MapFragment.POINT_ZOOM.toDouble()
         hasCenter = true
     }
 
@@ -70,17 +79,19 @@ class FakeMapFragment : Fragment(), MapFragment {
     }
 
     override fun zoomToBoundingBox(
-        points: Iterable<MapPoint>,
+        points: Iterable<MapPoint>?,
         scaleFactor: Double,
         animate: Boolean
     ) {
-        center = null
-        zoom = 0.0
-        zoomBoundingBox = Pair(
-            points.toList(), // Clone list to prevent original changing captured values
-            scaleFactor
-        )
-        hasCenter = true
+        points?.let {
+            center = null
+            zoom = 0.0
+            zoomBoundingBox = Pair(
+                it.toList(), // Clone list to prevent original changing captured values
+                scaleFactor
+            )
+            hasCenter = true
+        }
     }
 
     override fun addMarker(markerDescription: MarkerDescription): Int {
@@ -253,16 +264,7 @@ class FakeMapFragment : Fragment(), MapFragment {
         return polygons.values.toList()
     }
 
-    companion object {
-        /**
-         * The value returned if the map has had no center set or has had `null` pass to
-         * [setCenter]
-         */
-        val DEFAULT_CENTER = MapPoint(-1.0, -1.0)
-
-        /**
-         * The value used to zoom when [zoomToPoint] is called without a zoom level
-         */
-        const val DEFAULT_POINT_ZOOM = -1.0
+    fun setZoomLevel(zoomLevel: Float?) {
+        zoomLevelSetByUser = zoomLevel
     }
 }
